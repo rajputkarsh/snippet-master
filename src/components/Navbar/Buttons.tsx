@@ -1,3 +1,4 @@
+import { SIGN_IN, SIGN_UP } from "@/constants/navbar";
 
 export default function Buttons() {
   return (
@@ -5,12 +6,12 @@ export default function Buttons() {
       <button
         className={`max-sm:w-full bg-theme p-[8px] px-6 text-sm text-white rounded-md hover:bg-white hover:text-theme hover:border hover:border-theme transition duration-200`}
       >
-        Sign In
+        {SIGN_IN}
       </button>
       <button
         className={`text-sm border border-theme text-theme hover:bg-theme hover:text-white p-[8px] px-6 rounded-md transition duration-200`}
       >
-        Sign Up
+        {SIGN_UP}
       </button>
     </div>
   );
