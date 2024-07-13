@@ -3,6 +3,7 @@ import { headers } from "next/headers";
 import { WebhookEvent } from "@clerk/nextjs/server";
 import IUser from "@/interfaces/models/user";
 import { createNewUser } from "@/service/user.service";
+import { connect } from "@/lib/database";
 
 export async function POST(req: Request) {
   // You can find this in the Clerk Dashboard -> Webhooks -> choose the endpoint
@@ -61,6 +62,7 @@ export async function POST(req: Request) {
       email: email_addresses[0].email_address,
     }
 
+    await connect();
     const newUser = await createNewUser(userInfo);
     console.log(`newUser - `, newUser);
   }
