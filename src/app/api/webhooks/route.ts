@@ -53,7 +53,6 @@ export async function POST(req: Request) {
 
   const eventType = evt.type;
 
-  console.log(`eventType -- `, eventType);
 
   if(eventType === 'user.created') {
     const { id, email_addresses } = evt.data;
@@ -63,8 +62,7 @@ export async function POST(req: Request) {
     }
 
     await connect();
-    const newUser = await createNewUser(userInfo);
-    console.log(`newUser - `, newUser);
+    await createNewUser(userInfo);
   }
 
   return new Response("", { status: 200 });

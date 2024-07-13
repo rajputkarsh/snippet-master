@@ -8,9 +8,13 @@ function MyNotes() {
 
   const {userId} = useAuth();
 
-  if (!userId) {
-    redirect('/');
-  }
+  useEffect(() => {
+    setTimeout(() => {
+      if (!userId) {
+        redirect("/");
+      }
+    })
+  }, [userId]);
   
     return (
       <div>
