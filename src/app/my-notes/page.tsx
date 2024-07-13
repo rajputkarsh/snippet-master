@@ -1,8 +1,10 @@
-import React from 'react'
+import { UserButton } from '@clerk/nextjs'
 
 function MyNotes() {
   return (
-    <div>MyNotes</div>
+    <div>
+      <UserButton />
+    </div>
   )
 }
 
