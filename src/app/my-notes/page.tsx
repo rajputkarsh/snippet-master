@@ -1,11 +1,22 @@
-import { UserButton } from '@clerk/nextjs'
+'use client';
+
+import { useAuth, UserButton } from '@clerk/nextjs'
+import { redirect } from 'next/navigation';
+import { useEffect } from 'react';
 
 function MyNotes() {
-  return (
-    <div>
-      <UserButton />
-    </div>
-  )
+
+  const {userId} = useAuth();
+
+  if (!userId) {
+    redirect('/');
+  }
+  
+    return (
+      <div>
+        <UserButton />
+      </div>
+    );
 }
 
 export default MyNotes
