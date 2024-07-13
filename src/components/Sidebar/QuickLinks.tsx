@@ -1,4 +1,4 @@
-import { QUICK_LINKS_TITLE } from "@/constants/quickLinks";
+import { QUICK_LINKS_TITLE } from "@/constants/sidebar";
 import { BorderAll, FavoriteBorder, DeleteOutlineOutlined } from "@mui/icons-material";
 
 function SidebarLinks() {
