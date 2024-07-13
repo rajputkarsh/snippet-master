@@ -4,6 +4,10 @@ import IUser from "../interfaces/models/user";
 
 const userSchema: Schema = new Schema<IUser>(
   {
+    userId: {
+      required: true,
+      type: String,
+    },
     clerkUserId: {
       type: String,
       required: true,

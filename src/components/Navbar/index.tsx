@@ -1,5 +1,5 @@
 import Buttons from "./Buttons";
-import Logo from "./Logo";
+import Logo from "../Logo";
 
 export default function Navbar() {
   return (

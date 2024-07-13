@@ -57,6 +57,7 @@ export async function POST(req: Request) {
   if(eventType === 'user.created') {
     const { id, email_addresses } = evt.data;
     const userInfo: IUser = {
+      userId: crypto.randomUUID(),
       clerkUserId: id,
       email: email_addresses[0].email_address,
     }

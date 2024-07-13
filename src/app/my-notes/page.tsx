@@ -1,5 +1,6 @@
 'use client';
 
+import SideBar from '@/components/Sidebar';
 import { useAuth, UserButton } from '@clerk/nextjs'
 import { redirect } from 'next/navigation';
 import { useEffect } from 'react';
@@ -18,7 +19,7 @@ function MyNotes() {
   
     return (
       <div>
-        <UserButton />
+        <SideBar />
       </div>
     );
 }
