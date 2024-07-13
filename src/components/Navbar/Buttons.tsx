@@ -20,7 +20,7 @@ export default function Buttons() {
         <div className="flex gap-2 max-sm:flex-col max-sm:w-[60%] max-sm:mt-8">
           <Link href="/sign-in">
             <button
-              className={`max-sm:w-full bg-theme p-[8px] px-6 text-sm text-white rounded-md hover:bg-white hover:text-theme hover:border hover:border-theme transition duration-200`}
+              className={`max-sm:w-full bg-theme p-[8px] px-6 text-sm border border-theme text-white rounded-md hover:bg-white hover:text-theme transition duration-200`}
             >
               {SIGN_IN}
             </button>
