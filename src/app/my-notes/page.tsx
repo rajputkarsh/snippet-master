@@ -1,5 +1,6 @@
 'use client';
 
+import ContentArea from '@/components/ContentArea';
 import SideBar from '@/components/Sidebar';
 import { useAuth, UserButton } from '@clerk/nextjs'
 import { redirect } from 'next/navigation';
@@ -18,8 +19,9 @@ function MyNotes() {
   }, [userId]);
   
     return (
-      <div>
+      <div className='flex flex-row'>
         <SideBar />
+        <ContentArea />
       </div>
     );
 }

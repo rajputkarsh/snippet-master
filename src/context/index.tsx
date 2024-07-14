@@ -1,7 +1,7 @@
 "use client";
 
 import { createContext, ReactNode, useContext, useState } from "react";
-import { BorderAll, FavoriteBorder, DeleteOutlineOutlined } from "@mui/icons-material";
+import { BorderAll, FavoriteBorder, DeleteOutlineOutlined, Logout } from "@mui/icons-material";
 import { GlobalContextType, SidebarMenu } from "@/interfaces/context";
 
 const ContextProvider = createContext<GlobalContextType>({
@@ -30,6 +30,12 @@ export default function GlobalContextProvider({children}: {children: ReactNode})
       name: "Trash",
       isSelected: false,
       icon: <DeleteOutlineOutlined sx={{ fontSize: 18 }} />,
+    },
+    {
+      id: 4,
+      name: "Logout",
+      isSelected: false,
+      icon: <Logout sx={{ fontSize: 18 }} />,
     },
   ]);
 
