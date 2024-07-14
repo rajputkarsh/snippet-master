@@ -1,17 +1,36 @@
 "use client";
 
 import { createContext, ReactNode, useContext, useState } from "react";
-import { BorderAll, FavoriteBorder, DeleteOutlineOutlined, Logout } from "@mui/icons-material";
-import { GlobalContextType, SidebarMenu } from "@/interfaces/context";
+import {
+  BorderAll,
+  FavoriteBorder,
+  DeleteOutlineOutlined,
+  Logout,
+  LightMode,
+  DarkMode,
+} from "@mui/icons-material";
+import {
+  DarkModeType,
+  GlobalContextType,
+  SidebarMenu,
+} from "@/interfaces/context";
 
 const ContextProvider = createContext<GlobalContextType>({
   sidebarMenuObject: {
     sidebarMenu: [],
-    setSidebarMenu: () => {}
-  }
+    setSidebarMenu: () => {},
+  },
+  darkModeObject: {
+    darkMode: [],
+    setDarkMode: () => {},
+  },
 });
 
-export default function GlobalContextProvider({children}: {children: ReactNode}) {
+export default function GlobalContextProvider({
+  children,
+}: {
+  children: ReactNode;
+}) {
   const [sidebarMenu, setSidebarMenu] = useState<Array<SidebarMenu>>([
     {
       id: 1,
@@ -39,8 +58,26 @@ export default function GlobalContextProvider({children}: {children: ReactNode})
     },
   ]);
 
+  const [darkMode, setDarkMode] = useState<Array<DarkModeType>>([
+    {
+      id: 1,
+      icon: <LightMode sx={{ fontSize: 18 }} />,
+      isSelected: true,
+    },
+    {
+      id: 2,
+      icon: <DarkMode sx={{ fontSize: 18 }} />,
+      isSelected: false,
+    },
+  ]);
+
   return (
-    <ContextProvider.Provider value={{sidebarMenuObject: {sidebarMenu, setSidebarMenu}}}>
+    <ContextProvider.Provider
+      value={{
+        sidebarMenuObject: { sidebarMenu, setSidebarMenu },
+        darkModeObject: { darkMode, setDarkMode },
+      }}
+    >
       {children}
     </ContextProvider.Provider>
   );
@@ -49,9 +86,11 @@ export default function GlobalContextProvider({children}: {children: ReactNode})
 export const useGlobalContext = () => {
   const context = useContext(ContextProvider);
 
-  if(!context) {
-    throw new Error("useGlobalContext must be used within a GlobalContextProvider");
+  if (!context) {
+    throw new Error(
+      "useGlobalContext must be used within a GlobalContextProvider"
+    );
   }
 
   return context;
-}
+};
