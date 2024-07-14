@@ -18,8 +18,10 @@ export interface SidebarMenu {
   icon: ReactNode;
 }
 
+export type Theme = "light" | "dark"
 export interface DarkModeType {
   id: number;
+  type: Theme;
   isSelected: boolean;
   icon: ReactNode;
 }

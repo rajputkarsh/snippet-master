@@ -1,7 +1,15 @@
 import { APP_NAME } from "@/constants/config";
+import { useGlobalContext } from "@/context";
+import { isDarkMode } from "@/lib/utils";
 import DataObjectIcon from "@mui/icons-material/DataObject";
 
 export default function Logo() {
+  const {
+    darkModeObject: { darkMode },
+  } = useGlobalContext();
+
+  const isDarkModeEnabled = isDarkMode(darkMode);
+
   return (
     <div className="flex gap-2 items-center">
       <div className={`bg-theme p-[6px] rounded-md`}>
@@ -9,7 +17,13 @@ export default function Logo() {
       </div>
       <div className="flex gap-1 text-[19px]">
         <span className={`font-bold text-theme`}>{APP_NAME.split(" ")[0]}</span>
-        <span className={`text-slate-600`}>{APP_NAME.split(" ")[1]}</span>
+        <span
+          className={`${
+            isDarkModeEnabled ? "text-slate-400" : "text-slate-600"
+          }`}
+        >
+          {APP_NAME.split(" ")[1]}
+        </span>
       </div>
     </div>
   );

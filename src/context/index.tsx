@@ -62,11 +62,13 @@ export default function GlobalContextProvider({
     {
       id: 1,
       icon: <LightMode sx={{ fontSize: 18 }} />,
+      type: "light",
       isSelected: true,
     },
     {
       id: 2,
       icon: <DarkMode sx={{ fontSize: 18 }} />,
+      type: "dark",
       isSelected: false,
     },
   ]);

@@ -1,11 +1,14 @@
 import { QUICK_LINKS_TITLE } from "@/constants/sidebar";
 import { useGlobalContext } from "@/context";
-import { SidebarMenu } from "@/interfaces/context";
+import { isDarkMode } from "@/lib/utils";
 
 function SidebarLinks() {
   const {
     sidebarMenuObject: { sidebarMenu, setSidebarMenu },
+    darkModeObject: { darkMode },
   } = useGlobalContext();
+
+    const isDarkModeEnabled = isDarkMode(darkMode);
 
   const handleClick = (id: number) => {
     const updatedMenu = sidebarMenu.map((item) => {
@@ -27,10 +30,14 @@ function SidebarLinks() {
           onClick={() => {
             handleClick(item.id);
           }}
-          className={`cursor-pointer flex gap-1 items-center p-[7px] px-2 rounded-md w-[60%] border border-sm border-purple-600 ${
+          className={`cursor-pointer flex gap-1 items-center p-[7px] px-2 rounded-md w-[60%] border border-sm border-none ${
             item.isSelected
               ? "bg-purple-600 text-white"
-              : "bg-white text-purple-600 hover:bg-purple-600 hover:text-white"
+              : `${
+                  isDarkModeEnabled
+                    ? "bg-slate-800 text-slate-400"
+                    : "bg-white text-purple-600"
+                }  hover:bg-purple-600 hover:text-white`
           } transition duration-200`}
         >
           {item.icon}

@@ -1,8 +1,14 @@
 import { useUser } from "@clerk/nextjs"
 import Loader from "../Loader";
+import { useGlobalContext } from "@/context";
+import { isDarkMode } from "@/lib/utils";
 
 function UserProfile() {
+  const {
+    darkModeObject: { darkMode },
+  } = useGlobalContext();
 
+  const isDarkModeEnabled = isDarkMode(darkMode);
   const { user } = useUser();
   const imageUrl = user?.imageUrl;
 
@@ -23,18 +29,24 @@ function UserProfile() {
         />
       )}
 
-      <div className={`flex flex-col text-sm ${!user ? 'gap-1' : ''}`}>
+      <div className={`flex flex-col text-sm ${!user ? "gap-1" : ""}`}>
         {!user ? (
           fullNameLoader
         ) : (
-          <span className="font-semibold">
+          <span
+            className={`font-semibold ${isDarkModeEnabled ? "text-white" : ""}`}
+          >
             {user?.firstName} {user?.lastName}
           </span>
         )}
         {!user ? (
           emailLoader
         ) : (
-          <span className="text-slate-500 text-[11px]">
+          <span
+            className={`${
+              isDarkModeEnabled ? "text-slate-400" : "text-slate-500"
+            } text-[11px]`}
+          >
             {user?.emailAddresses?.[0]?.emailAddress}
           </span>
         )}
