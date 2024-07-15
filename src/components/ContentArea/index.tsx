@@ -10,7 +10,7 @@ function ContentArea() {
   const isDarkModeEnabled = isDarkMode(darkMode);  
   return (
     <div
-      className={`w-[80%] p-5 ${
+      className={`w-full p-5 ${
         isDarkModeEnabled ? "bg-slate-700" : "bg-slate-100"
       }`}
     >

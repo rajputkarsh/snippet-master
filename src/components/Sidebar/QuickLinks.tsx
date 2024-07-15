@@ -30,7 +30,7 @@ function SidebarLinks() {
           onClick={() => {
             handleClick(item.id);
           }}
-          className={`cursor-pointer flex gap-1 items-center p-[7px] px-2 rounded-md w-[60%] border border-sm border-none ${
+          className={`flex cursor-pointer select-none gap-2 items-center p-[7px] px-2 rounded-md w-[80%] border border-sm border-none ${
             item.isSelected
               ? "bg-purple-600 text-white"
               : `${
