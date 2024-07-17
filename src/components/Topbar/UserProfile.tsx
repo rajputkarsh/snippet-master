@@ -29,7 +29,7 @@ function UserProfile() {
         />
       )}
 
-      <div className={`flex flex-col text-sm ${!user ? "gap-1" : ""}`}>
+      <div className={`max-md:hidden flex flex-col text-sm ${!user ? "gap-1" : ""}`}>
         {!user ? (
           fullNameLoader
         ) : (

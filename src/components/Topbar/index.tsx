@@ -3,6 +3,7 @@ import DarkMode from "./DarkMode"
 import SearchBar from "./SearchBar"
 import UserProfile from "./UserProfile"
 import { isDarkMode } from "@/lib/utils";
+import SidebarMenuIcon from "./SidebarMenuIcon";
 
 function TopBar() {
   const {
@@ -19,7 +20,10 @@ function TopBar() {
     >
       <UserProfile />
       <SearchBar />
-      <DarkMode />
+      <div className="flex gap-4 items-center">
+        <DarkMode />
+        <SidebarMenuIcon />
+      </div>
     </div>
   );
 }
