@@ -9,6 +9,10 @@ export interface GlobalContextType {
     darkMode: Array<DarkModeType>;
     setDarkMode: Dispatch<SetStateAction<Array<DarkModeType>>>;
   };
+  openSidebarObject: {
+    openSidebar: openSidebar;
+    setOpenSidebar: Dispatch<SetStateAction<boolean>>;
+  };
 }
 
 export interface SidebarMenu {
