@@ -7,7 +7,7 @@ import { isDarkMode } from "@/lib/utils";
 function SideBar() {
   const {
     darkModeObject: { darkMode },
-    openSidebarObject: {openSidebar, setOpenSidebar},
+    openSidebarObject: {openSidebar},
   } = useGlobalContext();
 
   const isDarkModeEnabled = isDarkMode(darkMode);
