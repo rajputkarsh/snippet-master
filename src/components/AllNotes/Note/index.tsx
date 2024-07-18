@@ -4,7 +4,7 @@ import {
   oneDark,
 } from "react-syntax-highlighter/dist/cjs/styles/prism";
 import { useGlobalContext } from "@/context";
-import { FavoriteBorderOutlined, DeleteRounded } from "@mui/icons-material";
+import { DeleteRounded } from "@mui/icons-material";
 import { SiJavascript } from "react-icons/si";
 import { isDarkMode } from "@/lib/utils";
 import NoteHeader from "./NoteHeader";
