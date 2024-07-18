@@ -2,6 +2,7 @@ import { useGlobalContext } from "@/context";
 import TopBar from "../Topbar";
 import { isDarkMode } from "@/lib/utils";
 import SwiperSelection from "../SwiperSelection";
+import AllNotes from "../AllNotes";
 
 function ContentArea() {
   const {
@@ -17,6 +18,7 @@ function ContentArea() {
     >
       <TopBar />
       <SwiperSelection />
+      <AllNotes />
     </div>
   );
 }
