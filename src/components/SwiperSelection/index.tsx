@@ -6,7 +6,6 @@ import { isDarkMode } from "@/lib/utils";
 
 import "swiper/css";
 import "swiper/css/pagination";
-import "./index.css";
 
 export default function SwiperSelection() {
   const {
