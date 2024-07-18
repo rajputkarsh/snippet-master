@@ -1,3 +1,5 @@
+'use client';
+
 import { APP_NAME } from "@/constants/config";
 import { useGlobalContext } from "@/context";
 import { isDarkMode } from "@/lib/utils";

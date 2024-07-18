@@ -1,11 +1,12 @@
 import { Swiper, SwiperSlide } from "swiper/react";
 import { FreeMode } from "swiper/modules";
 import { AddOutlined } from "@mui/icons-material";
+import { useGlobalContext } from "@/context";
+import { isDarkMode } from "@/lib/utils";
 
 import "swiper/css";
 import "swiper/css/pagination";
-import { useGlobalContext } from "@/context";
-import { isDarkMode } from "@/lib/utils";
+import "./index.css";
 
 export default function SwiperSelection() {
   const {
@@ -25,7 +26,7 @@ export default function SwiperSelection() {
           slidesPerView={"auto"}
           spaceBetween={10}
           freeMode={true}
-          className="mySwiper"
+          className="swiper-component"
           modules={[FreeMode]}
         >
           <SwiperSlide className="bg-purple-600 p-1 rounded-lg text-white w-20">
