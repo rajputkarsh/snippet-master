@@ -29,7 +29,7 @@ function CodeBlock({ language }: CodeBlockProps) {
   `;
 
   return (
-    <div className="rounded-md overflow-hidden tet-sm">
+    <div className="text-xs rounded-md overflow-hidden tet-sm">
       <SyntaxHighlighter
         language={language}
         style={isDarkModeEnabled ? oneDark : materialLight}

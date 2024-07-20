@@ -18,7 +18,7 @@ function Note() {
       <NoteDate />
       <NoteTags />
       <NoteDescription />
-      <CodeBlock language="javscript" />
+      <CodeBlock language="javascript" />
       <NoteFooter />  
     </div>
   );
