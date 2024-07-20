@@ -1,8 +1,4 @@
-import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
-import {
-  materialLight,
-  oneDark,
-} from "react-syntax-highlighter/dist/cjs/styles/prism";
+
 import { useGlobalContext } from "@/context";
 import { DeleteRounded } from "@mui/icons-material";
 import { SiJavascript } from "react-icons/si";
