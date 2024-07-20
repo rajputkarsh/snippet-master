@@ -7,17 +7,24 @@ import AllNotes from "../AllNotes";
 function ContentArea() {
   const {
     darkModeObject: { darkMode },
+    openNoteContentObject: { openNoteContent },
   } = useGlobalContext();
 
   const isDarkModeEnabled = isDarkMode(darkMode);  
   return (
     <div
-      className={`w-full flex flex-col gap-6 p-5 ${
+      className={`w-full flex flex-col gap-4 p-5 ${
         isDarkModeEnabled ? "bg-slate-700" : "bg-slate-100"
       }`}
     >
-      <TopBar />
-      <SwiperSelection />
+      <div
+        className={`flex flex-col gap-6 ${
+          openNoteContent ? "w-[50%]" : "w-full"
+        }`}
+      >
+        <TopBar />
+        <SwiperSelection />
+      </div>
       <AllNotes />
     </div>
   );
