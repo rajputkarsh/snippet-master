@@ -1,7 +1,5 @@
 
 import { useGlobalContext } from "@/context";
-import { DeleteRounded } from "@mui/icons-material";
-import { SiJavascript } from "react-icons/si";
 import { isDarkMode } from "@/lib/utils";
 import NoteHeader from "./NoteHeader";
 import NoteDate from "./NoteDate";
