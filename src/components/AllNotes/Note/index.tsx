@@ -19,7 +19,7 @@ function Note() {
   const isDarkModeEnabled = isDarkMode(darkMode);
 
   return (
-    <div className={`${isDarkModeEnabled ? 'bg-slate-800 text-white' : 'bg-white'} max-sm:w-full w-[320px] rounded`}>
+    <div className={`${isDarkModeEnabled ? 'bg-slate-800 text-white' : 'bg-white'} max-sm:w-full w-[320px] rounded-md py-4`}>
       <NoteHeader />
       <NoteDate />
       <NoteTags />
