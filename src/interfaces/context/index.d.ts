@@ -1,5 +1,19 @@
 import { Dispatch, ReactNode, SetStateAction } from "react";
 
+export interface SidebarMenu {
+  id: number;
+  name: string;
+  isSelected: boolean;
+  icon: ReactNode;
+}
+
+export type Theme = "light" | "dark";
+export interface DarkModeType {
+  id: number;
+  type: Theme;
+  isSelected: boolean;
+  icon: ReactNode;
+}
 export interface GlobalContextType {
   sidebarMenuObject: {
     sidebarMenu: Array<SidebarMenu>;
@@ -10,22 +24,11 @@ export interface GlobalContextType {
     setDarkMode: Dispatch<SetStateAction<Array<DarkModeType>>>;
   };
   openSidebarObject: {
-    openSidebar: openSidebar;
+    openSidebar: boolean;
     setOpenSidebar: Dispatch<SetStateAction<boolean>>;
   };
-}
-
-export interface SidebarMenu {
-  id: number;
-  name: string;
-  isSelected: boolean;
-  icon: ReactNode;
-}
-
-export type Theme = "light" | "dark"
-export interface DarkModeType {
-  id: number;
-  type: Theme;
-  isSelected: boolean;
-  icon: ReactNode;
+  openNoteContentObject: {
+    openNoteContent: boolean;
+    setOpenNoteContent: Dispatch<SetStateAction<boolean>>;
+  };
 }

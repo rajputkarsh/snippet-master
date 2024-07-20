@@ -25,8 +25,12 @@ const ContextProvider = createContext<GlobalContextType>({
     setDarkMode: () => {},
   },
   openSidebarObject: {
-    openSidebar: [],
+    openSidebar: true,
     setOpenSidebar: () => {},
+  },
+  openNoteContentObject: {
+    openNoteContent: false,
+    setOpenNoteContent: () => {},
   },
 });
 
@@ -78,6 +82,7 @@ export default function GlobalContextProvider({
   ]);
 
   const [openSidebar, setOpenSidebar] = useState<boolean>(false);
+  const [openNoteContent, setOpenNoteContent] = useState<boolean>(false);
 
   return (
     <ContextProvider.Provider
@@ -85,6 +90,7 @@ export default function GlobalContextProvider({
         sidebarMenuObject: { sidebarMenu, setSidebarMenu },
         darkModeObject: { darkMode, setDarkMode },
         openSidebarObject: { openSidebar, setOpenSidebar },
+        openNoteContentObject: { openNoteContent, setOpenNoteContent },
       }}
     >
       {children}
