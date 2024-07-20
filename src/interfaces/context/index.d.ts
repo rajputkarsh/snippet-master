@@ -31,4 +31,8 @@ export interface GlobalContextType {
     openNoteContent: boolean;
     setOpenNoteContent: Dispatch<SetStateAction<boolean>>;
   };
+  isMobileObject: {
+    isMobile: boolean;
+    setIsMobile: Dispatch<SetStateAction<boolean>>;
+  };
 }

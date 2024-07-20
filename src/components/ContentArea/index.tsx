@@ -17,13 +17,11 @@ function ContentArea() {
         isDarkModeEnabled ? "bg-slate-700" : "bg-slate-100"
       }`}
     >
-      <div
-        className={`flex flex-col gap-6 ${
-          openNoteContent ? "w-[50%]" : "w-full"
-        }`}
-      >
-        <TopBar />
-        <SwiperSelection />
+      <div className={`flex gap-2 ${openNoteContent ? "w-[50%]" : "w-full"}`}>
+        <div className="flex flex-col gap-6">
+          <TopBar />
+          <SwiperSelection />
+        </div>
       </div>
       <AllNotes />
     </div>

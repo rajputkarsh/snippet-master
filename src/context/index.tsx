@@ -1,6 +1,6 @@
 "use client";
 
-import { createContext, ReactNode, useContext, useState } from "react";
+import { createContext, ReactNode, useContext, useEffect, useState } from "react";
 import {
   BorderAll,
   FavoriteBorder,
@@ -31,6 +31,10 @@ const ContextProvider = createContext<GlobalContextType>({
   openNoteContentObject: {
     openNoteContent: false,
     setOpenNoteContent: () => {},
+  },
+  isMobileObject: {
+    isMobile: false,
+    setIsMobile: () => {},
   },
 });
 
@@ -83,6 +87,20 @@ export default function GlobalContextProvider({
 
   const [openSidebar, setOpenSidebar] = useState<boolean>(false);
   const [openNoteContent, setOpenNoteContent] = useState<boolean>(false);
+  const [isMobile, setIsMobile] = useState<boolean>(false);
+
+  const handleResize = () => {
+    setIsMobile((_) =>window.innerWidth <= 640);
+  }
+
+  useEffect(() => {
+    handleResize();
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
 
   return (
     <ContextProvider.Provider
@@ -91,6 +109,7 @@ export default function GlobalContextProvider({
         darkModeObject: { darkMode, setDarkMode },
         openSidebarObject: { openSidebar, setOpenSidebar },
         openNoteContentObject: { openNoteContent, setOpenNoteContent },
+        isMobileObject: { isMobile, setIsMobile },
       }}
     >
       {children}

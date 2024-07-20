@@ -9,17 +9,24 @@ import CodeBlock from "./CodeBlock";
 import NoteFooter from "./NoteFooter";
 
 function Note() {
-  const { darkModeObject: { darkMode } } = useGlobalContext();
+  const { 
+    darkModeObject: { darkMode },
+    openNoteContentObject: { openNoteContent },
+  } = useGlobalContext();
   const isDarkModeEnabled = isDarkMode(darkMode);
 
   return (
-    <div className={`${isDarkModeEnabled ? 'bg-slate-800 text-white' : 'bg-white'} max-sm:w-full w-[320px] rounded-md py-4`}>
+    <div
+      className={`${
+        isDarkModeEnabled ? "bg-slate-800 text-white" : "bg-white"
+      } max-sm:w-full ${openNoteContent ? "w-full" : "w-[380px]"} rounded-md py-4`}
+    >
       <NoteHeader />
       <NoteDate />
       <NoteTags />
       <NoteDescription />
       <CodeBlock language="javascript" />
-      <NoteFooter />  
+      <NoteFooter />
     </div>
   );
 }
