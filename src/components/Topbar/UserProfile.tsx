@@ -1,11 +1,12 @@
 import { useUser } from "@clerk/nextjs"
-import Loader from "../Loader";
 import { useGlobalContext } from "@/context";
 import { isDarkMode } from "@/lib/utils";
+import { useEffect } from "react";
 
 function UserProfile() {
   const {
     darkModeObject: { darkMode },
+    isLoadingObject: { setIsLoading },
   } = useGlobalContext();
 
   const isDarkModeEnabled = isDarkMode(darkMode);
@@ -16,9 +17,12 @@ function UserProfile() {
   const fullNameLoader = <span className="font-semibold bg-slate-100 h-4 w-[100px]"></span>;
   const emailLoader = <div className="text-slate-500 text-[11px] bg-slate-100 h-3 w-[130px]"></div>;
 
+  useEffect(() => {
+    setIsLoading((_) => !!!user)
+  }, [user]);
+
   return (
     <div className="flex gap-3 items-center">
-      {!user ? <Loader /> : null}
       {!user ? (
         imageLoader
       ) : (

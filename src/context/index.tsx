@@ -36,6 +36,10 @@ const ContextProvider = createContext<GlobalContextType>({
     isMobile: false,
     setIsMobile: () => {},
   },
+  isLoadingObject: {
+    isLoading: false,
+    setIsLoading: () => {},
+  },
 });
 
 export default function GlobalContextProvider({
@@ -88,6 +92,7 @@ export default function GlobalContextProvider({
   const [openSidebar, setOpenSidebar] = useState<boolean>(false);
   const [openNoteContent, setOpenNoteContent] = useState<boolean>(false);
   const [isMobile, setIsMobile] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const handleResize = () => {
     setIsMobile((_) =>window.innerWidth <= 640);
@@ -110,6 +115,7 @@ export default function GlobalContextProvider({
         openSidebarObject: { openSidebar, setOpenSidebar },
         openNoteContentObject: { openNoteContent, setOpenNoteContent },
         isMobileObject: { isMobile, setIsMobile },
+        isLoadingObject: { isLoading, setIsLoading },
       }}
     >
       {children}

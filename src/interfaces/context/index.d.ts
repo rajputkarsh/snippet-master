@@ -35,4 +35,8 @@ export interface GlobalContextType {
     isMobile: boolean;
     setIsMobile: Dispatch<SetStateAction<boolean>>;
   };
+  isLoadingObject: {
+    isLoading: boolean;
+    setIsLoading: Dispatch<SetStateAction<boolean>>;
+  };
 }
