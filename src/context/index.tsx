@@ -105,6 +105,82 @@ export default function GlobalContextProvider({
   }
 
   useEffect(() => {
+
+    const updateAllNotes = () => {
+      const notes: Array<SingleNoteType> = [
+        {
+          id: "1",
+          title: "hello world",
+          isFavorite: false,
+          tags: ["javascript", "reactjs"],
+          description: "My first Component",
+          code: `
+            import React from 'react';
+            import './App.css';
+            
+            function App() {
+                return (
+                    <h1> Hello World! </h1>
+                );
+            }
+            
+            export default App;
+          `,
+          language: "javascript",
+          createdOn: new Date().toISOString(),
+        },
+        {
+          id: "2",
+          title: "Greeting",
+          isFavorite: false,
+          tags: ["typescript", "reactjs"],
+          description: "Greeting Component",
+          code: `
+            import React from 'react';
+            import './App.css';
+            
+            function Greeting() {
+                return (
+                    <h1> Hello There </h1>
+                );
+            }
+            
+            export default Greeting;
+          `,
+          language: "typescript",
+          createdOn: new Date().toISOString(),
+        },
+        {
+          id: "3",
+          title: "Print Name",
+          isFavorite: false,
+          tags: ["typescript", "reactjs"],
+          description: "Show User's Name",
+          code: `
+            import React from 'react';
+            import './App.css';
+            
+            function ShowName({ name }) {
+                return (
+                    <h1> Hello {name} </h1>
+                );
+            }
+            
+            export default ShowName;
+          `,
+          language: "typescript",
+          createdOn: new Date().toISOString(),
+        },
+      ];
+
+      setAllNotes((_) => notes);
+    }
+
+    updateAllNotes();
+
+  }, []);
+
+  useEffect(() => {
     handleResize();
     window.addEventListener("resize", handleResize);
 
