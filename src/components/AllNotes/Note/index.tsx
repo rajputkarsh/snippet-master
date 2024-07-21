@@ -30,7 +30,7 @@ function Note({ note }: NoteProps) {
     >
       <NoteHeader title={note.title} isFavorite={note.isFavorite} />
       <NoteDate date={note.createdOn} />
-      <NoteTags />
+      <NoteTags id={note.id} tags={note.tags} />
       <NoteDescription />
       <CodeBlock language="javascript" />
       <NoteFooter />
