@@ -29,7 +29,7 @@ function Note({ note }: NoteProps) {
       } rounded-md py-4`}
     >
       <NoteHeader title={note.title} isFavorite={note.isFavorite} />
-      <NoteDate />
+      <NoteDate date={note.createdOn} />
       <NoteTags />
       <NoteDescription />
       <CodeBlock language="javascript" />
