@@ -1,3 +1,4 @@
+import { formatDate } from "@/lib/utils";
 
 interface NoteDateProps {
   date: string;
@@ -6,7 +7,7 @@ interface NoteDateProps {
 function NoteDate({ date }: NoteDateProps) {
   return (
     <div className="text-slate-500 text-[11px] flex gap-1 font-light mx-4 mt-1">
-      <span className="">{date}</span>
+      <span className="">{formatDate(date)}</span>
     </div>
   );
 }
