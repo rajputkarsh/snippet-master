@@ -13,6 +13,7 @@ import {
   DarkModeType,
   GlobalContextType,
   SidebarMenu,
+  SingleNoteType,
 } from "@/interfaces/context";
 
 const ContextProvider = createContext<GlobalContextType>({
@@ -39,6 +40,10 @@ const ContextProvider = createContext<GlobalContextType>({
   isLoadingObject: {
     isLoading: false,
     setIsLoading: () => {},
+  },
+  allNotesObject: {
+    allNotes: [],
+    setAllNotes: () => {},
   },
 });
 
@@ -93,6 +98,7 @@ export default function GlobalContextProvider({
   const [openNoteContent, setOpenNoteContent] = useState<boolean>(false);
   const [isMobile, setIsMobile] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [allNotes, setAllNotes] = useState<Array<SingleNoteType>>([]);
 
   const handleResize = () => {
     setIsMobile((_) =>window.innerWidth <= 640);
@@ -116,6 +122,7 @@ export default function GlobalContextProvider({
         openNoteContentObject: { openNoteContent, setOpenNoteContent },
         isMobileObject: { isMobile, setIsMobile },
         isLoadingObject: { isLoading, setIsLoading },
+        allNotesObject: { allNotes, setAllNotes },
       }}
     >
       {children}

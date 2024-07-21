@@ -14,6 +14,18 @@ export interface DarkModeType {
   isSelected: boolean;
   icon: ReactNode;
 }
+
+export interface SingleNoteType {
+  id: string;
+  title: string;
+  isFavorite: boolean;
+  tags: string[];
+  description: string;
+  code: string;
+  language: string;
+  createdOn: string;
+}
+
 export interface GlobalContextType {
   sidebarMenuObject: {
     sidebarMenu: Array<SidebarMenu>;
@@ -38,5 +50,9 @@ export interface GlobalContextType {
   isLoadingObject: {
     isLoading: boolean;
     setIsLoading: Dispatch<SetStateAction<boolean>>;
+  };
+  allNotesObject: {
+    allNotes: Array<SingleNoteType>;
+    setAllNotes: Dispatch<SetStateAction<Array<SingleNoteType>>>;
   };
 }
