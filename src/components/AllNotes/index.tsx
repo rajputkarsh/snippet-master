@@ -7,6 +7,7 @@ export default function AllNotes() {
     darkModeObject: { darkMode },
     openNoteContentObject: { openNoteContent },
     isMobileObject: { isMobile },
+    allNotesObject: { allNotes },
   } = useGlobalContext();  
   return (
     <div
@@ -14,10 +15,11 @@ export default function AllNotes() {
         openNoteContent ? `${isMobile ? "w-full" : "w-[50%]"}` : "w-full"
       }`}
     >
-      <Note />
-      <Note />
-      <Note />
-      <Note />
+      {
+        allNotes.map((note) => (
+          <Note key={note.id} note={note}/>
+        ))
+      }
     </div>
   );
 }

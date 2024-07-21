@@ -7,9 +7,14 @@ import NoteTags from "./NoteTags";
 import NoteDescription from "./NoteDescription";
 import CodeBlock from "./CodeBlock";
 import NoteFooter from "./NoteFooter";
+import { SingleNoteType } from "@/interfaces/context";
 
-function Note() {
-  const { 
+interface NoteProps {
+  note: SingleNoteType
+}
+
+function Note({ note }: NoteProps) {
+  const {
     darkModeObject: { darkMode },
     openNoteContentObject: { openNoteContent },
   } = useGlobalContext();
@@ -19,9 +24,11 @@ function Note() {
     <div
       className={`${
         isDarkModeEnabled ? "bg-slate-800 text-white" : "bg-white"
-      } max-sm:w-full ${openNoteContent ? "w-full" : "w-[380px]"} rounded-md py-4`}
+      } max-sm:w-full ${
+        openNoteContent ? "w-full" : "w-[380px]"
+      } rounded-md py-4`}
     >
-      <NoteHeader />
+      <NoteHeader title={note.title} isFavorite={note.isFavorite} />
       <NoteDate />
       <NoteTags />
       <NoteDescription />

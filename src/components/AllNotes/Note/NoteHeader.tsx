@@ -1,11 +1,15 @@
 
 import { useGlobalContext } from "@/context";
-import { FavoriteBorderOutlined } from "@mui/icons-material";
+import { Favorite } from "@mui/icons-material";
 
-function NoteHeader() {
+interface NoteHeaderProps {
+  title: string;
+  isFavorite: boolean;
+}
 
+function NoteHeader({ title, isFavorite }: NoteHeaderProps) {
   const {
-    openNoteContentObject: {setOpenNoteContent}
+    openNoteContentObject: { setOpenNoteContent },
   } = useGlobalContext();
 
   const handleSetOpenNoteContent = () => {
@@ -18,10 +22,16 @@ function NoteHeader() {
         className="font-bold text-lg w-[87%] cursor-pointer hover:text-theme transition duration-150"
         onClick={handleSetOpenNoteContent}
       >
-        bla bla blaaaa
+        {title}
       </span>
 
-      <FavoriteBorderOutlined className="text-slate-400 cursor-pointer" />
+      <Favorite
+        className={`cursor-pointer ${
+          isFavorite
+            ? "text-red-700 fill-red-700"
+            : "text-slate-400"
+        }`}
+      />
     </div>
   );
 }
