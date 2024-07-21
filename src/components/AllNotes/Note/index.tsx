@@ -32,7 +32,7 @@ function Note({ note }: NoteProps) {
       <NoteDate date={note.createdOn} />
       <NoteTags id={note.id} tags={note.tags} />
       <NoteDescription description={note.description} />
-      <CodeBlock language="javascript" />
+      <CodeBlock code={note.code} language={note.language} />
       <NoteFooter />
     </div>
   );

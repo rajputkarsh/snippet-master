@@ -8,25 +8,15 @@ import { isDarkMode } from "@/lib/utils";
 
 interface CodeBlockProps {
   language: string;
+  code: string;
 }
 
-function CodeBlock({ language }: CodeBlockProps) {
+function CodeBlock({ language, code }: CodeBlockProps) {
   const {
     darkModeObject: { darkMode },
   } = useGlobalContext();
 
   const isDarkModeEnabled = isDarkMode(darkMode);
-
-  const CODE_STRING = `
-    import React from 'react';
-    function HelloWorld() {
-      return (
-        <h1>Hello World !</h1>
-      );
-    }
-
-    export default HelloWorld  
-  `;
 
   return (
     <div className="text-xs rounded-md overflow-hidden tet-sm">
@@ -34,7 +24,7 @@ function CodeBlock({ language }: CodeBlockProps) {
         language={language}
         style={isDarkModeEnabled ? oneDark : materialLight}
       >
-        {CODE_STRING}
+        {code}
       </SyntaxHighlighter>
     </div>
   );
