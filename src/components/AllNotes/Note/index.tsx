@@ -33,7 +33,7 @@ function Note({ note }: NoteProps) {
       <NoteTags id={note.id} tags={note.tags} />
       <NoteDescription description={note.description} />
       <CodeBlock code={note.code} language={note.language} />
-      <NoteFooter />
+      <NoteFooter language={note.language} />
     </div>
   );
 }
