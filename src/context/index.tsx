@@ -45,6 +45,10 @@ const ContextProvider = createContext<GlobalContextType>({
     allNotes: [],
     setAllNotes: () => {},
   },
+  selectedNoteObject: {
+    selectedNote: null,
+    setSelectedNote: () => {},
+  },
 });
 
 export default function GlobalContextProvider({
@@ -99,6 +103,7 @@ export default function GlobalContextProvider({
   const [isMobile, setIsMobile] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [allNotes, setAllNotes] = useState<Array<SingleNoteType>>([]);
+  const [selectedNote, setSelectedNote] = useState<SingleNoteType | null>(null);
 
   const handleResize = () => {
     setIsMobile((_) =>window.innerWidth <= 640);
@@ -199,6 +204,7 @@ export default function GlobalContextProvider({
         isMobileObject: { isMobile, setIsMobile },
         isLoadingObject: { isLoading, setIsLoading },
         allNotesObject: { allNotes, setAllNotes },
+        selectedNoteObject: { selectedNote, setSelectedNote },
       }}
     >
       {children}
