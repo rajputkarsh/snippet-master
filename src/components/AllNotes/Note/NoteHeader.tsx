@@ -3,17 +3,22 @@ import { useGlobalContext } from "@/context";
 import { Favorite } from "@mui/icons-material";
 
 interface NoteHeaderProps {
+  id: string;
   title: string;
   isFavorite: boolean;
 }
 
-function NoteHeader({ title, isFavorite }: NoteHeaderProps) {
+function NoteHeader({ id, title, isFavorite }: NoteHeaderProps) {
   const {
     openNoteContentObject: { setOpenNoteContent },
+    allNotesObject: { allNotes },
+    selectedNoteObject: { setSelectedNote },
   } = useGlobalContext();
 
   const handleSetOpenNoteContent = () => {
     setOpenNoteContent((_) => true);
+    const currentNote = allNotes.find((note) => note.id === id);
+    setSelectedNote((_) => currentNote || null);
   };
 
   return (

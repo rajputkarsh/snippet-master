@@ -28,7 +28,7 @@ function Note({ note }: NoteProps) {
         openNoteContent ? "w-full" : "w-[380px]"
       } rounded-md py-4`}
     >
-      <NoteHeader title={note.title} isFavorite={note.isFavorite} />
+      <NoteHeader id={note.id} title={note.title} isFavorite={note.isFavorite} />
       <NoteDate date={note.createdOn} />
       <NoteTags id={note.id} tags={note.tags} />
       <NoteDescription description={note.description} />
