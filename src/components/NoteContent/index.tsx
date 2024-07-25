@@ -1,10 +1,21 @@
 import { useGlobalContext } from "@/context";
+import { SingleNoteType } from "@/interfaces/context";
+import { useEffect, useState } from "react";
 
 function NoteContent() {
   const {
     openNoteContentObject: { openNoteContent, setOpenNoteContent },
     isMobileObject: { isMobile },
+    selectedNoteObject: { selectedNote },
   } = useGlobalContext();
+
+  const [singleNote, setSingleNote] = useState<SingleNoteType | undefined>(undefined);
+
+  useEffect(() => {
+    if(openNoteContent && selectedNote) {
+      setSingleNote((_) => selectedNote);
+    }
+  }, [openNoteContent, selectedNote]);
 
   return (
     <div
@@ -19,7 +30,12 @@ function NoteContent() {
           : ""
       }`}
     >
-      NoteContent
+      {singleNote && (
+        <NoteContentHeader
+          singleNote={singleNote}
+          setSingleNote={setSingleNote}
+        />
+      )}
       <div onClick={() => setOpenNoteContent(false)}>close</div>
     </div>
   );
