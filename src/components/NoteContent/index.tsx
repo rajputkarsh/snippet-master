@@ -1,6 +1,7 @@
 import { useGlobalContext } from "@/context";
 import { SingleNoteType } from "@/interfaces/context";
 import { useEffect, useState } from "react";
+import NoteContentHeader from "./NoteContentHeader";
 
 function NoteContent() {
   const {
