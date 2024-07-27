@@ -59,4 +59,8 @@ export interface GlobalContextType {
     selectedNote: SingleNoteType | null;
     setSelectedNote: Dispatch<SetStateAction<SingleNoteType | null>>;
   };
+  isNewNoteObject: {
+    isNewNote: boolean;
+    setIsNewNote: Dispatch<SetStateAction<boolean>>;
+  };
 }
