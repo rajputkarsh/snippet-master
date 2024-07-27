@@ -4,7 +4,6 @@ import Note from "./Note";
 
 export default function AllNotes() {
   const {
-    darkModeObject: { darkMode },
     openNoteContentObject: { openNoteContent },
     isMobileObject: { isMobile },
     allNotesObject: { allNotes },
