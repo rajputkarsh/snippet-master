@@ -5,9 +5,9 @@ import { SingleNoteType } from "@/interfaces/context";
 
 export default function AddSnippetButton() {
   const {
-    allNotesObject: { allNotes, setAllNotes },
-    selectedNoteObject: { selectedNote, setSelectedNote },
-    openNoteContentObject: { openNoteContent, setOpenNoteContent },
+    selectedNoteObject: { setSelectedNote },
+    openNoteContentObject: { setOpenNoteContent },
+    isNewNoteObject: { setIsNewNote },
   } = useGlobalContext();  
 
   const openNewNoteContent = () => {
@@ -22,7 +22,7 @@ export default function AddSnippetButton() {
       createdOn: "",      
     };
 
-    setAllNotes((_) => [...allNotes, newSingleNote]);
+    setIsNewNote((_) => true);
     setSelectedNote((_) => newSingleNote);
     setOpenNoteContent((_) => true);
   }
