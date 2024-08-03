@@ -3,24 +3,22 @@
 import ContentArea from '@/components/ContentArea';
 import Loader from "@/components/Loader";
 import SideBar from '@/components/Sidebar';
-import { useAuth } from '@clerk/nextjs'
+import { useSession } from "@clerk/nextjs";
 import { redirect } from 'next/navigation';
 import { useEffect } from 'react';
 import { useGlobalContext } from '@/context';
 
 function MyNotes() {
-  const { userId } = useAuth();
+  const { isLoaded, isSignedIn } = useSession();
   const {
     isLoadingObject: { isLoading },
   } = useGlobalContext();  
 
   useEffect(() => {
-    setTimeout(() => {
-      if (!userId) {
-        redirect("/");
-      }
-    })
-  }, [userId]);
+    if (isLoaded && !isSignedIn) {
+      redirect("/");
+    }
+  }, [isLoaded, isSignedIn]);
   
     return (
       <>
