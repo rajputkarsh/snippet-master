@@ -7,7 +7,7 @@ import {
 } from "react";
 import { useGlobalContext } from "@/context";
 import { SingleNoteType } from "@/interfaces/context";
-import { TitleOutlined } from "@mui/icons-material";
+import { Close, TitleOutlined } from "@mui/icons-material";
 import { TEXT_AREA_PLACEHOLDER } from "@/constants/note";
 
 interface NoteContentHeaderProps {
@@ -46,6 +46,11 @@ function NoteContentHeader({
     }
   }
 
+  const handleClose = () => {
+    setIsNewNote(false);
+    setOpenNoteContent(false);
+  }
+
   return (
     <div className="flex justify-between gap-8 mb-4">
       <div className="flex gap-2 w-full">
@@ -62,16 +67,13 @@ function NoteContentHeader({
           className="font-bold text-xl outline-none resize-none h-auto overflow-hidden w-full"
         />
       </div>
+      <Close
+        onClick={handleClose}
+        className="text-slate-400 mt-[7px] cursor-pointer"
+        sx={{ cursor: "pointer", fontSize: 18 }}
+      />
     </div>
   );
-
-  // return (
-  //   <input
-  //     placeholder="Add new title"
-  //     value={singleNote.title}
-  //     onChange={handleUpdate}
-  //   />
-  // );
 }
 
 export default NoteContentHeader;
