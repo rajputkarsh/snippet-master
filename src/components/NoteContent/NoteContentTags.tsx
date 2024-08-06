@@ -1,12 +1,13 @@
-import { useState } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 import { StyleOutlined, EditOutlined } from "@mui/icons-material";
 import { SingleNoteType } from "@/interfaces/context";
 
 interface INoteContentTagsProps {
   note: SingleNoteType;
+  setSingleNote: Dispatch<SetStateAction<SingleNoteType | undefined>>
 }
 
-function NoteContentTags({ note }: INoteContentTagsProps) {
+function NoteContentTags({ note, setSingleNote }: INoteContentTagsProps) {
   const [hovered, setHovered] = useState(false);
 
   return (
