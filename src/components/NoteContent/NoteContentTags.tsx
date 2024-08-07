@@ -3,11 +3,11 @@ import { StyleOutlined, EditOutlined } from "@mui/icons-material";
 import { SingleNoteType } from "@/interfaces/context";
 
 interface INoteContentTagsProps {
-  note: SingleNoteType;
-  setSingleNote: Dispatch<SetStateAction<SingleNoteType | undefined>>
+  singleNote: SingleNoteType;
+  setSingleNote: Dispatch<SetStateAction<SingleNoteType | undefined>>;
 }
 
-function NoteContentTags({ note, setSingleNote }: INoteContentTagsProps) {
+function NoteContentTags({ singleNote, setSingleNote }: INoteContentTagsProps) {
   const [hovered, setHovered] = useState(false);
 
   return (
@@ -22,24 +22,20 @@ function NoteContentTags({ note, setSingleNote }: INoteContentTagsProps) {
         onMouseLeave={() => setHovered(false)}
       >
         <div className="flex gap-2 items-center flex-wrap">
-          {
-            note.tags.map((tag, index) => (
-              <div
-                key={`new_note_${note.id}_${index}`}
-                className="bg-slate-100 text-slate-400 p-1 px-2 rounded-md"
-              >
-                {tag}
-              </div>
-            ))
-          }
-          {
-            hovered && (
-              <EditOutlined
-                sx={{fontSize: 19}}
-                className="text-slate-400 cursor-pointer"
-              />
-            )
-          }
+          {singleNote.tags.map((tag, index) => (
+            <div
+              key={`new_note_${note.id}_${index}`}
+              className="bg-slate-100 text-slate-400 p-1 px-2 rounded-md"
+            >
+              {tag}
+            </div>
+          ))}
+          {hovered && (
+            <EditOutlined
+              sx={{ fontSize: 19 }}
+              className="text-slate-400 cursor-pointer"
+            />
+          )}
         </div>
       </div>
     </div>

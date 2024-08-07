@@ -2,6 +2,7 @@ import { useGlobalContext } from "@/context";
 import { SingleNoteType } from "@/interfaces/context";
 import { useEffect, useState } from "react";
 import NoteContentHeader from "./NoteContentHeader";
+import NoteContentTags from "./NoteContentTags";
 
 function NoteContent() {
   const {
@@ -41,12 +42,17 @@ function NoteContent() {
       }`}
     >
       {singleNote && (
-        <NoteContentHeader
-          singleNote={singleNote}
-          setSingleNote={setSingleNote}
-        />
+        <>
+          <NoteContentHeader
+            singleNote={singleNote}
+            setSingleNote={setSingleNote}
+          />
+          <NoteContentTags
+            singleNote={singleNote}
+            setSingleNote={setSingleNote}
+          />
+        </>
       )}
-      <div onClick={() => setOpenNoteContent(false)}>close</div>
     </div>
   );
 }
