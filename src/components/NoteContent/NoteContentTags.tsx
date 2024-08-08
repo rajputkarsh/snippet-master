@@ -1,6 +1,7 @@
 import { Dispatch, SetStateAction, useState } from "react";
 import { StyleOutlined, EditOutlined } from "@mui/icons-material";
 import { SingleNoteType } from "@/interfaces/context";
+import { NO_TAGS_TEXT } from "@/constants/note";
 
 interface INoteContentTagsProps {
   singleNote: SingleNoteType;
@@ -22,14 +23,22 @@ function NoteContentTags({ singleNote, setSingleNote }: INoteContentTagsProps) {
         onMouseLeave={() => setHovered(false)}
       >
         <div className="flex gap-2 items-center flex-wrap">
-          {singleNote.tags.map((tag, index) => (
-            <div
-              key={`new_note_${singleNote.id}_${index}`}
-              className="bg-slate-100 text-slate-400 p-1 px-2 rounded-md"
-            >
-              {tag}
+          {singleNote.tags.length > 0 ? (
+            <>
+              {singleNote.tags.map((tag, index) => (
+                <div
+                  key={`new_note_${singleNote.id}_${index}`}
+                  className="bg-slate-100 text-slate-400 p-1 px-2 rounded-md"
+                >
+                  {tag}
+                </div>
+              ))}
+            </>
+          ) : (
+            <div className="bg-slate-100 text-slate-400 p-1 px-2 rounded-md">
+              {NO_TAGS_TEXT}
             </div>
-          ))}
+          )}
           {hovered && (
             <EditOutlined
               sx={{ fontSize: 19 }}
