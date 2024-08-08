@@ -4,6 +4,7 @@ import {
   SetStateAction,
   useRef,
   KeyboardEvent,
+  useState,
 } from "react";
 import { useGlobalContext } from "@/context";
 import { SingleNoteType } from "@/interfaces/context";
@@ -19,6 +20,9 @@ function NoteContentHeader({
   singleNote,
   setSingleNote,
 }: NoteContentHeaderProps) {
+
+  const [isFocused, setIsFocused] = useState<boolean>(false);
+
   const {
     allNotesObject: { allNotes, setAllNotes },
     openNoteContentObject: { openNoteContent, setOpenNoteContent },
@@ -56,7 +60,7 @@ function NoteContentHeader({
       <div className="flex gap-2 w-full">
         <TitleOutlined
           sx={{ fontSize: 19 }}
-          className="text-slate-400 mt-[4px]"
+          className={`${isFocused ? "text-theme" : "text-slate-400"} mt-[4px]`}
         />
         <textarea
           ref={textAreaRef}
@@ -64,6 +68,10 @@ function NoteContentHeader({
           value={singleNote.title}
           onChange={handleUpdate}
           onKeyDown={handleKeyDown}
+          onBlur={() => setIsFocused(false)}
+          onFocus={() => setIsFocused(true)}
+          onMouseEnter={() => setIsFocused(false)}
+          onMouseLeave={() => setIsFocused(true)}
           className="font-bold text-xl outline-none resize-none h-auto overflow-hidden w-full"
         />
       </div>
