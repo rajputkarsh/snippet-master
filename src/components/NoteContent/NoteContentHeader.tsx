@@ -38,7 +38,11 @@ function NoteContentHeader({
     setAllNotes((_) => newAllNotes);
   }
 
-
+  const handleKeyDown = (event: KeyboardEvent<HTMLTextAreaElement>) => {
+    if (event.key === 'Event') {
+      event.preventDefault();
+    }
+  }
 
   return (
     <input
