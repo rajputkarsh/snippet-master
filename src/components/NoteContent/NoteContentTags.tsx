@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, useState } from "react";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import NoteContentTagsMenu from "./NoteContentTagsMenu";
 import { StyleOutlined, EditOutlined } from "@mui/icons-material";
 import { NO_TAGS_TEXT } from "@/constants/note";
@@ -13,6 +13,12 @@ function NoteContentTags({ singleNote, setSingleNote }: INoteContentTagsProps) {
   const [hovered, setHovered] = useState<boolean>(false);
   const [isOpened, setIsOpened] = useState<boolean>(false);
 
+  useEffect(() => {
+    if (isOpened) {
+      setHovered(true);
+    }
+  }, [isOpened])
+
   return (
     <div className="flex text-[13px] items-center gap-2">
       <StyleOutlined
@@ -22,7 +28,11 @@ function NoteContentTags({ singleNote, setSingleNote }: INoteContentTagsProps) {
       <div
         className="relative flex justify-between w-full"
         onMouseEnter={() => setHovered(true)}
-        onMouseLeave={() => setHovered(false)}
+        onMouseLeave={() => {
+          if(!isOpened) {
+            setHovered(false);
+          }
+        }}
       >
         <div className="flex gap-2 items-center flex-wrap">
           {singleNote.tags.length > 0 ? (
