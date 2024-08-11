@@ -25,6 +25,10 @@ export interface SingleNoteType {
   language: string;
   createdOn: string;
 }
+export interface SingleTagType {
+  id: string;
+  name: string;
+}
 
 export interface GlobalContextType {
   sidebarMenuObject: {

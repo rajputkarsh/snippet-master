@@ -1,6 +1,12 @@
 "use client";
 
-import { createContext, ReactNode, useContext, useEffect, useState } from "react";
+import {
+  createContext,
+  ReactNode,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 import {
   BorderAll,
   FavoriteBorder,
@@ -14,6 +20,7 @@ import {
   GlobalContextType,
   SidebarMenu,
   SingleNoteType,
+  SingleTagType,
 } from "@/interfaces/context";
 
 const ContextProvider = createContext<GlobalContextType>({
@@ -109,22 +116,60 @@ export default function GlobalContextProvider({
   const [allNotes, setAllNotes] = useState<Array<SingleNoteType>>([]);
   const [selectedNote, setSelectedNote] = useState<SingleNoteType | null>(null);
   const [isNewNote, setIsNewNote] = useState<boolean>(false);
+  const [allTags, setAllTags] = useState<Array<SingleTagType>>([]);
 
   const handleResize = () => {
-    setIsMobile((_) =>window.innerWidth <= 640);
-  }
+    setIsMobile((_) => window.innerWidth <= 640);
+  };
 
-  useEffect(() => {
+  const updateAllTags = () => {
+    const tags = [
+      {
+        id: crypto.randomUUID(),
+        name: "Tag 1",
+      },
+      {
+        id: crypto.randomUUID(),
+        name: "Tag 2",
+      },
+      {
+        id: crypto.randomUUID(),
+        name: "Tag 3",
+      },
+      {
+        id: crypto.randomUUID(),
+        name: "Tag 4",
+      },
+      {
+        id: crypto.randomUUID(),
+        name: "Tag 5",
+      },
+      {
+        id: crypto.randomUUID(),
+        name: "Tag 6",
+      },
+      {
+        id: crypto.randomUUID(),
+        name: "Tag 7",
+      },
+      {
+        id: crypto.randomUUID(),
+        name: "Tag 8",
+      },
+    ];
 
-    const updateAllNotes = () => {
-      const notes: Array<SingleNoteType> = [
-        {
-          id: "1",
-          title: "hello world",
-          isFavorite: false,
-          tags: ["javascript", "reactjs"],
-          description: "My first Component",
-          code: `
+    setAllTags(() => tags);
+  };
+
+  const updateAllNotes = () => {
+    const notes: Array<SingleNoteType> = [
+      {
+        id: "1",
+        title: "hello world",
+        isFavorite: false,
+        tags: ["javascript", "reactjs"],
+        description: "My first Component",
+        code: `
             import React from 'react';
             import './App.css';
             
@@ -136,16 +181,16 @@ export default function GlobalContextProvider({
             
             export default App;
           `,
-          language: "javascript",
-          createdOn: new Date().toISOString(),
-        },
-        {
-          id: "2",
-          title: "Greeting",
-          isFavorite: false,
-          tags: ["typescript", "reactjs"],
-          description: "Greeting Component",
-          code: `
+        language: "javascript",
+        createdOn: new Date().toISOString(),
+      },
+      {
+        id: "2",
+        title: "Greeting",
+        isFavorite: false,
+        tags: ["typescript", "reactjs"],
+        description: "Greeting Component",
+        code: `
             import React from 'react';
             import './App.css';
             
@@ -157,16 +202,16 @@ export default function GlobalContextProvider({
             
             export default Greeting;
           `,
-          language: "typescript",
-          createdOn: new Date().toISOString(),
-        },
-        {
-          id: "3",
-          title: "Print Name",
-          isFavorite: false,
-          tags: ["typescript", "reactjs"],
-          description: "Show User's Name",
-          code: `
+        language: "typescript",
+        createdOn: new Date().toISOString(),
+      },
+      {
+        id: "3",
+        title: "Print Name",
+        isFavorite: false,
+        tags: ["typescript", "reactjs"],
+        description: "Show User's Name",
+        code: `
             import React from 'react';
             import './App.css';
             
@@ -178,16 +223,17 @@ export default function GlobalContextProvider({
             
             export default ShowName;
           `,
-          language: "typescript",
-          createdOn: new Date().toISOString(),
-        },
-      ];
+        language: "typescript",
+        createdOn: new Date().toISOString(),
+      },
+    ];
 
-      setAllNotes((_) => notes);
-    }
+    setAllNotes((_) => notes);
+  };
 
+  useEffect(() => {
+    updateAllTags();
     updateAllNotes();
-
   }, []);
 
   useEffect(() => {
