@@ -1,7 +1,8 @@
 import { Dispatch, SetStateAction, useState } from "react";
+import NoteContentTagsMenu from "./NoteContentTagsMenu";
 import { StyleOutlined, EditOutlined } from "@mui/icons-material";
-import { SingleNoteType } from "@/interfaces/context";
 import { NO_TAGS_TEXT } from "@/constants/note";
+import { SingleNoteType } from "@/interfaces/context";
 
 interface INoteContentTagsProps {
   singleNote: SingleNoteType;
@@ -10,6 +11,7 @@ interface INoteContentTagsProps {
 
 function NoteContentTags({ singleNote, setSingleNote }: INoteContentTagsProps) {
   const [hovered, setHovered] = useState<boolean>(false);
+  const [isOpened, setIsOpened] = useState<boolean>(false);
 
   return (
     <div className="flex text-[13px] items-center gap-2">
@@ -18,7 +20,7 @@ function NoteContentTags({ singleNote, setSingleNote }: INoteContentTagsProps) {
         className={`${hovered ? "text-theme" : "text-slate-400"}`}
       />
       <div
-        className="flex justify-between w-full"
+        className="relative flex justify-between w-full"
         onMouseEnter={() => setHovered(true)}
         onMouseLeave={() => setHovered(false)}
       >
@@ -42,10 +44,12 @@ function NoteContentTags({ singleNote, setSingleNote }: INoteContentTagsProps) {
           {hovered && (
             <EditOutlined
               sx={{ fontSize: 19 }}
+              onClick={() => setIsOpened((_) => !isOpened)}
               className="text-slate-400 cursor-pointer"
             />
           )}
         </div>
+        {isOpened && <NoteContentTagsMenu />}
       </div>
     </div>
   );
