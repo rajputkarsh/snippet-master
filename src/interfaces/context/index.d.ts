@@ -19,7 +19,7 @@ export interface SingleNoteType {
   id: string;
   title: string;
   isFavorite: boolean;
-  tags: string[];
+  tags: Array<SingleTagType>;
   description: string;
   code: string;
   language: string;

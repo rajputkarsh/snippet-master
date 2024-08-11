@@ -42,7 +42,7 @@ function NoteContentTags({ singleNote, setSingleNote }: INoteContentTagsProps) {
                   key={`new_note_${singleNote.id}_${index}`}
                   className="bg-slate-100 text-slate-400 p-1 px-2 rounded-md"
                 >
-                  {tag}
+                  {tag.name}
                 </div>
               ))}
             </>

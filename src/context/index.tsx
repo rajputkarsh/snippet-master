@@ -117,6 +117,7 @@ export default function GlobalContextProvider({
   const [selectedNote, setSelectedNote] = useState<SingleNoteType | null>(null);
   const [isNewNote, setIsNewNote] = useState<boolean>(false);
   const [allTags, setAllTags] = useState<Array<SingleTagType>>([]);
+  const [selectedTags, setSelectedTags] = useState<Array<SingleTagType>>([]);
 
   const handleResize = () => {
     setIsMobile((_) => window.innerWidth <= 640);
@@ -167,7 +168,10 @@ export default function GlobalContextProvider({
         id: "1",
         title: "hello world",
         isFavorite: false,
-        tags: ["javascript", "reactjs"],
+        tags: [
+          { id: crypto.randomUUID(), name: "javascript" },
+          { id: crypto.randomUUID(), name: "reactjs" },
+        ],
         description: "My first Component",
         code: `
             import React from 'react';
@@ -188,7 +192,10 @@ export default function GlobalContextProvider({
         id: "2",
         title: "Greeting",
         isFavorite: false,
-        tags: ["typescript", "reactjs"],
+        tags: [
+          { id: crypto.randomUUID(), name: "typescript" },
+          { id: crypto.randomUUID(), name: "reactjs" },
+        ],
         description: "Greeting Component",
         code: `
             import React from 'react';
@@ -209,7 +216,10 @@ export default function GlobalContextProvider({
         id: "3",
         title: "Print Name",
         isFavorite: false,
-        tags: ["typescript", "reactjs"],
+        tags: [
+          { id: crypto.randomUUID(), name: "javascript" },
+          { id: crypto.randomUUID(), name: "reactjs" },
+        ],
         description: "Show User's Name",
         code: `
             import React from 'react';
@@ -235,6 +245,10 @@ export default function GlobalContextProvider({
     updateAllTags();
     updateAllNotes();
   }, []);
+
+  useEffect(() => {
+    setSelectedTags(() => selectedNote?.tags || []);
+  }, [selectedNote]);
 
   useEffect(() => {
     handleResize();
