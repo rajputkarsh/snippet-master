@@ -56,6 +56,10 @@ const ContextProvider = createContext<GlobalContextType>({
     selectedNote: null,
     setSelectedNote: () => {},
   },
+  selectedTagsObject: {
+    selectedTags: null,
+    setSelectedTags: () => {},
+  },
   isNewNoteObject: {
     isNewNote: false,
     setIsNewNote: () => {},
@@ -270,6 +274,7 @@ export default function GlobalContextProvider({
         isLoadingObject: { isLoading, setIsLoading },
         allNotesObject: { allNotes, setAllNotes },
         selectedNoteObject: { selectedNote, setSelectedNote },
+        selectedTagsObject: { selectedTags, setSelectedTags },
         isNewNoteObject: { isNewNote, setIsNewNote },
       }}
     >
