@@ -172,10 +172,7 @@ export default function GlobalContextProvider({
         id: "1",
         title: "hello world",
         isFavorite: false,
-        tags: [
-          { id: crypto.randomUUID(), name: "javascript" },
-          { id: crypto.randomUUID(), name: "reactjs" },
-        ],
+        tags: [],
         description: "My first Component",
         code: `
             import React from 'react';
@@ -196,10 +193,7 @@ export default function GlobalContextProvider({
         id: "2",
         title: "Greeting",
         isFavorite: false,
-        tags: [
-          { id: crypto.randomUUID(), name: "typescript" },
-          { id: crypto.randomUUID(), name: "reactjs" },
-        ],
+        tags: [],
         description: "Greeting Component",
         code: `
             import React from 'react';
@@ -220,10 +214,7 @@ export default function GlobalContextProvider({
         id: "3",
         title: "Print Name",
         isFavorite: false,
-        tags: [
-          { id: crypto.randomUUID(), name: "javascript" },
-          { id: crypto.randomUUID(), name: "reactjs" },
-        ],
+        tags: [],
         description: "Show User's Name",
         code: `
             import React from 'react';
