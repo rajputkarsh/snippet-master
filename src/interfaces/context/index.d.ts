@@ -59,6 +59,10 @@ export interface GlobalContextType {
     allNotes: Array<SingleNoteType>;
     setAllNotes: Dispatch<SetStateAction<Array<SingleNoteType>>>;
   };
+  allTagsObject: {
+    allTags: Array<SingleTagType>;
+    setAllTags: Dispatch<SetStateAction<Array<SingleTagType>>>;
+  };
   selectedNoteObject: {
     selectedNote: SingleNoteType | null;
     setSelectedNote: Dispatch<SetStateAction<SingleNoteType | null>>;

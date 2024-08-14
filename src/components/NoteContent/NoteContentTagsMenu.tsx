@@ -1,7 +1,12 @@
 import { AVAILABLE_TAGS } from "@/constants/note"
+import { SingleTagType } from "@/interfaces/context";
 
-function NoteContentTagsMenu() {
+interface NoteContentTagsMenuProps {
+  tags: Array<SingleTagType>,
+  handleTagClick: (tag: SingleTagType) => void
+}
 
+function NoteContentTagsMenu(tags: NoteContentTagsMenuProps) {
   return (
     <ul className="absolute top-10 bg-slate-100 w-[60%] p-3 rounded-md flex flex-col gap-2">
       {AVAILABLE_TAGS.map((tag) => (
@@ -13,7 +18,7 @@ function NoteContentTagsMenu() {
         </li>
       ))}
     </ul>
-  )
+  );
 }
 
 export default NoteContentTagsMenu
