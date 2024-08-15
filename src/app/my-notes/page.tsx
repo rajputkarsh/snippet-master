@@ -7,8 +7,15 @@ import { useSession } from "@clerk/nextjs";
 import { redirect } from 'next/navigation';
 import { useEffect } from 'react';
 import { useGlobalContext } from '@/context';
+import { isDarkMode } from '@/lib/utils';
 
 function MyNotes() {
+  const {
+    darkModeObject: { darkMode },
+  } = useGlobalContext();
+
+  const isDarkModeEnabled = isDarkMode(darkMode);
+
   const { isLoaded, isSignedIn } = useSession();
   const {
     isLoadingObject: { isLoading },
@@ -22,7 +29,7 @@ function MyNotes() {
   
     return (
       <>
-        <div className="flex flex-row">
+        <div className={`flex flex-row ${isDarkModeEnabled ? "bg-slate-700" : "bg-slate-100"}`}>
           <SideBar />
           <ContentArea />
         </div>
