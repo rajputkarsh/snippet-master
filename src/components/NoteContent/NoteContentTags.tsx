@@ -2,7 +2,8 @@ import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import NoteContentTagsMenu from "./NoteContentTagsMenu";
 import { StyleOutlined, EditOutlined } from "@mui/icons-material";
 import { NO_TAGS_TEXT } from "@/constants/note";
-import { SingleNoteType } from "@/interfaces/context";
+import { SingleNoteType, SingleTagType } from "@/interfaces/context";
+import { useGlobalContext } from "@/context";
 
 interface INoteContentTagsProps {
   singleNote: SingleNoteType;
@@ -10,6 +11,10 @@ interface INoteContentTagsProps {
 }
 
 function NoteContentTags({ singleNote, setSingleNote }: INoteContentTagsProps) {
+  const {
+    allNotesObject: { allNotes, setAllNotes },
+  } = useGlobalContext();
+
   const [hovered, setHovered] = useState<boolean>(false);
   const [isOpened, setIsOpened] = useState<boolean>(false);
 
@@ -17,7 +22,29 @@ function NoteContentTags({ singleNote, setSingleNote }: INoteContentTagsProps) {
     if (isOpened) {
       setHovered(true);
     }
-  }, [isOpened])
+  }, [isOpened]);
+
+  const handleTagClick = (tag: SingleTagType) => {
+    const newSingleNote: SingleNoteType = JSON.parse(
+      JSON.stringify(singleNote || {})
+    );
+
+    if(singleNote.tags.some((t) => t.id === tag.id)) {
+      newSingleNote["tags"] = singleNote.tags.filter((t) => t.id !== tag.id);
+    } else {
+      newSingleNote["tags"] = [...newSingleNote["tags"], tag];
+    }
+
+    const newAllNotes = allNotes.map((note) => {
+      if (note.id === newSingleNote.id) {
+        return newSingleNote;
+      }
+      return note;
+    });
+    setSingleNote(newSingleNote);
+    setAllNotes((_) => newAllNotes);
+
+  }
 
   return (
     <div className="flex text-[13px] items-center gap-2">
@@ -29,7 +56,7 @@ function NoteContentTags({ singleNote, setSingleNote }: INoteContentTagsProps) {
         className="relative flex justify-between w-full"
         onMouseEnter={() => setHovered(true)}
         onMouseLeave={() => {
-          if(!isOpened) {
+          if (!isOpened) {
             setHovered(false);
           }
         }}
@@ -59,7 +86,12 @@ function NoteContentTags({ singleNote, setSingleNote }: INoteContentTagsProps) {
             />
           )}
         </div>
-        {isOpened && <NoteContentTagsMenu />}
+        {isOpened && (
+          <NoteContentTagsMenu
+            tags={singleNote.tags}
+            handleTagClick={handleTagClick}
+          />
+        )}
       </div>
     </div>
   );

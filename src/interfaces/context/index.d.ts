@@ -68,7 +68,7 @@ export interface GlobalContextType {
     setSelectedNote: Dispatch<SetStateAction<SingleNoteType | null>>;
   };
   selectedTagsObject: {
-    selectedTags: SingleTagsType | null;
+    selectedTags: Array<SingleTagsType>;
     setSelectedTags: Dispatch<SetStateAction<Array<SingleTagType>>>;
   };
   isNewNoteObject: {
