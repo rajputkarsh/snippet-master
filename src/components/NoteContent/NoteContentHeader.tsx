@@ -10,6 +10,7 @@ import { useGlobalContext } from "@/context";
 import { SingleNoteType } from "@/interfaces/context";
 import { Close, TitleOutlined } from "@mui/icons-material";
 import { TEXT_AREA_PLACEHOLDER } from "@/constants/note";
+import { isDarkMode } from "@/lib/utils";
 
 interface NoteContentHeaderProps {
   singleNote: SingleNoteType;
@@ -21,13 +22,16 @@ function NoteContentHeader({
   setSingleNote,
 }: NoteContentHeaderProps) {
 
-  const [isFocused, setIsFocused] = useState<boolean>(false);
-
   const {
     allNotesObject: { allNotes, setAllNotes },
     openNoteContentObject: { openNoteContent, setOpenNoteContent },
     isNewNoteObject: { isNewNote, setIsNewNote },
+    darkModeObject: { darkMode },
   } = useGlobalContext();
+
+  const isDarkModeEnabled = isDarkMode(darkMode);
+
+  const [isFocused, setIsFocused] = useState<boolean>(false);
 
   const textAreaRef = useRef<HTMLTextAreaElement>(null);
   
@@ -72,12 +76,14 @@ function NoteContentHeader({
           onFocus={() => setIsFocused(true)}
           onMouseEnter={() => setIsFocused(false)}
           onMouseLeave={() => setIsFocused(true)}
-          className="font-bold text-xl outline-none resize-none h-auto overflow-hidden w-full"
+          className={`font-bold text-xl outline-none resize-none h-[30px] overflow-hidden w-full px-2 rounded bg-transparent ${
+            isDarkModeEnabled ? "caret-white text-white" : ""
+          }`}
         />
       </div>
       <Close
         onClick={handleClose}
-        className="text-slate-400 mt-[7px] cursor-pointer"
+        className="text-slate-400 text-3xl cursor-pointer"
         sx={{ cursor: "pointer", fontSize: 18 }}
       />
     </div>
