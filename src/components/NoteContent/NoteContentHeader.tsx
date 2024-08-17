@@ -9,7 +9,7 @@ import {
 import { useGlobalContext } from "@/context";
 import { SingleNoteType } from "@/interfaces/context";
 import { Close, TitleOutlined } from "@mui/icons-material";
-import { TEXT_AREA_PLACEHOLDER } from "@/constants/note";
+import { TITLE_TEXT_AREA_PLACEHOLDER } from "@/constants/note";
 import { isDarkMode } from "@/lib/utils";
 
 interface NoteContentHeaderProps {
@@ -36,7 +36,10 @@ function NoteContentHeader({
   const textAreaRef = useRef<HTMLTextAreaElement>(null);
   
   const handleUpdate = (event: ChangeEvent<HTMLTextAreaElement>) => {
-    const newSingleNote = { ...singleNote, title: event.target.value };
+    const newSingleNote: SingleNoteType = {
+      ...singleNote,
+      title: event.target.value,
+    };
     setSingleNote(newSingleNote);
 
     const newAllNotes = allNotes.map((note) => {
@@ -68,7 +71,7 @@ function NoteContentHeader({
         />
         <textarea
           ref={textAreaRef}
-          placeholder={TEXT_AREA_PLACEHOLDER}
+          placeholder={TITLE_TEXT_AREA_PLACEHOLDER}
           value={singleNote.title}
           onChange={handleUpdate}
           onKeyDown={handleKeyDown}

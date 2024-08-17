@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import NoteContentHeader from "./NoteContentHeader";
 import NoteContentTags from "./NoteContentTags";
 import { isDarkMode } from "@/lib/utils";
+import NoteContentDescription from "./NoteContentDescription";
 
 function NoteContent() {
   const {
@@ -52,6 +53,10 @@ function NoteContent() {
             setSingleNote={setSingleNote}
           />
           <NoteContentTags
+            singleNote={singleNote}
+            setSingleNote={setSingleNote}
+          />
+          <NoteContentDescription
             singleNote={singleNote}
             setSingleNote={setSingleNote}
           />
