@@ -22,8 +22,6 @@ function NoteContentDescription({
 }: INoteContentDescriptionProps) {
   const {
     allNotesObject: { allNotes, setAllNotes },
-    openNoteContentObject: { openNoteContent, setOpenNoteContent },
-    isNewNoteObject: { isNewNote, setIsNewNote },
     darkModeObject: { darkMode },
   } = useGlobalContext();
 
