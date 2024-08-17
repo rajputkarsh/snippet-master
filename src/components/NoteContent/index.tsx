@@ -5,6 +5,7 @@ import NoteContentHeader from "./NoteContentHeader";
 import NoteContentTags from "./NoteContentTags";
 import { isDarkMode } from "@/lib/utils";
 import NoteContentDescription from "./NoteContentDescription";
+import NoteContentCodeBlock from "./NoteContentCodeBlock";
 
 function NoteContent() {
   const {
@@ -57,6 +58,10 @@ function NoteContent() {
             setSingleNote={setSingleNote}
           />
           <NoteContentDescription
+            singleNote={singleNote}
+            setSingleNote={setSingleNote}
+          />
+          <NoteContentCodeBlock
             singleNote={singleNote}
             setSingleNote={setSingleNote}
           />
