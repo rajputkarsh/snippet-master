@@ -61,7 +61,7 @@ const ContextProvider = createContext<GlobalContextType>({
     setSelectedNote: () => {},
   },
   selectedTagsObject: {
-    selectedTags: null,
+    selectedTags: [],
     setSelectedTags: () => {},
   },
   isNewNoteObject: {
