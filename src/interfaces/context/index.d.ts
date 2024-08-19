@@ -30,6 +30,12 @@ export interface SingleTagType {
   name: string;
 }
 
+export interface SingleLanguageType {
+  id: string;
+  name: string;
+  icon: JSX.Element;
+}
+
 export interface GlobalContextType {
   sidebarMenuObject: {
     sidebarMenu: Array<SidebarMenu>;
