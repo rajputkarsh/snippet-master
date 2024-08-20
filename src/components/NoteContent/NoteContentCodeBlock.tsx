@@ -6,6 +6,7 @@ import {
   CodeOutlined,
   ContentCopyOutlined,
   KeyboardArrowDownOutlined,
+  KeyboardArrowUpOutlined,
 } from "@mui/icons-material";
 import { IconButton } from "@mui/material";
 import { SiJavascript } from "react-icons/si";
@@ -15,6 +16,7 @@ import "ace-builds/src-noconflict/mode-javascript";
 import "ace-builds/src-noconflict/theme-github";
 import "ace-builds/src-noconflict/ext-language_tools";
 import { CODE_EDITOR_TEXT_AREA_PLACEHOLDER } from "@/constants/note";
+import NoteContentCodeBlockLanguageMenu from "./NoteContentCodeBlockLanguageMenu";
 
 interface INoteContentCodeBlockProps {
   singleNote: SingleNoteType;
@@ -31,6 +33,7 @@ function NoteContentCodeBlock({
   const isDarkModeEnabled = isDarkMode(darkMode);
 
   const [isHovered, setIsHovered] = useState<boolean>(false);
+  const [isOpened, setIsOpened] = useState<boolean>(false);
 
   return (
     <div className="flex gap-2 text-[12px] text-slate-400 mt-8">
@@ -56,6 +59,7 @@ function NoteContentCodeBlock({
           </IconButton>
         </div>
         <div
+          onClick={() => setIsOpened((p) => !p)}
           className={`flex gap-2 justify-between bg-slate-100 p-[6px] px-3 rounded-md items-center text-[12px] mt-3 absolute top-1 left-3 ${
             isDarkModeEnabled
               ? "bg-slate-600 text-white"
@@ -66,8 +70,17 @@ function NoteContentCodeBlock({
             <SiJavascript size={15} className="text-slate-400" />
             <span className="mt-[1ox]">Javascript</span>
           </div>
-          <KeyboardArrowDownOutlined sx={{ fontSize: 18 }} />
+          {isOpened ? (
+            <KeyboardArrowUpOutlined sx={{ fontSize: 18 }} />
+          ) : (
+            <KeyboardArrowDownOutlined sx={{ fontSize: 18 }} />
+          )}
         </div>
+
+        {isOpened && (
+          <NoteContentCodeBlockLanguageMenu setIsOpened={setIsOpened} />
+        )}
+
         <AceEditor
           placeholder={CODE_EDITOR_TEXT_AREA_PLACEHOLDER}
           mode="javascript"
@@ -87,9 +100,9 @@ function NoteContentCodeBlock({
           setOptions={{
             enableBasicAutocompletion: false,
             enableLiveAutocompletion: false,
-            enableSnippets:false,
-            showLineNumbers:false,
-            tabSize:2,
+            enableSnippets: false,
+            showLineNumbers: false,
+            tabSize: 2,
           }}
         />
       </div>
