@@ -90,6 +90,7 @@ function NoteContentTags({ singleNote, setSingleNote }: INoteContentTagsProps) {
           <NoteContentTagsMenu
             tags={singleNote.tags}
             handleTagClick={handleTagClick}
+            setIsOpened={setIsOpened}
           />
         )}
       </div>
