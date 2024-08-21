@@ -89,7 +89,7 @@ function NoteContentCodeBlockLanguageMenu({
           <div
             onClick={() => {handleLanguageUpdate(language);}}
             key={language.id}
-            className={`flex mb-2 gap-2 hover:bg-slate-200 p-[6px] px-3 rounded-md items-center cursor-pointer ${language.id === value ? "bg-slate-300" : "bg-transparent"}`}
+            className={`flex mb-2 gap-2 hover:bg-slate-200 p-[6px] px-3 rounded-md items-center cursor-pointer ${language.name.trim().toLowerCase() === value.trim().toLowerCase() ? "bg-slate-300" : "bg-transparent"}`}
           >
             {language.icon}
             <span className="mt-[1px]">{language.name}</span>

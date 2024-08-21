@@ -42,7 +42,7 @@ function NoteContentCodeBlock({
   const handleLanguageUpdate = (language: SingleLanguageType) => {
     const newSingleNote: SingleNoteType = {
       ...singleNote,
-      language: language.id,
+      language: language.name,
     };
     setSingleNote(newSingleNote);
 
