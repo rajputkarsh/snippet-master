@@ -59,6 +59,22 @@ function NoteContentCodeBlock({
     setAllNotes((_) => newAllNotes);
   };
 
+  const handleCodeUpdate = (newCode: string) => {
+    const newSingleNote: SingleNoteType = {
+      ...singleNote,
+      code: newCode,
+    };
+    setSingleNote(newSingleNote);
+
+    const newAllNotes = allNotes.map((note) => {
+      if (note.id === newSingleNote.id) {
+        return newSingleNote;
+      }
+      return note;
+    });
+    setAllNotes((_) => newAllNotes);
+  }
+
   return (
     <div className="flex gap-2 text-[12px] text-slate-400 mt-8">
       <CodeOutlined
@@ -121,6 +137,7 @@ function NoteContentCodeBlock({
           showPrintMargin={false}
           showGutter={false}
           highlightActiveLine={false}
+          onChange={handleCodeUpdate}
           className={`${
             isDarkModeEnabled ? "bg-transparent text-white" : "bg-white"
           }`}
