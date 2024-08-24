@@ -19,7 +19,7 @@ export default function AddSnippetButton() {
       description: "",
       code: "",
       language: "",
-      createdOn: "",      
+      createdOn: new Date().toISOString(),      
     };
 
     setIsNewNote((_) => true);

@@ -14,7 +14,16 @@ export default function AllNotes() {
   const [notes, setNotes] = useState<Array<SingleNoteType>>(allNotes);
 
   useEffect(() => {
-    const filteredNotes = allNotes.filter((note) => note.title.length || note.description.length || note.code.length)
+    const filteredNotes = allNotes
+      .filter(
+        (note) =>
+          note.title.length || note.description.length || note.code.length
+      )
+      .sort(
+        (note1, note2) =>
+          new Date(note2.createdOn).getTime() -
+          new Date(note1.createdOn).getTime()
+      );
     setNotes(() => filteredNotes);
   }, [allNotes])
 
