@@ -1,5 +1,7 @@
+import { useEffect, useState } from "react";
 import { useGlobalContext } from "@/context";
 import Note from "./Note";
+import { SingleNoteType } from "@/interfaces/context";
 
 
 export default function AllNotes() {
@@ -8,17 +10,23 @@ export default function AllNotes() {
     isMobileObject: { isMobile },
     allNotesObject: { allNotes },
   } = useGlobalContext();  
+
+  const [notes, setNotes] = useState<Array<SingleNoteType>>(allNotes);
+
+  useEffect(() => {
+    const filteredNotes = allNotes.filter((note) => note.title.length || note.description.length || note.code.length)
+    setNotes(() => filteredNotes);
+  }, [allNotes])
+
   return (
     <div
       className={`mt-5 flex flex-wrap gap-4 ${
         openNoteContent ? `${isMobile ? "w-full" : "w-[50%]"}` : "w-full"
       }`}
     >
-      {
-        allNotes.map((note) => (
-          <Note key={note.id} note={note}/>
-        ))
-      }
+      {notes.map((note) => (
+        <Note key={note.id} note={note} />
+      ))}
     </div>
   );
 }
