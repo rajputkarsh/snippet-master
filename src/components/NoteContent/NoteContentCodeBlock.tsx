@@ -1,5 +1,5 @@
 import { Dispatch, SetStateAction, useState } from "react";
-import { SingleNoteType } from "@/interfaces/context";
+import { SingleLanguageType, SingleNoteType } from "@/interfaces/context";
 import { useGlobalContext } from "@/context";
 import { isDarkMode } from "@/lib/utils";
 import {
@@ -17,6 +17,7 @@ import "ace-builds/src-noconflict/theme-github";
 import "ace-builds/src-noconflict/ext-language_tools";
 import { CODE_EDITOR_TEXT_AREA_PLACEHOLDER } from "@/constants/note";
 import NoteContentCodeBlockLanguageMenu from "./NoteContentCodeBlockLanguageMenu";
+import { AVAILABLE_LANGUAGES } from "@/constants/languages";
 
 interface INoteContentCodeBlockProps {
   singleNote: SingleNoteType;
@@ -29,11 +30,34 @@ function NoteContentCodeBlock({
 }: INoteContentCodeBlockProps) {
   const {
     darkModeObject: { darkMode },
+    allNotesObject: { allNotes, setAllNotes },
   } = useGlobalContext();
   const isDarkModeEnabled = isDarkMode(darkMode);
 
   const [isHovered, setIsHovered] = useState<boolean>(false);
   const [isOpened, setIsOpened] = useState<boolean>(false);
+  const [selectedLanguage, setSelectedLanguage] =
+    useState<SingleLanguageType>(AVAILABLE_LANGUAGES[0]);
+
+  const handleLanguageUpdate = (language: SingleLanguageType) => {
+    const newSingleNote: SingleNoteType = {
+      ...singleNote,
+      language: language.id,
+    };
+    setSingleNote(newSingleNote);
+
+    setSelectedLanguage(() =>
+      AVAILABLE_LANGUAGES.find((l) => l.id === language.id) || AVAILABLE_LANGUAGES[0]
+    );
+
+    const newAllNotes = allNotes.map((note) => {
+      if (note.id === newSingleNote.id) {
+        return newSingleNote;
+      }
+      return note;
+    });
+    setAllNotes((_) => newAllNotes);
+  };
 
   return (
     <div className="flex gap-2 text-[12px] text-slate-400 mt-8">
@@ -67,8 +91,8 @@ function NoteContentCodeBlock({
           } cursor-pointer`}
         >
           <div className="flex gap-1 items-center">
-            <SiJavascript size={15} className="text-slate-400" />
-            <span className="mt-[1ox]">Javascript</span>
+            {selectedLanguage.icon}
+            <span className="mt-[1ox]">{selectedLanguage.name}</span>
           </div>
           {isOpened ? (
             <KeyboardArrowUpOutlined sx={{ fontSize: 18 }} />
@@ -78,7 +102,11 @@ function NoteContentCodeBlock({
         </div>
 
         {isOpened && (
-          <NoteContentCodeBlockLanguageMenu setIsOpened={setIsOpened} />
+          <NoteContentCodeBlockLanguageMenu
+            value={singleNote.language}
+            setIsOpened={setIsOpened}
+            handleLanguageUpdate={handleLanguageUpdate}
+          />
         )}
 
         <AceEditor

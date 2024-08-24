@@ -7,11 +7,15 @@ import { SEARCH_TEXT_INPUT_PLACEHOLDER } from "@/constants/note";
 import { AVAILABLE_LANGUAGES } from "@/constants/languages";
 
 interface NoteContentCodeBlockLanguageMenuProps {
+  value: string;
   setIsOpened: Dispatch<SetStateAction<boolean>>;
+  handleLanguageUpdate: (language: SingleLanguageType) => void;
 }
 
 function NoteContentCodeBlockLanguageMenu({
+  value,
   setIsOpened,
+  handleLanguageUpdate,
 }: NoteContentCodeBlockLanguageMenuProps) {
   const {
     darkModeObject: { darkMode },
@@ -34,11 +38,13 @@ function NoteContentCodeBlockLanguageMenu({
 
   const onChangeSearch = (event: ChangeEvent<HTMLInputElement>) => {
     setSearchQuery(() => event.target.value.trim().toLowerCase());
-  }
+  };
 
   useEffect(() => {
     if (searchQuery.length) {
-      const filteredLanguages = AVAILABLE_LANGUAGES.filter((language) => language.name.toLowerCase().includes(searchQuery.trim().toLowerCase()))
+      const filteredLanguages = AVAILABLE_LANGUAGES.filter((language) =>
+        language.name.toLowerCase().includes(searchQuery.trim().toLowerCase())
+      );
       setLanguages(() => filteredLanguages);
     }
   }, [searchQuery]);
@@ -81,8 +87,9 @@ function NoteContentCodeBlockLanguageMenu({
       <div className="h-40 bg-slate-100 overflow-x-auto">
         {languages.map((language) => (
           <div
+            onClick={() => {handleLanguageUpdate(language);}}
             key={language.id}
-            className="flex mb-2 gap-2 hover:bg-slate-200 bg-transparent p-[6px] px-3 rounded-md items-center cursor-pointer"
+            className={`flex mb-2 gap-2 hover:bg-slate-200 p-[6px] px-3 rounded-md items-center cursor-pointer ${language.id === value ? "bg-slate-300" : "bg-transparent"}`}
           >
             {language.icon}
             <span className="mt-[1px]">{language.name}</span>
