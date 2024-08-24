@@ -57,6 +57,7 @@ function NoteContentCodeBlock({
       return note;
     });
     setAllNotes((_) => newAllNotes);
+    setIsOpened(false);
   };
 
   const handleCodeUpdate = (newCode: string) => {
