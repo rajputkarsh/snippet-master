@@ -5,11 +5,11 @@ import { isDarkMode } from "@/lib/utils";
 import {
   CodeOutlined,
   ContentCopyOutlined,
+  DoneAllOutlined,
   KeyboardArrowDownOutlined,
   KeyboardArrowUpOutlined,
 } from "@mui/icons-material";
 import { IconButton } from "@mui/material";
-import { SiJavascript } from "react-icons/si";
 import AceEditor from "react-ace";
 
 import "ace-builds/src-noconflict/mode-javascript";
@@ -36,6 +36,7 @@ function NoteContentCodeBlock({
 
   const [isHovered, setIsHovered] = useState<boolean>(false);
   const [isOpened, setIsOpened] = useState<boolean>(false);
+  const [isCopied, setIsCopied] = useState<boolean>(false);
   const [selectedLanguage, setSelectedLanguage] =
     useState<SingleLanguageType>(AVAILABLE_LANGUAGES[0]);
 
@@ -76,6 +77,15 @@ function NoteContentCodeBlock({
     setAllNotes((_) => newAllNotes);
   }
 
+  const handleCodeCopy = () => {
+    navigator.clipboard.writeText(singleNote.code);
+    setIsCopied(true);
+
+    setTimeout(() => {
+    setIsCopied(false);
+    }, 1200)
+  }
+
   return (
     <div className="flex gap-2 text-[12px] text-slate-400 mt-8">
       <CodeOutlined
@@ -90,13 +100,23 @@ function NoteContentCodeBlock({
         } border rounded-lg p-3 pt-16 w-full relative`}
       >
         <div className="absolute top-4 right-4 z-50">
-          <IconButton>
-            <ContentCopyOutlined
-              sx={{ fontSize: 18 }}
-              className={`${
-                isDarkModeEnabled ? "text-white" : "text-slate-400"
-              }`}
-            />
+          <IconButton disabled={isCopied}>
+            {isCopied ? (
+              <DoneAllOutlined
+                sx={{ fontSize: 18 }}
+                className={`${
+                  isDarkModeEnabled ? "text-white" : "text-slate-400"
+                }`}
+              />
+            ) : (
+              <ContentCopyOutlined
+                onClick={handleCodeCopy}
+                sx={{ fontSize: 18 }}
+                className={`${
+                  isDarkModeEnabled ? "text-white" : "text-slate-400"
+                }`}
+              />
+            )}
           </IconButton>
         </div>
         <div
