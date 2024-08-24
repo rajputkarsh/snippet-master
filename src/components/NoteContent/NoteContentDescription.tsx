@@ -28,6 +28,7 @@ function NoteContentDescription({
   const isDarkModeEnabled = isDarkMode(darkMode);
 
   const [isHovered, setIsHovered] = useState<boolean>(false);
+  const [isFocused, setIsFocused] = useState<boolean>(false);
 
   const handleUpdate = (event: ChangeEvent<HTMLTextAreaElement>) => {
     const newSingleNote: SingleNoteType = { ...singleNote, description: event.target.value };
@@ -52,16 +53,20 @@ function NoteContentDescription({
     <div className="flex gap-2 text-[12px] mt-8">
       <DescriptionOutlined
         sx={{ fontSize: 18 }}
-        className={`mt-[9px] ${isHovered ? "text-theme" : "text-slate-400"}`}
+        className={`mt-[9px] ${
+          isHovered || isFocused ? "text-theme" : "text-slate-400"
+        }`}
       />
       <textarea
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
+        onBlur={() => setIsFocused(false)}
+        onFocus={() => setIsFocused(true)}
         onChange={handleUpdate}
         onKeyDown={handleKeyDown}
         placeholder={DESCRIPTION_TEXT_AREA_PLACEHOLDER}
         className={`text-sm outline-none border ${
-          isHovered ? "border-theme" : ""
+          isHovered || isFocused ? "border-theme" : ""
         } rounded-lg p-2 w-full ${
           isDarkModeEnabled ? "bg-slate-800 text-white" : "bg-white"
         }`}

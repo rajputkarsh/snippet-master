@@ -35,6 +35,7 @@ function NoteContentCodeBlock({
   const isDarkModeEnabled = isDarkMode(darkMode);
 
   const [isHovered, setIsHovered] = useState<boolean>(false);
+  const [isFocused, setIsFocused] = useState<boolean>(false);
   const [isOpened, setIsOpened] = useState<boolean>(false);
   const [isCopied, setIsCopied] = useState<boolean>(false);
   const [selectedLanguage, setSelectedLanguage] =
@@ -90,13 +91,15 @@ function NoteContentCodeBlock({
     <div className="flex gap-2 text-[12px] text-slate-400 mt-8">
       <CodeOutlined
         sx={{ fontSize: 18 }}
-        className={`mt-[9px] ${isHovered ? "border-theme" : "text-slate-400"}`}
+        className={`mt-[9px] ${isHovered || isFocused ? "text-theme" : "text-slate-400"}`}
       />
       <div
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
+        onBlur={() => setIsFocused(false)}
+        onFocus={() => setIsFocused(true)}
         className={`${
-          isHovered ? "border-theme" : ""
+          isHovered || isFocused ? "border-theme" : ""
         } border rounded-lg p-3 pt-16 w-full relative`}
       >
         <div className="absolute top-4 right-4 z-50">
