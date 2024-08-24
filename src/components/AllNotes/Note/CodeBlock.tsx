@@ -21,7 +21,7 @@ function CodeBlock({ language, code }: CodeBlockProps) {
   return (
     <div className="text-xs rounded-md overflow-hidden tet-sm">
       <SyntaxHighlighter
-        language={language}
+        language={"javascript"}
         style={isDarkModeEnabled ? oneDark : materialLight}
       >
         {code}
