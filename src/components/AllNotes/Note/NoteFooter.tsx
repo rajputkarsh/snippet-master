@@ -5,7 +5,9 @@ import { useGlobalContext } from "@/context";
 import { SingleLanguageType } from "@/interfaces/context";
 import { getSelectedSidebarItem } from "@/lib/utils";
 import { DeleteRounded, Replay, RestoreFromTrashOutlined } from "@mui/icons-material";
+import { useState } from "react";
 import toast from "react-hot-toast";
+import DeletionConfirmationPopup from "./DeletionConfirmationPopup";
 
 interface NoteFooterProps {
   id: string;
@@ -18,6 +20,8 @@ function NoteFooter({ id, language }: NoteFooterProps) {
     sidebarMenuObject: { sidebarMenu },
   } = useGlobalContext();
   
+  const [showDeletionConfirmationPopup, setShowDeletionConfirmationPopup] = useState<boolean>(false);
+
   const isTrashItem =
     getSelectedSidebarItem(sidebarMenu).trim().toLowerCase() === "trash";
 
@@ -75,13 +79,15 @@ function NoteFooter({ id, language }: NoteFooterProps) {
         )}
         <DeleteRounded
           onClick={() => {
-            if(isTrashItem) return;
-            handleNoteDelete(true);
+            if (isTrashItem) return;
+            
+            setShowDeletionConfirmationPopup(true);
           }}
           sx={{ fontSize: 17 }}
           className={`${isTrashItem ? "text-theme" : ""} cursor-pointer`}
         />
       </div>
+      {showDeletionConfirmationPopup && <DeletionConfirmationPopup handleAction={() => handleNoteDelete(true)} handleClose={() => setShowDeletionConfirmationPopup(false)}  /> }
     </div>
   );
 }
