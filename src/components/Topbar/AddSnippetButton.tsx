@@ -19,6 +19,7 @@ export default function AddSnippetButton() {
       description: "",
       code: "",
       language: "",
+      isDeleted: false,
       createdOn: new Date().toISOString(),      
     };
 

@@ -24,6 +24,7 @@ export interface SingleNoteType {
   code: string;
   language: string;
   createdOn: string;
+  isDeleted: boolean
 }
 export interface SingleTagType {
   id: string;

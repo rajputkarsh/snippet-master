@@ -192,6 +192,7 @@ export default function GlobalContextProvider({
           `,
         language: "javascript",
         createdOn: new Date().toISOString(),
+        isDeleted: false,
       },
       {
         id: "2",
@@ -213,6 +214,7 @@ export default function GlobalContextProvider({
           `,
         language: "typescript",
         createdOn: new Date().toISOString(),
+        isDeleted: false,
       },
       {
         id: "3",
@@ -234,6 +236,7 @@ export default function GlobalContextProvider({
           `,
         language: "typescript",
         createdOn: new Date().toISOString(),
+        isDeleted: false,
       },
     ];
 

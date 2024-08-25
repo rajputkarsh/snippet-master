@@ -17,7 +17,7 @@ export default function AllNotes() {
     const filteredNotes = allNotes
       .filter(
         (note) =>
-          note.title.length || note.description.length || note.code.length
+        (note.title.length || note.description.length || note.code.length) && !note.isDeleted
       )
       .sort(
         (note1, note2) =>
