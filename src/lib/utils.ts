@@ -1,9 +1,9 @@
 import { DarkModeType } from "@/interfaces/context";
 
-export const isDarkMode = (themeConfig: Array<DarkModeType>) =>
+export const isDarkMode = (themeConfig: Array<DarkModeType>): boolean =>
   themeConfig.find((item) => item.isSelected)?.type === "dark";
 
-export const formatDate = (isoString: string) => {
+export const formatDate = (isoString: string): string => {
   if(!isoString) return isoString;
   
   const date = new Date(isoString);
@@ -17,3 +17,8 @@ export const formatDate = (isoString: string) => {
     hour12: false,
   });
 };
+
+export const truncateString = (str: string, num: number): string => {
+  if(str.length > num) return str;
+  return str.slice(0, num) + "...";
+}
