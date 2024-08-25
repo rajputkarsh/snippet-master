@@ -64,6 +64,7 @@ function NoteContentDescription({
         onFocus={() => setIsFocused(true)}
         onChange={handleUpdate}
         onKeyDown={handleKeyDown}
+        value={singleNote.description}
         placeholder={DESCRIPTION_TEXT_AREA_PLACEHOLDER}
         className={`text-sm outline-none border ${
           isHovered || isFocused ? "border-theme" : ""
