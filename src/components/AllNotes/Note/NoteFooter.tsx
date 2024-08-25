@@ -3,7 +3,8 @@ import { AVAILABLE_LANGUAGES } from "@/constants/languages";
 import { NOTE_DELETED_TEXT } from "@/constants/note";
 import { useGlobalContext } from "@/context";
 import { SingleLanguageType } from "@/interfaces/context";
-import { DeleteRounded, Replay } from "@mui/icons-material";
+import { getSelectedSidebarItem } from "@/lib/utils";
+import { DeleteRounded, Replay, RestoreFromTrashOutlined } from "@mui/icons-material";
 import toast from "react-hot-toast";
 
 interface NoteFooterProps {
@@ -14,7 +15,11 @@ interface NoteFooterProps {
 function NoteFooter({ id, language }: NoteFooterProps) {
   const {
     allNotesObject: { allNotes, setAllNotes },
+    sidebarMenuObject: { sidebarMenu },
   } = useGlobalContext();
+  
+  const isTrashItem =
+    getSelectedSidebarItem(sidebarMenu).trim().toLowerCase() === "trash";
 
   const currentLanguage: SingleLanguageType =
     AVAILABLE_LANGUAGES.find(
@@ -58,13 +63,24 @@ function NoteFooter({ id, language }: NoteFooterProps) {
         {currentLanguage.icon}
         <span className="capitalize">{currentLanguage.name}</span>
       </div>
-      <DeleteRounded
-        onClick={() => {
-          handleNoteDelete(true);
-        }}
-        sx={{ fontSize: 17 }}
-        className="cursor-pointer"
-      />
+      <div className="flex gap-2 items-center">
+        {isTrashItem && (
+          <RestoreFromTrashOutlined
+            onClick={() => {
+              handleNoteDelete(false);
+            }}
+            sx={{ fontSize: 17 }}
+            className="cursor-pointer"
+          />
+        )}
+        <DeleteRounded
+          onClick={() => {
+            handleNoteDelete(true);
+          }}
+          sx={{ fontSize: 17 }}
+          className={`${isTrashItem ? "text-theme" : ""} cursor-pointer`}
+        />
+      </div>
     </div>
   );
 }

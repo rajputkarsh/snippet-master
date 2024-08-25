@@ -1,7 +1,7 @@
 import { MAX_TITLE_LENGTH } from "@/constants/note";
 import { useGlobalContext } from "@/context";
 import { SingleNoteType } from "@/interfaces/context";
-import { truncateString } from "@/lib/utils";
+import { getSelectedSidebarItem, truncateString } from "@/lib/utils";
 import { Favorite } from "@mui/icons-material";
 
 interface NoteHeaderProps {
@@ -15,9 +15,14 @@ function NoteHeader({ id, title, isFavorite }: NoteHeaderProps) {
     openNoteContentObject: { setOpenNoteContent },
     allNotesObject: { allNotes, setAllNotes },
     selectedNoteObject: { setSelectedNote },
+    sidebarMenuObject: { sidebarMenu },
   } = useGlobalContext();
 
+  const isTrashItem = getSelectedSidebarItem(sidebarMenu).trim().toLowerCase() === "trash";
+
   const handleSetOpenNoteContent = () => {
+    if(isTrashItem) return;
+    
     setOpenNoteContent((_) => true);
     const currentNote = allNotes.find((note) => note.id === id);
     setSelectedNote((_) => currentNote || null);
@@ -45,12 +50,14 @@ function NoteHeader({ id, title, isFavorite }: NoteHeaderProps) {
         {truncateString(title, MAX_TITLE_LENGTH)}
       </span>
 
-      <Favorite
-        onClick={handleFavoriteUpdate}
-        className={`cursor-pointer ${
-          isFavorite ? "text-red-700 fill-red-700" : "text-slate-400"
-        }`}
-      />
+      {!isTrashItem && (
+        <Favorite
+          onClick={handleFavoriteUpdate}
+          className={`cursor-pointer ${
+            isFavorite ? "text-red-700 fill-red-700" : "text-slate-400"
+          }`}
+        />
+      )}
     </div>
   );
 }
