@@ -75,6 +75,7 @@ function NoteFooter({ id, language }: NoteFooterProps) {
         )}
         <DeleteRounded
           onClick={() => {
+            if(isTrashItem) return;
             handleNoteDelete(true);
           }}
           sx={{ fontSize: 17 }}
