@@ -2,30 +2,51 @@ import { useEffect, useState } from "react";
 import { useGlobalContext } from "@/context";
 import Note from "./Note";
 import { SingleNoteType } from "@/interfaces/context";
+import { getSelectedSidebarItem } from "@/lib/utils";
 
 
 export default function AllNotes() {
   const {
     openNoteContentObject: { openNoteContent },
+    sidebarMenuObject: { sidebarMenu },
     isMobileObject: { isMobile },
     allNotesObject: { allNotes },
   } = useGlobalContext();  
 
   const [notes, setNotes] = useState<Array<SingleNoteType>>(allNotes);
 
+  const selectedSidebarItem = getSelectedSidebarItem(sidebarMenu);
+
   useEffect(() => {
-    const filteredNotes = allNotes
-      .filter(
+    let filteredNotes: Array<SingleNoteType> = [];
+    if (selectedSidebarItem.trim().toLowerCase() === "favorites") {
+      filteredNotes = allNotes.filter(
         (note) =>
-        (note.title.length || note.description.length || note.code.length) && !note.isDeleted
-      )
-      .sort(
-        (note1, note2) =>
-          new Date(note2.createdOn).getTime() -
-          new Date(note1.createdOn).getTime()
+          (note.title.length || note.description.length || note.code.length) &&
+          !note.isDeleted &&
+          note.isFavorite
       );
+    } else if (selectedSidebarItem.trim().toLowerCase() === "trash") {
+      filteredNotes = allNotes.filter(
+        (note) =>
+          (note.title.length || note.description.length || note.code.length) &&
+          note.isDeleted
+      );
+    } else {
+      filteredNotes = allNotes.filter(
+        (note) =>
+          (note.title.length || note.description.length || note.code.length) &&
+          !note.isDeleted
+      );
+    }
+
+    filteredNotes = filteredNotes.sort(
+      (note1, note2) =>
+        new Date(note2.createdOn).getTime() -
+        new Date(note1.createdOn).getTime()
+    );
     setNotes(() => filteredNotes);
-  }, [allNotes])
+  }, [allNotes, selectedSidebarItem]);
 
   return (
     <div

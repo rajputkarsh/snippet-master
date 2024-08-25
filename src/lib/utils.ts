@@ -1,7 +1,11 @@
-import { DarkModeType } from "@/interfaces/context";
+import { DarkModeType, SidebarMenu } from "@/interfaces/context";
 
 export const isDarkMode = (themeConfig: Array<DarkModeType>): boolean =>
   themeConfig.find((item) => item.isSelected)?.type === "dark";
+
+export const getSelectedSidebarItem = (sidebar: Array<SidebarMenu>) : string => {
+  return sidebar.find((item) => item.isSelected)!.name;
+}
 
 export const formatDate = (isoString: string): string => {
   if(!isoString) return isoString;
