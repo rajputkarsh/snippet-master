@@ -1,8 +1,10 @@
-
+import { UNDO } from "@/constants/config";
 import { AVAILABLE_LANGUAGES } from "@/constants/languages";
+import { NOTE_DELETED_TEXT } from "@/constants/note";
 import { useGlobalContext } from "@/context";
 import { SingleLanguageType } from "@/interfaces/context";
-import { DeleteRounded } from "@mui/icons-material";
+import { DeleteRounded, Replay } from "@mui/icons-material";
+import toast from "react-hot-toast";
 
 interface NoteFooterProps {
   id: string;
@@ -12,25 +14,43 @@ interface NoteFooterProps {
 function NoteFooter({ id, language }: NoteFooterProps) {
   const {
     allNotesObject: { allNotes, setAllNotes },
-  } = useGlobalContext();  
+  } = useGlobalContext();
 
   const currentLanguage: SingleLanguageType =
     AVAILABLE_LANGUAGES.find(
       (lang) => lang.name.trim().toLowerCase() === language.trim().toLowerCase()
     ) || AVAILABLE_LANGUAGES[0];
 
-    const handleNoteDelete = () => {
-      const newAllNotes = allNotes.map((note) => {
-        if (note.id === id) {
-          return {
-            ...note,
-            isFavorite: !note.isFavorite,
-          };
-        }
-        return note;
-      });
-      setAllNotes((_) => newAllNotes);      
+  const handleNoteDelete = (shouldDelete: boolean = true) => {
+    const newAllNotes = allNotes.map((note) => {
+      if (note.id === id) {
+        return {
+          ...note,
+          isDeleted: shouldDelete,
+        };
+      }
+      return note;
+    });
+    setAllNotes((_) => newAllNotes);
+
+    if (shouldDelete) {
+      toast((t) => (
+        <div className="flex gap-2 items-center">
+          <span>{NOTE_DELETED_TEXT}</span>
+          <button
+            className="bg-theme p-[4px] px-3 text-sm text-white rounded-md flex gap-1 items-center"
+            onClick={() => {
+              toast.dismiss(t.id);
+              handleNoteDelete(false);
+            }}
+          >
+            <Replay sx={{ fontSize: 17 }} />
+            <span>{UNDO}</span>
+          </button>
+        </div>
+      ));
     }
+  };
 
   return (
     <div className="flex justify-between text-[13px] text-slate-400 mx-4 mt-3">
@@ -38,9 +58,15 @@ function NoteFooter({ id, language }: NoteFooterProps) {
         {currentLanguage.icon}
         <span className="capitalize">{currentLanguage.name}</span>
       </div>
-      <DeleteRounded onClick={handleNoteDelete} sx={{ fontSize: 17 }} className="cursor-pointer" />
+      <DeleteRounded
+        onClick={() => {
+          handleNoteDelete(true);
+        }}
+        sx={{ fontSize: 17 }}
+        className="cursor-pointer"
+      />
     </div>
   );
 }
 
-export default NoteFooter
+export default NoteFooter;

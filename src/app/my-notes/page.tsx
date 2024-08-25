@@ -8,6 +8,7 @@ import { redirect } from 'next/navigation';
 import { useEffect } from 'react';
 import { useGlobalContext } from '@/context';
 import { isDarkMode } from '@/lib/utils';
+import { Toaster } from 'react-hot-toast';
 
 function MyNotes() {
   const {
@@ -29,10 +30,15 @@ function MyNotes() {
   
     return (
       <>
-        <div className={`flex flex-row ${isDarkModeEnabled ? "bg-slate-700" : "bg-slate-100"}`}>
+        <div
+          className={`flex flex-row ${
+            isDarkModeEnabled ? "bg-slate-700" : "bg-slate-100"
+          }`}
+        >
           <SideBar />
           <ContentArea />
         </div>
+        <Toaster />
         {isLoading ? <Loader /> : null}
       </>
     );
