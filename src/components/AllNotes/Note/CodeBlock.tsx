@@ -4,7 +4,8 @@ import {
   oneDark,
 } from "react-syntax-highlighter/dist/cjs/styles/prism";
 import { useGlobalContext } from "@/context";
-import { isDarkMode } from "@/lib/utils";
+import { isDarkMode, truncateString } from "@/lib/utils";
+import { MAX_CODE_LENGTH } from "@/constants/note";
 
 interface CodeBlockProps {
   language: string;
@@ -24,10 +25,10 @@ function CodeBlock({ language, code }: CodeBlockProps) {
         language={"javascript"}
         style={isDarkModeEnabled ? oneDark : materialLight}
       >
-        {code}
+        {truncateString(code, MAX_CODE_LENGTH)}
       </SyntaxHighlighter>
     </div>
   );
 }
 
-export default CodeBlock
+export default CodeBlock;

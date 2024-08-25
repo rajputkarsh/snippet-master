@@ -1,5 +1,7 @@
+import { MAX_TITLE_LENGTH } from "@/constants/note";
 import { useGlobalContext } from "@/context";
 import { SingleNoteType } from "@/interfaces/context";
+import { truncateString } from "@/lib/utils";
 import { Favorite } from "@mui/icons-material";
 
 interface NoteHeaderProps {
@@ -40,7 +42,7 @@ function NoteHeader({ id, title, isFavorite }: NoteHeaderProps) {
         className="font-bold text-lg w-[87%] cursor-pointer hover:text-theme transition duration-150"
         onClick={handleSetOpenNoteContent}
       >
-        {title}
+        {truncateString(title, MAX_TITLE_LENGTH)}
       </span>
 
       <Favorite
