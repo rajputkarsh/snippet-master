@@ -38,7 +38,14 @@ function MyNotes() {
           <SideBar />
           <ContentArea />
         </div>
-        <Toaster />
+        <Toaster
+          toastOptions={{
+            style: {
+              backgroundColor: isDarkModeEnabled ? "#1E293B" : "white",
+              color: isDarkModeEnabled ? "white" : "black",
+            },
+          }}
+        />
         {isLoading ? <Loader /> : null}
       </>
     );
