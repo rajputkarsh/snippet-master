@@ -60,7 +60,7 @@ export default function AllNotes() {
       tags: [],
       description: "",
       code: "",
-      language: "",
+      language: AVAILABLE_LANGUAGES[0].name,
       isDeleted: false,
       createdOn: new Date().toISOString(),
     };

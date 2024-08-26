@@ -2,6 +2,7 @@
 import { useGlobalContext } from "@/context";
 import { SNIPPET } from "@/constants/config";
 import { SingleNoteType } from "@/interfaces/context";
+import { AVAILABLE_LANGUAGES } from "@/constants/languages";
 
 export default function AddSnippetButton() {
   const {
@@ -18,7 +19,7 @@ export default function AddSnippetButton() {
       tags: [],
       description: "",
       code: "",
-      language: "",
+      language: AVAILABLE_LANGUAGES[0].name,
       isDeleted: false,
       createdOn: new Date().toISOString(),      
     };
