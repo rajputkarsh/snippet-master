@@ -52,11 +52,17 @@ export default function AllNotes() {
     <div
       className={`mt-5 flex flex-wrap gap-4 ${
         openNoteContent ? `${isMobile ? "w-full" : "w-[50%]"}` : "w-full"
-      }`}
+      } ${!notes.length ? "items-center justify-center" : ""}`}
     >
       {notes.map((note) => (
         <Note key={note.id} note={note} />
       ))}
+      {!notes.length && (
+        <div>
+          <img src="/no-items-found.webp" />
+          <p className="text-center font-semibold text-3xl mt-4">No Notes Found</p>
+        </div>
+      )}
     </div>
   );
 }
