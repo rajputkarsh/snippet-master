@@ -1,10 +1,26 @@
+import { useGlobalContext } from "@/context";
 import { Close, StyleOutlined } from "@mui/icons-material";
 
 interface TagsWindowProps {
-  handleClose: () => void;
+  
 }
 
-function TagsWindow({ handleClose }: TagsWindowProps) {
+function TagsWindow({  }: TagsWindowProps) {
+  const {
+    secondarySidebarMenuObject: {
+      secondarySidebarMenu,
+      setSecondarySidebarMenu,
+    },
+  } = useGlobalContext();
+
+  const handleClose = () => {
+    const updatedMenu = secondarySidebarMenu.map((item) => {
+        return { ...item, isSelected: false };
+    });
+
+    setSecondarySidebarMenu(() => updatedMenu);
+  }
+
   return (
     <div
       style={{
@@ -20,6 +36,7 @@ function TagsWindow({ handleClose }: TagsWindowProps) {
       <div className="flex justify-between items-center">
         <div className="flex items-center gap-2">
           <StyleOutlined />
+          <span className="text-md font-bold">Tags</span>
         </div>
         <div onClick={() => handleClose()}>
           <Close

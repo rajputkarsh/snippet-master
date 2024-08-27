@@ -108,7 +108,7 @@ export default function GlobalContextProvider({
     {
       id: 4,
       name: "Tags",
-      isSelected: true,
+      isSelected: false,
       icon: <StyleOutlined sx={{ fontSize: 18 }} />,
     },
     {
