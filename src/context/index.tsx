@@ -14,6 +14,7 @@ import {
   Logout,
   LightMode,
   DarkMode,
+  StyleOutlined,
 } from "@mui/icons-material";
 import {
   DarkModeType,
@@ -27,6 +28,10 @@ const ContextProvider = createContext<GlobalContextType>({
   sidebarMenuObject: {
     sidebarMenu: [],
     setSidebarMenu: () => {},
+  },
+  secondarySidebarMenuObject: {
+    secondarySidebarMenu: [],
+    setSecondarySidebarMenu: () => {},
   },
   darkModeObject: {
     darkMode: [],
@@ -94,8 +99,20 @@ export default function GlobalContextProvider({
       isSelected: false,
       icon: <DeleteOutlineOutlined sx={{ fontSize: 18 }} />,
     },
+  ]);
+
+  
+  const [secondarySidebarMenu, setSecondarySidebarMenu] = useState<
+    Array<SidebarMenu>
+  >([
     {
       id: 4,
+      name: "Tags",
+      isSelected: true,
+      icon: <StyleOutlined sx={{ fontSize: 18 }} />,
+    },
+    {
+      id: 5,
       name: "Logout",
       isSelected: false,
       icon: <Logout sx={{ fontSize: 18 }} />,
@@ -265,6 +282,7 @@ export default function GlobalContextProvider({
     <ContextProvider.Provider
       value={{
         sidebarMenuObject: { sidebarMenu, setSidebarMenu },
+        secondarySidebarMenuObject: { secondarySidebarMenu, setSecondarySidebarMenu },
         darkModeObject: { darkMode, setDarkMode },
         openSidebarObject: { openSidebar, setOpenSidebar },
         openNoteContentObject: { openNoteContent, setOpenNoteContent },
