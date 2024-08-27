@@ -11,7 +11,9 @@ export default function Languages() {
     allNotesObject: { allNotes },
   } = useGlobalContext();
 
-  const usedLanguages = allNotes.map((note) => note.language).filter((language) => !!language);
+  const usedLanguages = allNotes
+    .filter((note) => !!note.language && !note.isDeleted)
+    .map((note) => note.language);
   const languageUsageObject: {[key: string]: {
     count: number,
     icon: ReactNode
