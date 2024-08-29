@@ -3,6 +3,7 @@ import { useGlobalContext } from "@/context";
 import Note from "./Note";
 import { SingleNoteType } from "@/interfaces/context";
 import { getSelectedSidebarItem } from "@/lib/utils";
+import { AVAILABLE_LANGUAGES } from "@/constants/languages";
 
 export default function AllNotes() {
   const {
