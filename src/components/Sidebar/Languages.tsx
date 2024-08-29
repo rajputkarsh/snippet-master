@@ -36,7 +36,7 @@ export default function Languages() {
       <div className="mt-5 ml-2 text-slate-400 flex flex-col gap-4">
         {Object.entries(languageUsageObject || {}).map(
           ([language, { icon, count }]) => (
-            <div className="flex justify-between">
+            <div className="flex justify-between" key={`sidebar-${language}`}>
               <div className="flex gap-1 items-center capitalize">
                 {icon}
                 {language}
