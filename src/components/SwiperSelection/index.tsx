@@ -10,9 +10,14 @@ import "swiper/css/pagination";
 export default function SwiperSelection() {
   const {
     darkModeObject: { darkMode },
+    openNewTagsWindowObject: { setOpenNewTagsWindow },
   } = useGlobalContext();
 
   const isDarkModeEnabled = isDarkMode(darkMode);
+
+  const openAddTagsWindow = () => {
+    setOpenNewTagsWindow(() => true);
+  }
 
   return (
     <div
@@ -48,7 +53,7 @@ export default function SwiperSelection() {
           <SwiperSlide className="text-slate-400">React Exercise</SwiperSlide>
         </Swiper>
       </div>
-      <button className="bg-theme p-1 rounded-md px-3 flex gap-1 items-center text-white">
+      <button onClick={openAddTagsWindow} className="bg-theme p-1 rounded-md px-3 flex gap-1 items-center text-white">
         <AddOutlined sx={{ fontSize: 18 }} />
         <span>Tag</span>
       </button>
