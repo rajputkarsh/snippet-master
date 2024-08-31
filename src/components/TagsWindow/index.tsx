@@ -1,5 +1,6 @@
 import { useGlobalContext } from "@/context";
 import Header from "./Header";
+import Searchbar from "./Searchbar";
 
 interface TagsWindowProps {}
 
@@ -17,6 +18,7 @@ function TagsWindow({}: TagsWindowProps) {
       className="fixed border m-20 w-1/2 z-50 p-4 bg-white shadow-md rounded-md"
     >
       <Header />
+      <Searchbar />
     </div>
   );
 }
