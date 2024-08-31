@@ -1,13 +1,43 @@
+import { useEffect, useRef } from "react";
 import { useGlobalContext } from "@/context";
 import Header from "./Header";
 import Searchbar from "./Searchbar";
 import TagsList from "./TagsList";
 
-interface TagsWindowProps {}
+function TagsWindow() {
+  const {
+    secondarySidebarMenuObject: {
+      secondarySidebarMenu,
+      setSecondarySidebarMenu,
+    },
+  } = useGlobalContext();
+  
+  const tagsWindowRef = useRef<HTMLDivElement | null>(null);
 
-function TagsWindow({}: TagsWindowProps) {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        tagsWindowRef.current &&
+        !tagsWindowRef.current.contains(event.target as Node)
+      ) {
+    const updatedMenu = secondarySidebarMenu.map((item) => {
+      return { ...item, isSelected: false };
+    });
+
+    setSecondarySidebarMenu(() => updatedMenu);
+      }
+    };
+
+    useEffect(() => {
+      document.addEventListener("mousedown", handleClickOutside);
+
+      return () => {
+        document.removeEventListener("mousedown", handleClickOutside);
+      };
+    }, []);
+
   return (
     <div
+      ref={tagsWindowRef}
       style={{
         left: "0",
         right: "0",
