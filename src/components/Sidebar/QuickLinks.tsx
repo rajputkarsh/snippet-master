@@ -47,12 +47,12 @@ function SidebarLinks() {
             }}
             className={`flex cursor-pointer select-none gap-2 items-center p-[7px] px-2 rounded-md w-[80%] border border-sm border-none ${
               item.isSelected
-                ? "bg-purple-600 text-white"
+                ? "bg-theme text-white"
                 : `${
                     isDarkModeEnabled
                       ? "bg-slate-800 text-slate-400"
-                      : "bg-white text-purple-600"
-                  }  hover:bg-purple-600 hover:text-white`
+                      : "bg-white text-theme"
+                  }  hover:bg-theme hover:text-white`
             } transition duration-200`}
           >
             {item.icon}
@@ -69,12 +69,12 @@ function SidebarLinks() {
             }}
             className={`flex cursor-pointer select-none gap-2 items-center p-[7px] px-2 rounded-md w-[80%] border border-sm border-none ${
               item.isSelected
-                ? "bg-purple-600 text-white"
+                ? "bg-theme text-white"
                 : `${
                     isDarkModeEnabled
                       ? "bg-slate-800 text-slate-400"
-                      : "bg-white text-purple-600"
-                  }  hover:bg-purple-600 hover:text-white`
+                      : "bg-white text-theme"
+                  }  hover:bg-theme hover:text-white`
             } transition duration-200`}
           >
             {item.icon}

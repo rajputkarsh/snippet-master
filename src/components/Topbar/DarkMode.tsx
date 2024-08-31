@@ -23,8 +23,8 @@ function DarkMode() {
         <div
           className={`${
             item.isSelected
-              ? "bg-purple-600 text-white"
-              : "bg-slate-100 text-purple-600"
+              ? "bg-theme text-white"
+              : "bg-slate-100 text-theme"
           } w-7 h-7 flex items-center justify-center rounded-full top-[4px] p-1 left-1 cursor-pointer select-none`}
           key={`darkmode_${item.id}`}
           onClick={() => handleClick(item.id)}

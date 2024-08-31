@@ -28,7 +28,7 @@ export default function SwiperSelection() {
           className="swiper-component"
           modules={[FreeMode]}
         >
-          <SwiperSlide className="bg-purple-600 p-1 rounded-lg text-white w-20">
+          <SwiperSlide className="bg-theme p-1 rounded-lg text-white w-20">
             All
           </SwiperSlide>
           <SwiperSlide className="text-slate-400">
@@ -48,7 +48,7 @@ export default function SwiperSelection() {
           <SwiperSlide className="text-slate-400">React Exercise</SwiperSlide>
         </Swiper>
       </div>
-      <button className="bg-purple-600 p-1 rounded-md px-3 flex gap-1 items-center text-white">
+      <button className="bg-theme p-1 rounded-md px-3 flex gap-1 items-center text-white">
         <AddOutlined sx={{ fontSize: 18 }} />
         <span>Tag</span>
       </button>

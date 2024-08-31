@@ -32,7 +32,7 @@ export default function AddSnippetButton() {
   return (
     <div
       onClick={openNewNoteContent}
-      className="absolute flex gap-2 px-3 rounded-3xl bg-purple-600 p-1 text-[13px] text-white top-[5px] right-[6px] items-center cursor-pointer select-none"
+      className="absolute flex gap-2 px-3 rounded-3xl bg-theme p-1 text-[13px] text-white top-[5px] right-[6px] items-center cursor-pointer select-none"
     >
       <div className="font-bold">+</div>
       <div className="max-md:hidden">{SNIPPET}</div>

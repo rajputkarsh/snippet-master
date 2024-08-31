@@ -11,7 +11,7 @@ function NoteTags({ id, tags }: NoteTagsProps) {
       {tags.map((tag) => (
         <span
           key={`${id}_${tag.id}`}
-          className="bg-purple-100 text-purple-600 p-1 rounded-md px-2"
+          className="bg-purple-100 text-theme p-1 rounded-md px-2"
         >
           {tag.name}
         </span>
