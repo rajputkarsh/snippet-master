@@ -33,6 +33,10 @@ const ContextProvider = createContext<GlobalContextType>({
     secondarySidebarMenu: [],
     setSecondarySidebarMenu: () => {},
   },
+  openNewTagsWindowObject: {
+    openNewTagsWindow: false,
+    setOpenNewTagsWindow: () => {},
+  },
   darkModeObject: {
     darkMode: [],
     setDarkMode: () => {},
@@ -118,6 +122,8 @@ export default function GlobalContextProvider({
       icon: <Logout sx={{ fontSize: 18 }} />,
     },
   ]);
+
+  const [openNewTagsWindow, setOpenNewTagsWindow] = useState<boolean>(false);
 
   const [darkMode, setDarkMode] = useState<Array<DarkModeType>>([
     {
@@ -282,7 +288,14 @@ export default function GlobalContextProvider({
     <ContextProvider.Provider
       value={{
         sidebarMenuObject: { sidebarMenu, setSidebarMenu },
-        secondarySidebarMenuObject: { secondarySidebarMenu, setSecondarySidebarMenu },
+        secondarySidebarMenuObject: {
+          secondarySidebarMenu,
+          setSecondarySidebarMenu,
+        },
+        openNewTagsWindowObject: {
+          openNewTagsWindow,
+          setOpenNewTagsWindow,
+        },
         darkModeObject: { darkMode, setDarkMode },
         openSidebarObject: { openSidebar, setOpenSidebar },
         openNoteContentObject: { openNoteContent, setOpenNoteContent },

@@ -10,6 +10,7 @@ import { useGlobalContext } from "@/context";
 import { isDarkMode } from "@/lib/utils";
 import { Toaster } from "react-hot-toast";
 import TagsWindow from "@/components/TagsWindow";
+import AddTag from "@/components/AddTag";
 
 function MyNotes() {
   const {
@@ -22,6 +23,7 @@ function MyNotes() {
   const {
     isLoadingObject: { isLoading },
     secondarySidebarMenuObject: { secondarySidebarMenu },
+    openNewTagsWindowObject: { openNewTagsWindow },
   } = useGlobalContext();
 
   useEffect(() => {
@@ -58,6 +60,11 @@ function MyNotes() {
       {istagsOptionSelected && (
         <TagsWindow />
       )}
+      {
+        openNewTagsWindow && (
+          <AddTag />
+        )
+      }
       {isLoading ? <Loader /> : null}
     </>
   );

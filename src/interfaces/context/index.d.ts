@@ -46,6 +46,10 @@ export interface GlobalContextType {
     secondarySidebarMenu: Array<SidebarMenu>;
     setSecondarySidebarMenu: Dispatch<SetStateAction<Array<SidebarMenu>>>;
   };
+  openNewTagsWindowObject: {
+    openNewTagsWindow: boolean;
+    setOpenNewTagsWindow: Dispatch<SetStateAction<boolean>>;
+  };
   darkModeObject: {
     darkMode: Array<DarkModeType>;
     setDarkMode: Dispatch<SetStateAction<Array<DarkModeType>>>;
