@@ -1,0 +1,1 @@
+export const TAGS_SEARCH_INPUT_PLACEHOLDER = "Search a tag...";
