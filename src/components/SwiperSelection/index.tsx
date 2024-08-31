@@ -18,9 +18,9 @@ export default function SwiperSelection() {
     <div
       className={`${
         isDarkModeEnabled ? "bg-slate-800 text-white" : "bg-white"
-      } p-3 rounded-lg flex gap-5`}
+      } p-3 rounded-lg flex gap-5 justify-between`}
     >
-      <div className="overflow-x-auto w-[1112px]">
+      <div className="overflow-x-auto w-auto">
         <Swiper
           slidesPerView={"auto"}
           spaceBetween={10}
