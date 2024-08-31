@@ -32,7 +32,7 @@ function DeletionConfirmationPopup({
         transform: "translateY(-50%)",
       }}
     >
-      <p className="font-bold text-xl text-center text-slate-800">Are you sure ?</p>
+      <p className={`font-bold text-xl text-center ${isDarkModeEnabled ? "text-white" : "text-slate-800"}`}>Are you sure ?</p>
       <p className="text-center text-[13px] px-8">
         Are you sure you want to delete this snippet. This action cannot be
         undone.
