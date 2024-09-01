@@ -45,7 +45,7 @@ function TagsWindow() {
         marginRight: "auto",
         top: "10%",
       }}
-      className="fixed border m-20 w-1/2 z-50 p-4 bg-white shadow-md rounded-md"
+      className="fixed border m-20 w-1/2 z-10 p-4 bg-white shadow-md rounded-md"
     >
       <Header />
       <Searchbar />

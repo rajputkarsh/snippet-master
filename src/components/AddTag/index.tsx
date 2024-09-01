@@ -1,5 +1,8 @@
+import { useEffect, useRef } from "react";
 import { useGlobalContext } from "@/context"
 import { isDarkMode } from "@/lib/utils";
+import Header from "./Header";
+import TagInput from "./TagInput";
 
 function AddTag() {
 
@@ -9,9 +12,47 @@ function AddTag() {
 
   const isDarkModeEnabled = isDarkMode(darkMode);
 
+    const {
+    openNewTagsWindowObject: {
+      setOpenNewTagsWindow,
+    },
+  } = useGlobalContext();
+  
+  const tagsWindowRef = useRef<HTMLDivElement | null>(null);
+
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        tagsWindowRef.current &&
+        !tagsWindowRef.current.contains(event.target as Node)
+      ) {
+        setOpenNewTagsWindow(() => false);
+      }
+    };
+
+    useEffect(() => {
+      document.addEventListener("mousedown", handleClickOutside);
+
+      return () => {
+        document.removeEventListener("mousedown", handleClickOutside);
+      };
+    }, []);
+
   return (
-    <div>AddTag</div>
-  )
+    <div
+      ref={tagsWindowRef}
+      style={{
+        left: "0",
+        right: "0",
+        marginLeft: "auto",
+        marginRight: "auto",
+        top: "20%",
+      }}
+      className={`fixed z-20 p-2 max-sm:w-[350px] w-[500px] shadow-md ${isDarkModeEnabled ? "bg-slate-800 text-white" : "bg-white border"}`}
+    >
+      <Header />
+      <TagInput />
+    </div>
+  );
 }
 
 export default AddTag
