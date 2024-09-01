@@ -5,7 +5,11 @@ import { isDarkMode } from "@/lib/utils";
 function SidebarLinks() {
   const {
     sidebarMenuObject: { sidebarMenu, setSidebarMenu },
-    secondarySidebarMenuObject: { secondarySidebarMenu, setSecondarySidebarMenu },
+    secondarySidebarMenuObject: {
+      secondarySidebarMenu,
+      setSecondarySidebarMenu,
+    },
+    openSidebarObject: { setOpenSidebar },
     darkModeObject: { darkMode },
   } = useGlobalContext();
 
@@ -34,6 +38,7 @@ function SidebarLinks() {
 
       setSecondarySidebarMenu(updatedMenu);
     }
+    setOpenSidebar(() => false);
   };
 
   return (

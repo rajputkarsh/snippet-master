@@ -10,6 +10,8 @@ function TagsWindow() {
       secondarySidebarMenu,
       setSecondarySidebarMenu,
     },
+    openSidebarObject: { setOpenSidebar },
+    isMobileObject: { isMobile },
   } = useGlobalContext();
   
   const tagsWindowRef = useRef<HTMLDivElement | null>(null);
@@ -24,6 +26,7 @@ function TagsWindow() {
     });
 
     setSecondarySidebarMenu(() => updatedMenu);
+    setOpenSidebar(() => false);
       }
     };
 
@@ -45,7 +48,7 @@ function TagsWindow() {
         marginRight: "auto",
         top: "10%",
       }}
-      className="fixed border m-20 w-1/2 z-10 p-4 bg-white shadow-md rounded-md"
+      className={`fixed border m-20 z-10 p-4 bg-white shadow-md rounded-md ${isMobile ? "w-5/6" : "w-1/2"}`}
     >
       <Header />
       <Searchbar />

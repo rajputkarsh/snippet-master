@@ -7,6 +7,7 @@ function Header() {
       secondarySidebarMenu,
       setSecondarySidebarMenu,
     },
+    openSidebarObject: { setOpenSidebar },
   } = useGlobalContext();
 
   const handleClose = () => {
@@ -15,6 +16,7 @@ function Header() {
     });
 
     setSecondarySidebarMenu(() => updatedMenu);
+    setOpenSidebar(() => false);
   };
 
   return (
