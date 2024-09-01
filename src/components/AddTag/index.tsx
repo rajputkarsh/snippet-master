@@ -3,6 +3,7 @@ import { useGlobalContext } from "@/context"
 import { isDarkMode } from "@/lib/utils";
 import Header from "./Header";
 import TagInput from "./TagInput";
+import ButtonGroup from "./ButtonGroup";
 
 function AddTag() {
 
@@ -51,6 +52,7 @@ function AddTag() {
     >
       <Header />
       <TagInput />
+      <ButtonGroup />
     </div>
   );
 }
