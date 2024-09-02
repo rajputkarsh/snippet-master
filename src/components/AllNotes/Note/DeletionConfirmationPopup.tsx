@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction } from "react";
+import { Dispatch, SetStateAction, useEffect, useRef } from "react";
 import { useGlobalContext } from "@/context";
 import { isDarkMode } from "@/lib/utils";
 
@@ -11,17 +11,36 @@ function DeletionConfirmationPopup({
   handleAction,
   handleClose,
 }: DeletionConfirmationPopupProps) {
-
   const {
     darkModeObject: { darkMode },
   } = useGlobalContext();
 
   const isDarkModeEnabled = isDarkMode(darkMode);
 
+  const deletionConfirmationPopipRef = useRef<HTMLDivElement | null>(null);
+
+  const handleClickOutside = (event: MouseEvent) => {
+    if (
+      deletionConfirmationPopipRef.current &&
+      !deletionConfirmationPopipRef.current.contains(event.target as Node)
+    ) {
+      handleClose(false);
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
   return (
     <>
       <div className="absolute top-0 left-0 w-screen h-screen bg-black opacity-20 z-10"></div>
       <div
+        ref={deletionConfirmationPopipRef}
         className={`transition duration-200 z-50 shadow-md rounded-md w-[310px] md:w-[450px] fixed py-8 pt-10 p-3 ${
           isDarkModeEnabled ? "bg-slate-900" : "bg-white"
         }`}
