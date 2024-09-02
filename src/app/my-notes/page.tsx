@@ -46,9 +46,14 @@ function MyNotes() {
           isDarkModeEnabled ? "bg-slate-700" : "bg-slate-100"
         }`}
       >
+        {istagsOptionSelected || openNewTagsWindow ? (
+          <div className="fixed w-screen h-screen bg-black opacity-20 z-10"></div>
+        ) : null}
         <SideBar />
         <ContentArea />
       </div>
+      {istagsOptionSelected && <TagsWindow />}
+      {openNewTagsWindow && <AddTag />}
       <Toaster
         toastOptions={{
           style: {
@@ -57,14 +62,6 @@ function MyNotes() {
           },
         }}
       />
-      {istagsOptionSelected && (
-        <TagsWindow />
-      )}
-      {
-        openNewTagsWindow && (
-          <AddTag />
-        )
-      }
       {isLoading ? <Loader /> : null}
     </>
   );

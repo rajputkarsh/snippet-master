@@ -41,7 +41,7 @@ function NoteContent() {
       } h-[700px]
       ${
         isMobile
-          ? "absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-10"
+          ? "absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20"
           : ""
       }
       ${isDarkModeEnabled ? "bg-slate-800" : "bg-white"}    
