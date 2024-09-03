@@ -105,7 +105,6 @@ export default function GlobalContextProvider({
     },
   ]);
 
-  
   const [secondarySidebarMenu, setSecondarySidebarMenu] = useState<
     Array<SidebarMenu>
   >([
@@ -154,42 +153,42 @@ export default function GlobalContextProvider({
     setIsMobile((_) => window.innerWidth <= 640);
   };
 
-  const updateAllTags = () => {
-    const tags = [
-      {
-        id: crypto.randomUUID(),
-        name: "Tag 1",
-      },
-      {
-        id: crypto.randomUUID(),
-        name: "Tag 2",
-      },
-      {
-        id: crypto.randomUUID(),
-        name: "Tag 3",
-      },
-      {
-        id: crypto.randomUUID(),
-        name: "Tag 4",
-      },
-      {
-        id: crypto.randomUUID(),
-        name: "Tag 5",
-      },
-      {
-        id: crypto.randomUUID(),
-        name: "Tag 6",
-      },
-      {
-        id: crypto.randomUUID(),
-        name: "Tag 7",
-      },
-      {
-        id: crypto.randomUUID(),
-        name: "Tag 8",
-      },
-    ];
+  const tags = [
+    {
+      id: crypto.randomUUID(),
+      name: "Tag 1",
+    },
+    {
+      id: crypto.randomUUID(),
+      name: "Tag 2",
+    },
+    {
+      id: crypto.randomUUID(),
+      name: "Tag 3",
+    },
+    {
+      id: crypto.randomUUID(),
+      name: "Tag 4",
+    },
+    {
+      id: crypto.randomUUID(),
+      name: "Tag 5",
+    },
+    {
+      id: crypto.randomUUID(),
+      name: "Tag 6",
+    },
+    {
+      id: crypto.randomUUID(),
+      name: "Tag 7",
+    },
+    {
+      id: crypto.randomUUID(),
+      name: "Tag 8",
+    },
+  ];
 
+  const updateAllTags = () => {
     setAllTags(() => tags);
   };
 

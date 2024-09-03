@@ -6,10 +6,13 @@ import { isDarkMode } from "@/lib/utils";
 
 import "swiper/css";
 import "swiper/css/pagination";
+import { SingleTagType } from "@/interfaces/context";
 
 export default function SwiperSelection() {
   const {
     darkModeObject: { darkMode },
+    allTagsObject: {allTags},
+    selectedTagsObject: {selectedTags, setSelectedTags},
     openNewTagsWindowObject: { setOpenNewTagsWindow },
   } = useGlobalContext();
 
@@ -17,6 +20,16 @@ export default function SwiperSelection() {
 
   const openAddTagsWindow = () => {
     setOpenNewTagsWindow(() => true);
+  }
+
+  const handleTagClick = (tag: SingleTagType) => {
+    if (selectedTags.some((selectedTag) => selectedTag.id === tag.id)) {
+      setSelectedTags((prev) =>
+        prev.filter((selectedTag) => selectedTag.id !== tag.id)
+      );
+    } else {
+      setSelectedTags((prev) => [...prev, tag]);
+    }
   }
 
   return (
@@ -33,27 +46,25 @@ export default function SwiperSelection() {
           className="swiper-component"
           modules={[FreeMode]}
         >
-          <SwiperSlide className="bg-theme p-1 rounded-lg text-white w-20">
-            All
-          </SwiperSlide>
-          <SwiperSlide className="text-slate-400">
-            Javascript Exercise
-          </SwiperSlide>
-          <SwiperSlide className="text-slate-400">React Exercise</SwiperSlide>
-          <SwiperSlide className="text-slate-400">React Exercise</SwiperSlide>
-          <SwiperSlide className="text-slate-400">React Exercise</SwiperSlide>
-          <SwiperSlide className="text-slate-400">React Exercise</SwiperSlide>
-          <SwiperSlide className="text-slate-400">React Exercise</SwiperSlide>
-          <SwiperSlide className="text-slate-400">React Exercise</SwiperSlide>
-          <SwiperSlide className="text-slate-400">React Exercise</SwiperSlide>
-          <SwiperSlide className="text-slate-400">React Exercise</SwiperSlide>
-          <SwiperSlide className="text-slate-400">React Exercise</SwiperSlide>
-          <SwiperSlide className="text-slate-400">React Exercise</SwiperSlide>
-          <SwiperSlide className="text-slate-400">React Exercise</SwiperSlide>
-          <SwiperSlide className="text-slate-400">React Exercise</SwiperSlide>
+          {allTags.map((tag) => (
+            <SwiperSlide
+              className={`${
+                selectedTags.some((selectedTag) => selectedTag.id === tag.id)
+                  ? "bg-theme text-white"
+                  : `${isDarkModeEnabled ? "bg-gray-700 text white" : "bg-gray-100 text-gray-800"}`
+              } font-semibold p-1 rounded-lg w-20`}
+              key={`tag_${tag.id}`}
+              onClick={() => handleTagClick(tag)}
+            >
+              {tag.name}
+            </SwiperSlide>
+          ))}
         </Swiper>
       </div>
-      <button onClick={openAddTagsWindow} className="bg-theme p-1 rounded-md px-3 flex gap-1 items-center text-white">
+      <button
+        onClick={openAddTagsWindow}
+        className="bg-theme p-1 rounded-md px-3 flex gap-1 items-center text-white"
+      >
         <AddOutlined sx={{ fontSize: 18 }} />
         <span>Tag</span>
       </button>
