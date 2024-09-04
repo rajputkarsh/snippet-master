@@ -30,7 +30,9 @@ export default function SwiperSelection() {
         prev.filter((selectedTag) => selectedTag.id !== tag.id)
       );
     } else {
-      setSelectedTags((prev) => [...prev, tag]);
+      setSelectedTags((prev) => {
+        return [...prev, tag].length === allTags.length ? [] : [...prev, tag];
+      });
     }
   };
 
