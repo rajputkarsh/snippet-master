@@ -22,15 +22,17 @@ export default function SwiperSelection() {
     setOpenNewTagsWindow(() => true);
   }
 
-  const handleTagClick = (tag: SingleTagType) => {
-    if (selectedTags.some((selectedTag) => selectedTag.id === tag.id)) {
+  const handleTagClick = (tag: SingleTagType | null) => {
+    if(!tag) {
+      setSelectedTags(() => []);
+    } else if (selectedTags.some((selectedTag) => selectedTag.id === tag.id)) {
       setSelectedTags((prev) =>
         prev.filter((selectedTag) => selectedTag.id !== tag.id)
       );
     } else {
       setSelectedTags((prev) => [...prev, tag]);
     }
-  }
+  };
 
   return (
     <div
@@ -46,12 +48,30 @@ export default function SwiperSelection() {
           className="swiper-component"
           modules={[FreeMode]}
         >
+          <SwiperSlide
+            className={`${
+              selectedTags.length === 0
+                ? "bg-theme text-white"
+                : `${
+                    isDarkModeEnabled
+                      ? "bg-gray-700 text white"
+                      : "bg-gray-100 text-gray-800"
+                  }`
+            } font-semibold p-1 rounded-lg w-20`}
+            onClick={() => handleTagClick(null)}
+          >
+            All
+          </SwiperSlide>
           {allTags.map((tag) => (
             <SwiperSlide
               className={`${
                 selectedTags.some((selectedTag) => selectedTag.id === tag.id)
                   ? "bg-theme text-white"
-                  : `${isDarkModeEnabled ? "bg-gray-700 text white" : "bg-gray-100 text-gray-800"}`
+                  : `${
+                      isDarkModeEnabled
+                        ? "bg-gray-700 text white"
+                        : "bg-gray-100 text-gray-800"
+                    }`
               } font-semibold p-1 rounded-lg w-20`}
               key={`tag_${tag.id}`}
               onClick={() => handleTagClick(tag)}
