@@ -1,21 +1,24 @@
 import { useGlobalContext } from "@/context";
 import { isDarkMode } from "@/lib/utils";
 
-function ButtonGroup() {
+interface ButtonGroupProps {
+  tagName: string;
+  handleErrorMessageChange: (error: string) => void;
+}
+
+function ButtonGroup({}: ButtonGroupProps) {
   const {
     openNewTagsWindowObject: { setOpenNewTagsWindow },
     darkModeObject: { darkMode },
   } = useGlobalContext();
 
   const isDarkModeEnabled = isDarkMode(darkMode);
-  
+
   const handleCancelButton = () => {
     setOpenNewTagsWindow(() => false);
-  }
+  };
 
-  const handleAddButton = () => {
-
-  }
+  const handleAddButton = () => {};
 
   return (
     <div className="flex justify-between mt-6 gap-2 text-[12px]">
