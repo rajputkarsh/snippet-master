@@ -1,14 +1,21 @@
+import {
+  EMPTY_TAG_NAME_ERROR_MESSAGE,
+  TAG_ADDED_SUCCESS_MESSAGE,
+  TAG_NAME_ALREADY_EXISTS_ERROR_MESSAGE,
+} from "@/constants/tags";
 import { useGlobalContext } from "@/context";
 import { isDarkMode } from "@/lib/utils";
+import toast from "react-hot-toast";
 
 interface ButtonGroupProps {
   tagName: string;
   handleErrorMessageChange: (error: string) => void;
 }
 
-function ButtonGroup({}: ButtonGroupProps) {
+function ButtonGroup({ tagName, handleErrorMessageChange }: ButtonGroupProps) {
   const {
     openNewTagsWindowObject: { setOpenNewTagsWindow },
+    allTagsObject: { allTags, setAllTags },
     darkModeObject: { darkMode },
   } = useGlobalContext();
 
@@ -18,7 +25,31 @@ function ButtonGroup({}: ButtonGroupProps) {
     setOpenNewTagsWindow(() => false);
   };
 
-  const handleAddButton = () => {};
+  const handleAddButton = () => {
+    if (tagName.trim().length === 0) {
+      handleErrorMessageChange(EMPTY_TAG_NAME_ERROR_MESSAGE);
+      return;
+    }
+
+    if (
+      allTags.some(
+        (tag) => tag.name.trim().toLowerCase() === tagName.trim().toLowerCase()
+      )
+    ) {
+      handleErrorMessageChange(TAG_NAME_ALREADY_EXISTS_ERROR_MESSAGE);
+      return;
+    }
+
+    setAllTags((prev) => [
+      ...prev,
+      {
+        id: crypto.randomUUID(),
+        name: tagName,
+      },
+    ]);
+    setOpenNewTagsWindow(false);
+    toast.success(TAG_ADDED_SUCCESS_MESSAGE);
+  };
 
   return (
     <div className="flex justify-between mt-6 gap-2 text-[12px]">
@@ -40,4 +71,4 @@ function ButtonGroup({}: ButtonGroupProps) {
   );
 }
 
-export default ButtonGroup
+export default ButtonGroup;

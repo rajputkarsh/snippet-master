@@ -5,6 +5,7 @@ import {
   TAG_NAME_PLACEHOLDER_TEXT,
 } from "@/constants/tags";
 import { isDarkMode } from "@/lib/utils";
+import { ErrorOutlineOutlined } from "@mui/icons-material";
 
 interface TagInputProps {
   tagName: string;
@@ -13,7 +14,12 @@ interface TagInputProps {
   handleErrorMessageChange: (error: string) => void;
 }
 
-function TagInput({ tagName, handleInputChange }: TagInputProps) {
+function TagInput({
+  tagName,
+  errorMessage,
+  handleInputChange,
+  handleErrorMessageChange,
+}: TagInputProps) {
   const {
     darkModeObject: { darkMode },
   } = useGlobalContext();
@@ -26,7 +32,7 @@ function TagInput({ tagName, handleInputChange }: TagInputProps) {
     if (inputRef.current) {
       inputRef.current.focus();
     }
-  }, []);
+  }, [errorMessage]);
 
   return (
     <div className="mt-6">
@@ -42,6 +48,14 @@ function TagInput({ tagName, handleInputChange }: TagInputProps) {
           isDarkModeEnabled ? "bg-slate-700" : "bg-white border text-slate-600"
         } w-full rounded-md p-2 mt-1 text-[12px] outline-none`}
       />
+      {
+        errorMessage && (
+          <div className="text-red-500 flex mt-2 gap-1 items-center">
+            <ErrorOutlineOutlined  className="text-[13px]" />
+            <span className="text-red-500 text-[11px]">{errorMessage}</span>
+          </div>
+        )
+      }
     </div>
   );
 }

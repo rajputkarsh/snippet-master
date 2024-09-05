@@ -8,7 +8,7 @@ import ButtonGroup from "./ButtonGroup";
 function AddTag() {
   const {
     darkModeObject: { darkMode },
-    openNewTagsWindowObject: { setOpenNewTagsWindow },
+    openNewTagsWindowObject: { openNewTagsWindow, setOpenNewTagsWindow },
   } = useGlobalContext();
 
   const isDarkModeEnabled = isDarkMode(darkMode);
@@ -16,12 +16,13 @@ function AddTag() {
   const [tagName, setTagName] = useState<string>("");
   const [errorMessage, setErrorMessage] = useState<string>("");
 
-  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setTagName(() => e.target.value);
-  };
-
   const handleErrorMessageChange = (newError: string) => {
     setErrorMessage(() => newError);
+  };
+
+  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+    handleErrorMessageChange("");
+    setTagName(() => e.target.value);
   };
 
   const handleClickOutside = (event: MouseEvent) => {
@@ -40,6 +41,11 @@ function AddTag() {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
+
+  useEffect(() => {
+    handleErrorMessageChange("");
+    setTagName("");
+  }, [openNewTagsWindow]);
 
   return (
     <div
