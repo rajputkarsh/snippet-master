@@ -13,9 +13,14 @@ interface SingleTagProps {
 function SingleTag({ tag }: SingleTagProps) {
   const {
     allNotesObject: { allNotes },
+    allTagsObject: { setAllTags },
   } = useGlobalContext();
 
   const tagCount = allNotes.filter((note) => note.tags.some((noteTag) => noteTag.id === tag.id)).length;
+
+  const handleTagDelete = () => {
+    setAllTags((prev) => prev.filter((prevTag) => prevTag.id !== tag.id));
+  }
 
   return (
     <div className="bg-white p-2 rounded-lg flex gap-3 items-center justify-between px-4">
@@ -35,7 +40,7 @@ function SingleTag({ tag }: SingleTagProps) {
           <EditRounded className="text-slate-400" sx={{ fontSize: 15 }} />
         </div>
         <div className="rounded-full w-7 h-7 flex items-center justify-center cursor-pointer bg-slate-200 hover:bg-slate-300">
-          <DeleteRounded className="text-slate-400" sx={{ fontSize: 15 }} />
+          <DeleteRounded onClick={handleTagDelete} className="text-slate-400" sx={{ fontSize: 15 }} />
         </div>
       </div>
     </div>
