@@ -90,4 +90,8 @@ export interface GlobalContextType {
     isNewNote: boolean;
     setIsNewNote: Dispatch<SetStateAction<boolean>>;
   };
+  tagEditModeObject: {
+    isTagEditMode: boolean;
+    setIsTagEditMode: Dispatch<SetStateAction<boolean>>;
+  };
 }

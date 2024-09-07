@@ -77,6 +77,10 @@ const ContextProvider = createContext<GlobalContextType>({
     isNewNote: false,
     setIsNewNote: () => {},
   },
+  tagEditModeObject: {
+    isTagEditMode: false,
+    setIsTagEditMode: () => {},
+  },
 });
 
 export default function GlobalContextProvider({
@@ -148,6 +152,7 @@ export default function GlobalContextProvider({
   const [isNewNote, setIsNewNote] = useState<boolean>(false);
   const [allTags, setAllTags] = useState<Array<SingleTagType>>([]);
   const [selectedTags, setSelectedTags] = useState<Array<SingleTagType>>([]);
+  const [isTagEditMode, setIsTagEditMode] = useState<boolean>(false);
 
   const handleResize = () => {
     setIsMobile((_) => window.innerWidth <= 640);
@@ -305,6 +310,7 @@ export default function GlobalContextProvider({
         selectedNoteObject: { selectedNote, setSelectedNote },
         selectedTagsObject: { selectedTags, setSelectedTags },
         isNewNoteObject: { isNewNote, setIsNewNote },
+        tagEditModeObject: { isTagEditMode, setIsTagEditMode },
       }}
     >
       {children}
