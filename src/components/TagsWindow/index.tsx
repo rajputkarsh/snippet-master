@@ -3,6 +3,7 @@ import { useGlobalContext } from "@/context";
 import Header from "./Header";
 import Searchbar from "./Searchbar";
 import TagsList from "./TagsList";
+import { isDarkMode } from "@/lib/utils";
 
 function TagsWindow() {
   const {
@@ -12,7 +13,10 @@ function TagsWindow() {
     },
     openSidebarObject: { setOpenSidebar },
     isMobileObject: { isMobile },
+    darkModeObject: { darkMode },
   } = useGlobalContext();
+
+  const isDarkModeEnabled = isDarkMode(darkMode);
 
   const tagsWindowRef = useRef<HTMLDivElement | null>(null);
 
@@ -55,9 +59,9 @@ function TagsWindow() {
         marginRight: "auto",
         top: "10%",
       }}
-      className={`fixed border m-20 z-20 p-4 bg-white shadow-md rounded-md ${
+      className={`fixed m-20 z-20 p-4 rounded-md ${
         isMobile ? "w-5/6" : "w-1/2"
-      }`}
+      } ${isDarkModeEnabled ? "bg-slate-800" : "bg-white shadow-md border"}`}
     >
       <Header />
       <Searchbar tagSearch={tagSearch} setTagSearch={setTagSearch} />

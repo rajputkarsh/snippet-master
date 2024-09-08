@@ -1,4 +1,5 @@
 import { useGlobalContext } from "@/context";
+import { isDarkMode } from "@/lib/utils";
 import { Close, StyleOutlined } from "@mui/icons-material";
 
 function Header() {
@@ -8,7 +9,10 @@ function Header() {
       setSecondarySidebarMenu,
     },
     openSidebarObject: { setOpenSidebar },
+    darkModeObject: { darkMode },
   } = useGlobalContext();
+
+  const isDarkModeEnabled = isDarkMode(darkMode);
 
   const handleClose = () => {
     const updatedMenu = secondarySidebarMenu.map((item) => {
@@ -21,7 +25,7 @@ function Header() {
 
   return (
     <div className="flex justify-between items-center">
-      <div className="flex items-center gap-2">
+      <div className={`flex items-center gap-2 ${isDarkModeEnabled ? "text-white" : "text-black"}`}>
         <StyleOutlined />
         <span className="text-md font-bold">Tags</span>
       </div>

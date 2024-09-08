@@ -5,6 +5,7 @@ import {
   TAGS_SEARCH_INPUT_PLACEHOLDER,
 } from "@/constants/tags";
 import { ChangeEvent, Dispatch, SetStateAction } from "react";
+import { isDarkMode } from "@/lib/utils";
 
 interface SearchbarProps {
   tagSearch: string;
@@ -14,7 +15,10 @@ interface SearchbarProps {
 function Searchbar({ tagSearch, setTagSearch }: SearchbarProps) {
   const {
     openNewTagsWindowObject: { setOpenNewTagsWindow },
+    darkModeObject: { darkMode }
   } = useGlobalContext();
+
+  const isDarkModeEnabled = isDarkMode(darkMode);
 
   const openAddTagsWindow = () => {
     setOpenNewTagsWindow(() => true);
@@ -26,13 +30,17 @@ function Searchbar({ tagSearch, setTagSearch }: SearchbarProps) {
 
   return (
     <div className="flex gap-5 items-center justify-between mt-11">
-      <div className="flex items-center h-[42px] text-sm rounded-md bg-slate-50 pl-3 gap-1 w-[85%]">
+      <div
+        className={`flex items-center h-[42px] text-sm rounded-md pl-3 gap-1 w-[85%] ${
+          isDarkModeEnabled ? "bg-slate-700" : "bg-slate-50"
+        }`}
+      >
         <SearchRounded className="text-slate-400" />
         <input
           placeholder={TAGS_SEARCH_INPUT_PLACEHOLDER}
           value={tagSearch}
           onChange={handleInputChange}
-          className="bg-transparent ouline-none w-full font-light focus:outline-none"
+          className={`bg-transparent ouline-none w-full font-light focus:outline-none ${isDarkModeEnabled ? "caret-white text-white" : ""}`}
         />
       </div>
       <button
