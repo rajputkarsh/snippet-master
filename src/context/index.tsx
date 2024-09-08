@@ -146,7 +146,7 @@ export default function GlobalContextProvider({
   const [openSidebar, setOpenSidebar] = useState<boolean>(false);
   const [openNoteContent, setOpenNoteContent] = useState<boolean>(false);
   const [isMobile, setIsMobile] = useState<boolean>(false);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   const [allNotes, setAllNotes] = useState<Array<SingleNoteType>>([]);
   const [selectedNote, setSelectedNote] = useState<SingleNoteType | null>(null);
   const [isNewNote, setIsNewNote] = useState<boolean>(false);
