@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useGlobalContext } from "@/context";
 import Note from "./Note";
-import { SingleNoteType } from "@/interfaces/context";
+import { SingleNoteType, SingleTagType } from "@/interfaces/context";
 import { getSelectedSidebarItem } from "@/lib/utils";
 import { AVAILABLE_LANGUAGES } from "@/constants/languages";
 
@@ -12,11 +12,16 @@ export default function AllNotes() {
     isMobileObject: { isMobile },
     allNotesObject: { allNotes },
     selectedNoteObject: { setSelectedNote },
+    selectedTagsObject: { selectedTags },
     openNoteContentObject: { setOpenNoteContent },
     isNewNoteObject: { setIsNewNote },
   } = useGlobalContext();
 
   const [notes, setNotes] = useState<Array<SingleNoteType>>(allNotes);
+
+  const isTagSelected = (tag: SingleTagType): boolean => {
+    return selectedTags.some((selectedTag) => selectedTag.id === tag.id);
+  };
 
   const selectedSidebarItem = getSelectedSidebarItem(sidebarMenu)
     .trim()
@@ -45,13 +50,21 @@ export default function AllNotes() {
       );
     }
 
+    if (selectedTags.length) {
+      filteredNotes = filteredNotes.filter((filteredNote) =>
+        filteredNote.tags.some((filteredNoteTag) =>
+          isTagSelected(filteredNoteTag)
+        )
+      );
+    }
+
     filteredNotes = filteredNotes.sort(
       (note1, note2) =>
         new Date(note2.createdOn).getTime() -
         new Date(note1.createdOn).getTime()
     );
     setNotes(() => filteredNotes);
-  }, [allNotes, selectedSidebarItem]);
+  }, [allNotes, selectedSidebarItem, selectedTags]);
 
   const openNewNoteContent = () => {
     const newSingleNote: SingleNoteType = {
