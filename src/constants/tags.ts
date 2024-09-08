@@ -13,3 +13,4 @@ export const EDIT_TAG_BUTTON_TAG = "Edit Tag";
 
 export const TAG_ADDED_SUCCESS_MESSAGE = "Tag has been added successfully";
 export const TAG_UPDATED_SUCCESS_MESSAGE = "Tag has been updated successfully";
+export const TAG_DELETED_SUCCESS_MESSAGE = "Tag has been deleted successfully";

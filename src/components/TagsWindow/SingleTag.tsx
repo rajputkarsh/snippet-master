@@ -6,6 +6,8 @@ import {
 import { useGlobalContext } from "@/context";
 import { SingleTagType } from "@/interfaces/context";
 import { isDarkMode } from "@/lib/utils";
+import toast from "react-hot-toast";
+import { TAG_DELETED_SUCCESS_MESSAGE } from "@/constants/tags";
 
 interface SingleTagProps {
   tag: SingleTagType;
@@ -28,6 +30,7 @@ function SingleTag({ tag }: SingleTagProps) {
 
   const handleTagDelete = () => {
     setAllTags((prev) => prev.filter((prevTag) => prevTag.id !== tag.id));
+    toast.success(TAG_DELETED_SUCCESS_MESSAGE);
   };
 
   const handleTagEdit = () => {
@@ -45,7 +48,13 @@ function SingleTag({ tag }: SingleTagProps) {
         <DragIndicatorOutlined className="text-slate-400 cursor-pointer" />
         <div className="w-2 h-2 bg-theme rounded-full"></div>
         <div className="flex flex-col">
-          <span className={`font-bold ${isDarkModeEnabled ? "text-white" : "text-black"}`}>{tag.name}</span>
+          <span
+            className={`font-bold ${
+              isDarkModeEnabled ? "text-white" : "text-black"
+            }`}
+          >
+            {tag.name}
+          </span>
           <span className="text-slate-400 text-[12px]">
             {tagCount} Snippet{tagCount !== 1 ? "s" : ""}
           </span>
@@ -53,14 +62,26 @@ function SingleTag({ tag }: SingleTagProps) {
       </div>
 
       <div className="flex gap-2 items-center">
-        <div className={`rounded-full w-7 h-7 flex items-center justify-center cursor-pointer ${isDarkModeEnabled ? "bg-slate-700 hover:bg-slate-500" : "bg-slate-200 hover:bg-slate-300"}`}>
+        <div
+          className={`rounded-full w-7 h-7 flex items-center justify-center cursor-pointer ${
+            isDarkModeEnabled
+              ? "bg-slate-700 hover:bg-slate-500"
+              : "bg-slate-200 hover:bg-slate-300"
+          }`}
+        >
           <EditRounded
             onClick={handleTagEdit}
             className="text-slate-400"
             sx={{ fontSize: 15 }}
           />
         </div>
-        <div className={`rounded-full w-7 h-7 flex items-center justify-center cursor-pointer ${isDarkModeEnabled ? "bg-slate-700 hover:bg-slate-500" : "bg-slate-200 hover:bg-slate-300"}`}>
+        <div
+          className={`rounded-full w-7 h-7 flex items-center justify-center cursor-pointer ${
+            isDarkModeEnabled
+              ? "bg-slate-700 hover:bg-slate-500"
+              : "bg-slate-200 hover:bg-slate-300"
+          }`}
+        >
           <DeleteRounded
             onClick={handleTagDelete}
             className="text-slate-400"
