@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useGlobalContext } from "@/context";
 import Header from "./Header";
 import Searchbar from "./Searchbar";
@@ -15,6 +15,8 @@ function TagsWindow() {
   } = useGlobalContext();
 
   const tagsWindowRef = useRef<HTMLDivElement | null>(null);
+
+  const [tagSearch, setTagSearch] = useState<string>("");
 
   const isAddTagDialogOpened = (): boolean => {
     return !!document.getElementById("tagDialog");
@@ -58,8 +60,8 @@ function TagsWindow() {
       }`}
     >
       <Header />
-      <Searchbar />
-      <TagsList />
+      <Searchbar tagSearch={tagSearch} setTagSearch={setTagSearch} />
+      <TagsList tagSearch={tagSearch} />
     </div>
   );
 }

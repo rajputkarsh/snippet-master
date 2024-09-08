@@ -1,15 +1,28 @@
 import { useGlobalContext } from "@/context";
-import { AddOutlined, SearchRounded } from "@mui/icons-material"
-import { TAGS_SEARCH_BUTTON_TEXT, TAGS_SEARCH_INPUT_PLACEHOLDER } from "@/constants/tags"
+import { AddOutlined, SearchRounded } from "@mui/icons-material";
+import {
+  TAGS_SEARCH_BUTTON_TEXT,
+  TAGS_SEARCH_INPUT_PLACEHOLDER,
+} from "@/constants/tags";
+import { ChangeEvent, Dispatch, SetStateAction } from "react";
 
-function Searchbar() {
+interface SearchbarProps {
+  tagSearch: string;
+  setTagSearch: Dispatch<SetStateAction<string>>;
+}
+
+function Searchbar({ tagSearch, setTagSearch }: SearchbarProps) {
   const {
     openNewTagsWindowObject: { setOpenNewTagsWindow },
   } = useGlobalContext();
 
-    const openAddTagsWindow = () => {
-      setOpenNewTagsWindow(() => true);
-    };
+  const openAddTagsWindow = () => {
+    setOpenNewTagsWindow(() => true);
+  };
+
+  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setTagSearch(() => e.target.value);
+  }; 
 
   return (
     <div className="flex gap-5 items-center justify-between mt-11">
@@ -17,7 +30,9 @@ function Searchbar() {
         <SearchRounded className="text-slate-400" />
         <input
           placeholder={TAGS_SEARCH_INPUT_PLACEHOLDER}
-          className="bg-transparent ouline-none w-full font-light"
+          value={tagSearch}
+          onChange={handleInputChange}
+          className="bg-transparent ouline-none w-full font-light focus:outline-none"
         />
       </div>
       <button
@@ -31,4 +46,4 @@ function Searchbar() {
   );
 }
 
-export default Searchbar
+export default Searchbar;
