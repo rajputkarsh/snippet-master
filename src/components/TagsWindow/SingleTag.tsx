@@ -14,13 +14,22 @@ function SingleTag({ tag }: SingleTagProps) {
   const {
     allNotesObject: { allNotes },
     allTagsObject: { setAllTags },
+    tagEditModeObject: { setIsTagEditMode },
+    openNewTagsWindowObject: { setOpenNewTagsWindow },
   } = useGlobalContext();
 
-  const tagCount = allNotes.filter((note) => note.tags.some((noteTag) => noteTag.id === tag.id)).length;
+  const tagCount = allNotes.filter((note) =>
+    note.tags.some((noteTag) => noteTag.id === tag.id)
+  ).length;
 
   const handleTagDelete = () => {
     setAllTags((prev) => prev.filter((prevTag) => prevTag.id !== tag.id));
-  }
+  };
+
+  const handleTagEdit = () => {
+    setIsTagEditMode(() => tag.id);
+    setOpenNewTagsWindow(() => true);
+  };
 
   return (
     <div className="bg-white p-2 rounded-lg flex gap-3 items-center justify-between px-4">
@@ -37,10 +46,18 @@ function SingleTag({ tag }: SingleTagProps) {
 
       <div className="flex gap-2 items-center">
         <div className="rounded-full w-7 h-7 flex items-center justify-center cursor-pointer bg-slate-200 hover:bg-slate-300">
-          <EditRounded className="text-slate-400" sx={{ fontSize: 15 }} />
+          <EditRounded
+            onClick={handleTagEdit}
+            className="text-slate-400"
+            sx={{ fontSize: 15 }}
+          />
         </div>
         <div className="rounded-full w-7 h-7 flex items-center justify-center cursor-pointer bg-slate-200 hover:bg-slate-300">
-          <DeleteRounded onClick={handleTagDelete} className="text-slate-400" sx={{ fontSize: 15 }} />
+          <DeleteRounded
+            onClick={handleTagDelete}
+            className="text-slate-400"
+            sx={{ fontSize: 15 }}
+          />
         </div>
       </div>
     </div>
