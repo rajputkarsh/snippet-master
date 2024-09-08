@@ -45,7 +45,7 @@ function TagInput({
         onChange={handleInputChange}
         placeholder={TAG_NAME_PLACEHOLDER_TEXT}
         className={`${
-          isDarkModeEnabled ? "bg-slate-700" : "bg-white border text-slate-600"
+          isDarkModeEnabled ? "bg-slate-800" : "bg-white border text-slate-600"
         } w-full rounded-md p-2 mt-1 text-[12px] outline-none`}
       />
       {
