@@ -13,30 +13,35 @@ function TagsWindow() {
     openSidebarObject: { setOpenSidebar },
     isMobileObject: { isMobile },
   } = useGlobalContext();
-  
+
   const tagsWindowRef = useRef<HTMLDivElement | null>(null);
 
-    const handleClickOutside = (event: MouseEvent) => {
-      if (
-        tagsWindowRef.current &&
-        !tagsWindowRef.current.contains(event.target as Node)
-      ) {
-    const updatedMenu = secondarySidebarMenu.map((item) => {
-      return { ...item, isSelected: false };
-    });
+  const isAddTagDialogOpened = (): boolean => {
+    return !!document.getElementById("tagDialog");
+  };
 
-    setSecondarySidebarMenu(() => updatedMenu);
-    setOpenSidebar(() => false);
-      }
+  const handleClickOutside = (event: MouseEvent) => {
+    if (
+      tagsWindowRef.current &&
+      !tagsWindowRef.current.contains(event.target as Node) &&
+      !isAddTagDialogOpened()
+    ) {
+      const updatedMenu = secondarySidebarMenu.map((item) => {
+        return { ...item, isSelected: false };
+      });
+
+      setSecondarySidebarMenu(() => updatedMenu);
+      setOpenSidebar(() => false);
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
     };
-
-    useEffect(() => {
-      document.addEventListener("mousedown", handleClickOutside);
-
-      return () => {
-        document.removeEventListener("mousedown", handleClickOutside);
-      };
-    }, []);
+  }, []);
 
   return (
     <div
@@ -48,7 +53,9 @@ function TagsWindow() {
         marginRight: "auto",
         top: "10%",
       }}
-      className={`fixed border m-20 z-20 p-4 bg-white shadow-md rounded-md ${isMobile ? "w-5/6" : "w-1/2"}`}
+      className={`fixed border m-20 z-20 p-4 bg-white shadow-md rounded-md ${
+        isMobile ? "w-5/6" : "w-1/2"
+      }`}
     >
       <Header />
       <Searchbar />
