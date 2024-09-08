@@ -14,7 +14,7 @@ function SingleTag({ tag }: SingleTagProps) {
   const {
     allNotesObject: { allNotes },
     allTagsObject: { setAllTags },
-    tagEditModeObject: { setIsTagEditMode },
+    tagEditModeObject: { setTagEditMode },
     openNewTagsWindowObject: { setOpenNewTagsWindow },
   } = useGlobalContext();
 
@@ -27,7 +27,7 @@ function SingleTag({ tag }: SingleTagProps) {
   };
 
   const handleTagEdit = () => {
-    setIsTagEditMode(() => tag.id);
+    setTagEditMode(() => tag.id);
     setOpenNewTagsWindow(() => true);
   };
 

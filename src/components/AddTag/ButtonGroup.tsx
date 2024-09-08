@@ -1,11 +1,14 @@
+import toast from "react-hot-toast";
+import { useGlobalContext } from "@/context";
+import { isDarkMode } from "@/lib/utils";
 import {
+  ADD_TAG_BUTTON_TAG,
+  EDIT_TAG_BUTTON_TAG,
   EMPTY_TAG_NAME_ERROR_MESSAGE,
   TAG_ADDED_SUCCESS_MESSAGE,
   TAG_NAME_ALREADY_EXISTS_ERROR_MESSAGE,
+  TAG_UPDATED_SUCCESS_MESSAGE,
 } from "@/constants/tags";
-import { useGlobalContext } from "@/context";
-import { isDarkMode } from "@/lib/utils";
-import toast from "react-hot-toast";
 
 interface ButtonGroupProps {
   tagName: string;
@@ -17,6 +20,7 @@ function ButtonGroup({ tagName, handleErrorMessageChange }: ButtonGroupProps) {
     openNewTagsWindowObject: { setOpenNewTagsWindow },
     allTagsObject: { allTags, setAllTags },
     darkModeObject: { darkMode },
+    tagEditModeObject: { tagEditMode },
   } = useGlobalContext();
 
   const isDarkModeEnabled = isDarkMode(darkMode);
@@ -40,15 +44,32 @@ function ButtonGroup({ tagName, handleErrorMessageChange }: ButtonGroupProps) {
       return;
     }
 
-    setAllTags((prev) => [
-      ...prev,
-      {
-        id: crypto.randomUUID(),
-        name: tagName,
-      },
-    ]);
+    if (tagEditMode) {
+      setAllTags((prev) => {
+        return prev.map((prevTag) => {
+          if (prevTag.id === tagEditMode) {
+            return {
+              ...prevTag,
+              name: tagName,
+            };
+          } else {
+            return prevTag;
+          }
+        });
+      });
+    } else {
+      setAllTags((prev) => [
+        ...prev,
+        {
+          id: crypto.randomUUID(),
+          name: tagName,
+        },
+      ]);
+    }
     setOpenNewTagsWindow(false);
-    toast.success(TAG_ADDED_SUCCESS_MESSAGE);
+    toast.success(
+      tagEditMode ? TAG_UPDATED_SUCCESS_MESSAGE : TAG_ADDED_SUCCESS_MESSAGE
+    );
   };
 
   return (
@@ -65,7 +86,7 @@ function ButtonGroup({ tagName, handleErrorMessageChange }: ButtonGroupProps) {
         onClick={handleAddButton}
         className=" text-white bg-theme text-[12px] w-full px-10 p-3 rounded-md"
       >
-        Add Tag
+        {tagEditMode ? EDIT_TAG_BUTTON_TAG : ADD_TAG_BUTTON_TAG}
       </button>
     </div>
   );

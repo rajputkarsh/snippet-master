@@ -9,6 +9,8 @@ function AddTag() {
   const {
     darkModeObject: { darkMode },
     openNewTagsWindowObject: { openNewTagsWindow, setOpenNewTagsWindow },
+    tagEditModeObject: { tagEditMode },
+    allTagsObject: { allTags },
   } = useGlobalContext();
 
   const isDarkModeEnabled = isDarkMode(darkMode);
@@ -44,8 +46,19 @@ function AddTag() {
 
   useEffect(() => {
     handleErrorMessageChange("");
-    setTagName("");
-  }, [openNewTagsWindow]);
+
+    if (tagEditMode) {
+      const selectedTag = allTags.find((tag) => tag.id === tagEditMode);
+
+      if (selectedTag) {
+        setTagName(() => selectedTag.name);
+      } else {
+        setTagName("");
+      }
+    } else {
+      setTagName("");
+    }
+  }, [openNewTagsWindow, tagEditMode]);
 
   return (
     <div
