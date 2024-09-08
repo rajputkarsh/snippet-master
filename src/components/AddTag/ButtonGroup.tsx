@@ -20,13 +20,14 @@ function ButtonGroup({ tagName, handleErrorMessageChange }: ButtonGroupProps) {
     openNewTagsWindowObject: { setOpenNewTagsWindow },
     allTagsObject: { allTags, setAllTags },
     darkModeObject: { darkMode },
-    tagEditModeObject: { tagEditMode },
+    tagEditModeObject: { tagEditMode, setTagEditMode },
   } = useGlobalContext();
 
   const isDarkModeEnabled = isDarkMode(darkMode);
 
   const handleCancelButton = () => {
     setOpenNewTagsWindow(() => false);
+    setTagEditMode(() => null);
   };
 
   const handleAddButton = () => {
@@ -67,6 +68,7 @@ function ButtonGroup({ tagName, handleErrorMessageChange }: ButtonGroupProps) {
       ]);
     }
     setOpenNewTagsWindow(false);
+    setTagEditMode(() => null);
     toast.success(
       tagEditMode ? TAG_UPDATED_SUCCESS_MESSAGE : TAG_ADDED_SUCCESS_MESSAGE
     );

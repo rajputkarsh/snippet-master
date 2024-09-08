@@ -7,13 +7,14 @@ function Header() {
   const {
     openNewTagsWindowObject: { setOpenNewTagsWindow },
     darkModeObject: { darkMode },
-    tagEditModeObject: { tagEditMode },
+    tagEditModeObject: { tagEditMode, setTagEditMode },
   } = useGlobalContext();
 
   const isDarkModeEnabled = isDarkMode(darkMode);
 
   const closeDialog = () => {
     setOpenNewTagsWindow(() => false);
+    setTagEditMode(() => null);
   };
 
   return (

@@ -9,7 +9,7 @@ function AddTag() {
   const {
     darkModeObject: { darkMode },
     openNewTagsWindowObject: { openNewTagsWindow, setOpenNewTagsWindow },
-    tagEditModeObject: { tagEditMode },
+    tagEditModeObject: { tagEditMode, setTagEditMode },
     allTagsObject: { allTags },
   } = useGlobalContext();
 
@@ -33,6 +33,7 @@ function AddTag() {
       !tagsWindowRef.current.contains(event.target as Node)
     ) {
       setOpenNewTagsWindow(() => false);
+      setTagEditMode(() => null);
     }
   };
 
