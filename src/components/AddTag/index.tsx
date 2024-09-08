@@ -57,6 +57,7 @@ function AddTag() {
         marginRight: "auto",
         top: "20%",
       }}
+      id={`tagDialog`}
       className={`fixed z-20 px-4 py-2 max-sm:w-[350px] w-[500px] shadow-md ${
         isDarkModeEnabled ? "bg-slate-800 text-white" : "bg-white border"
       } rounded-md`}
