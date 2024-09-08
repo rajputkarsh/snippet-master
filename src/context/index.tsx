@@ -23,6 +23,7 @@ import {
   SingleNoteType,
   SingleTagType,
 } from "@/interfaces/context";
+import { useUser } from "@clerk/nextjs";
 
 const ContextProvider = createContext<GlobalContextType>({
   sidebarMenuObject: {
@@ -81,6 +82,10 @@ const ContextProvider = createContext<GlobalContextType>({
     tagEditMode: null,
     setTagEditMode: () => {},
   },
+  clerkUserIdObject: {
+    clerkUserId: null,
+    setClerkUserId: () => {},
+  },
 });
 
 export default function GlobalContextProvider({
@@ -88,6 +93,9 @@ export default function GlobalContextProvider({
 }: {
   children: ReactNode;
 }) {
+
+  const user = useUser();
+
   const [sidebarMenu, setSidebarMenu] = useState<Array<SidebarMenu>>([
     {
       id: 1,
@@ -153,6 +161,7 @@ export default function GlobalContextProvider({
   const [allTags, setAllTags] = useState<Array<SingleTagType>>([]);
   const [selectedTags, setSelectedTags] = useState<Array<SingleTagType>>([]);
   const [tagEditMode, setTagEditMode] = useState<string | null>(null);
+  const [clerkUserId, setClerkUserId] = useState<string | null>(null);
 
   const handleResize = () => {
     setIsMobile((_) => window.innerWidth <= 640);
@@ -270,6 +279,13 @@ export default function GlobalContextProvider({
     setAllNotes((_) => notes);
   };
 
+  
+  useEffect(() => {
+    if (user.user?.id && user.user?.id !== clerkUserId) {
+      setClerkUserId(() => user.user?.id);
+    }
+  }, [user.user?.id]);
+
   useEffect(() => {
     updateAllTags();
     updateAllNotes();
@@ -311,6 +327,7 @@ export default function GlobalContextProvider({
         selectedTagsObject: { selectedTags, setSelectedTags },
         isNewNoteObject: { isNewNote, setIsNewNote },
         tagEditModeObject: { tagEditMode, setTagEditMode },
+        clerkUserIdObject: { clerkUserId, setClerkUserId },
       }}
     >
       {children}

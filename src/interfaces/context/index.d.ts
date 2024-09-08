@@ -94,4 +94,8 @@ export interface GlobalContextType {
     tagEditMode: string | null;
     setTagEditMode: Dispatch<SetStateAction<string | null>>;
   };
+  clerkUserIdObject: {
+    clerkUserId: string | null;
+    setClerkUserId: Dispatch<SetStateAction<string | null>>;
+  };
 }

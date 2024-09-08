@@ -1,11 +1,12 @@
 "use client";
 
-import { ACCESS_THE_APP, SIGN_IN, SIGN_UP } from "@/constants/navbar";
+import { useEffect } from "react";
 import { useAuth } from "@clerk/nextjs";
 import Link from "next/link";
+import { useGlobalContext } from "@/context";
+import { ACCESS_THE_APP, SIGN_IN, SIGN_UP } from "@/constants/navbar";
 
 export default function Buttons() {
-
   const { userId } = useAuth();
 
   return (
