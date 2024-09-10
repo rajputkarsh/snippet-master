@@ -31,6 +31,6 @@ tagSchema.set("toJSON", {
   getters: true,
 });
 
-const User = model<ITag>("Tag", tagSchema);
+const TagModel = model<ITag>("Tag", tagSchema);
 
-export default User;
+export default TagModel;
