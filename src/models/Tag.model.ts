@@ -1,8 +1,7 @@
 import { model, Schema } from "mongoose";
 import ITag from "../interfaces/models/tag";
 
-
-const tagSchema: Schema = new Schema<ITag>(
+export const tagSchema: Schema = new Schema<ITag>(
   {
     id: {
       required: true,
