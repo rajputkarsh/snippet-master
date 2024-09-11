@@ -2,7 +2,7 @@ import { model, Schema } from "mongoose";
 import ISnippet from "../interfaces/models/snippet";
 import { tagSchema } from "./Tag.model";
 
-const snippetSchema: Schema = new Schema<ISnippet>(
+export const snippetSchema: Schema = new Schema<ISnippet>(
   {
     id: {
       required: true,
