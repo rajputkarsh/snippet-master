@@ -2,7 +2,7 @@ import { Webhook } from "svix";
 import { headers } from "next/headers";
 import { WebhookEvent } from "@clerk/nextjs/server";
 import IUser from "@/interfaces/models/user";
-import { createNewUser } from "@/service/user.service";
+import { createUser } from "@/service/user.service";
 import { connect } from "@/lib/database";
 
 export async function POST(req: Request) {
@@ -63,7 +63,7 @@ export async function POST(req: Request) {
     }
 
     await connect();
-    await createNewUser(userInfo);
+    await createUser(userInfo);
   }
 
   return new Response("", { status: 200 });
