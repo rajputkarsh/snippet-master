@@ -1,5 +1,5 @@
 import { INTERNAL_SERVER_ERROR, INVALID_SNIPPET_ID, INVALID_USER_ID } from "@/constants/error";
-import { SNIPPET_SAVED_SUCCESSFULLY, SNIPPETS_FETCHED_SUCCESSFULLY } from "@/constants/messages";
+import { SNIPPET_DELETED_SUCCESSFULLY, SNIPPET_SAVED_SUCCESSFULLY, SNIPPET_UPDATED_SUCCESSFULLY, SNIPPETS_FETCHED_SUCCESSFULLY } from "@/constants/messages";
 import ISnippet from "@/interfaces/models/snippet";
 import { connect } from "@/lib/database";
 import { createSnippet, findAllUserSnippet, updateSnippet } from "@/service/snippet.service";
@@ -63,6 +63,31 @@ export async function PATCH(req: NextRequest) {
     return NextResponse.json({
       message: SNIPPET_UPDATED_SUCCESSFULLY,
       data: snippet,
+    });
+  } catch (err: any) {
+    return NextResponse.json(
+      { error: err?.message || INTERNAL_SERVER_ERROR },
+      { status: 500 }
+    );
+  }
+}
+
+export async function DELETE(req: NextRequest) {
+  try {
+    const snippetId = req.nextUrl.searchParams.get("id");
+
+    if (!snippetId) {
+      return NextResponse.json({ error: INVALID_SNIPPET_ID }, { status: 400 });
+    }
+
+    await connect();
+
+    
+    const snippets = await findAllUserSnippet(snippetId);
+
+    return NextResponse.json({
+      message: SNIPPET_DELETED_SUCCESSFULLY,
+      data: {},
     });
   } catch (err: any) {
     return NextResponse.json(
