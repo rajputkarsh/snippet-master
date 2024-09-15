@@ -236,9 +236,11 @@ export default function GlobalContextProvider({
   }, [user.user?.id]);
 
   useEffect(() => {
-    updateAllTags();
-    updateAllNotes();
-  }, [clerkUserId]);
+    if (!isLoading && clerkUserId) {
+      updateAllTags();
+      updateAllNotes();
+    }
+  }, [isLoading, clerkUserId]);
 
   useEffect(() => {
     setSelectedTags(() => selectedNote?.tags || []);

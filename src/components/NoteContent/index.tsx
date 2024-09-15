@@ -6,6 +6,7 @@ import NoteContentTags from "./NoteContentTags";
 import { isDarkMode } from "@/lib/utils";
 import NoteContentDescription from "./NoteContentDescription";
 import NoteContentCodeBlock from "./NoteContentCodeBlock";
+import toast from "react-hot-toast";
 
 function NoteContent() {
   const {
@@ -15,6 +16,7 @@ function NoteContent() {
     isNewNoteObject: { isNewNote, setIsNewNote },
     allNotesObject: { allNotes, setAllNotes },
     darkModeObject: { darkMode },
+    clerkUserIdObject: { clerkUserId },
   } = useGlobalContext();
 
     const isDarkModeEnabled = isDarkMode(darkMode);
@@ -29,10 +31,35 @@ function NoteContent() {
 
   useEffect(() => {
     if(isNewNote && singleNote && !!singleNote.title ) {
+
+      // add note in DB
+      saveNoteInDB();
+
       setAllNotes((_) => [singleNote, ...allNotes]);
       setIsNewNote((_) => false);
     }
   }, [singleNote]);
+
+  const saveNoteInDB = async () => {
+    try {
+      const response = await fetch(`/api/snippets`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': "application/json"
+        }, 
+        body: JSON.stringify({ ...singleNote, clerkUserId })
+      });
+
+      if(!response.ok) {
+        toast.error("Error: Something went wrong");
+      } else {
+        const data = await response.json();
+        toast.success(data.message);
+      }
+    } catch(error: any) {
+      toast.error('Error: ', error?.message || error);
+    }
+  }
 
   return (
     <div
