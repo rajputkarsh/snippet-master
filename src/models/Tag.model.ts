@@ -1,4 +1,4 @@
-import { model, Schema } from "mongoose";
+import mongoose, { model, Schema } from "mongoose";
 import ITag from "../interfaces/models/tag";
 
 export const tagSchema: Schema = new Schema<ITag>(
@@ -31,6 +31,6 @@ tagSchema.set("toJSON", {
   getters: true,
 });
 
-const TagModel = model<ITag>("Tag", tagSchema);
+const TagModel = mongoose.models.Tag || model<ITag>("Tag", tagSchema);
 
 export default TagModel;

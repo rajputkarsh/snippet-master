@@ -1,4 +1,4 @@
-import { model, Schema } from "mongoose";
+import mongoose, { model, Schema } from "mongoose";
 import ISnippet from "../interfaces/models/snippet";
 import { tagSchema } from "./Tag.model";
 
@@ -61,6 +61,6 @@ snippetSchema.set("toJSON", {
   getters: true,
 });
 
-const SnippetModel = model<ISnippet>("Snippet", snippetSchema);
+const SnippetModel = mongoose.models.Snippet || model<ISnippet>("Snippet", snippetSchema);
 
 export default SnippetModel;

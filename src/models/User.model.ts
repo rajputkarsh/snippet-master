@@ -1,5 +1,5 @@
 
-import { model, Schema } from "mongoose";
+import mongoose, { model, Schema } from "mongoose";
 import IUser from "../interfaces/models/user";
 
 const userSchema: Schema = new Schema<IUser>(
@@ -30,6 +30,6 @@ userSchema.set("toJSON", {
   getters: true,
 });
 
-const User = model<IUser>("User", userSchema);
+const User = mongoose.models.User || model<IUser>("User", userSchema);
 
 export default User;
