@@ -207,76 +207,25 @@ export default function GlobalContextProvider({
   };
 
   const updateAllNotes = () => {
-    const notes: Array<SingleNoteType> = [
-      {
-        id: "1",
-        title: "hello world",
-        isFavorite: false,
-        tags: [],
-        description: "My first Component",
-        code: `
-            import React from 'react';
-            import './App.css';
-            
-            function App() {
-                return (
-                    <h1> Hello World! </h1>
-                );
-            }
-            
-            export default App;
-          `,
-        language: "javascript",
-        createdOn: new Date().toISOString(),
-        isDeleted: false,
-      },
-      {
-        id: "2",
-        title: "Greeting",
-        isFavorite: false,
-        tags: [],
-        description: "Greeting Component",
-        code: `
-            import React from 'react';
-            import './App.css';
-            
-            function Greeting() {
-                return (
-                    <h1> Hello There </h1>
-                );
-            }
-            
-            export default Greeting;
-          `,
-        language: "typescript",
-        createdOn: new Date().toISOString(),
-        isDeleted: false,
-      },
-      {
-        id: "3",
-        title: "Print Name",
-        isFavorite: false,
-        tags: [],
-        description: "Show User's Name",
-        code: `
-            import React from 'react';
-            import './App.css';
-            
-            function ShowName({ name }) {
-                return (
-                    <h1> Hello {name} </h1>
-                );
-            }
-            
-            export default ShowName;
-          `,
-        language: "typescript",
-        createdOn: new Date().toISOString(),
-        isDeleted: false,
-      },
-    ];
 
-    setAllNotes((_) => notes);
+    const fetchNotes = async () => {
+
+      const notesResponse = await fetch(`/api/snippets?userId=${clerkUserId}`);
+
+      if(!notesResponse.ok) {
+        throw new Error("Failed to fetch user's snippets");
+      }
+
+      const notesData = await notesResponse.json();
+
+      if(notesData?.data) {
+        setAllNotes((_) => notesData.data as Array<SingleNoteType>);
+      }
+    } 
+
+    if (clerkUserId) {
+      fetchNotes();
+    }
   };
 
   
@@ -289,7 +238,7 @@ export default function GlobalContextProvider({
   useEffect(() => {
     updateAllTags();
     updateAllNotes();
-  }, []);
+  }, [clerkUserId]);
 
   useEffect(() => {
     setSelectedTags(() => selectedNote?.tags || []);
