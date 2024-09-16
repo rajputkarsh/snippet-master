@@ -1,8 +1,10 @@
+import { useClerk } from "@clerk/nextjs";
 import { QUICK_LINKS_TITLE } from "@/constants/sidebar";
 import { useGlobalContext } from "@/context";
 import { isDarkMode } from "@/lib/utils";
 
 function SidebarLinks() {
+  const { signOut } = useClerk();
   const {
     sidebarMenuObject: { sidebarMenu, setSidebarMenu },
     secondarySidebarMenuObject: {
@@ -13,11 +15,10 @@ function SidebarLinks() {
     darkModeObject: { darkMode },
   } = useGlobalContext();
 
-    const isDarkModeEnabled = isDarkMode(darkMode);
+  const isDarkModeEnabled = isDarkMode(darkMode);
 
-  const handleClick = (type: 'primary' | 'secondary', id: number) => {
-
-    if(type === 'primary') {
+  const handleClick = (type: "primary" | "secondary", id: number) => {
+    if (type === "primary") {
       const updatedMenu = sidebarMenu.map((item) => {
         if (item.id === id) {
           return { ...item, isSelected: true };
@@ -30,6 +31,9 @@ function SidebarLinks() {
     } else if (type === "secondary") {
       const updatedMenu = secondarySidebarMenu.map((item) => {
         if (item.id === id) {
+          if (item.name.trim().toLowerCase() === "logout") {
+            handleLogout();
+          }
           return { ...item, isSelected: true };
         } else {
           return { ...item, isSelected: false };
@@ -41,6 +45,10 @@ function SidebarLinks() {
     setOpenSidebar(() => false);
   };
 
+  const handleLogout = () => {
+    signOut({redirectUrl: '/'});
+  };
+
   return (
     <div className="flex flex-col gap-12">
       <ul className="text-slate-400 mt-4 flex flex-col gap-2">
@@ -48,7 +56,7 @@ function SidebarLinks() {
           <li
             key={item.id}
             onClick={() => {
-              handleClick('primary', item.id);
+              handleClick("primary", item.id);
             }}
             className={`flex cursor-pointer select-none gap-2 items-center p-[7px] px-2 rounded-md w-[80%] border border-sm border-none ${
               item.isSelected
@@ -70,7 +78,7 @@ function SidebarLinks() {
           <li
             key={item.id}
             onClick={() => {
-              handleClick('secondary', item.id);
+              handleClick("secondary", item.id);
             }}
             className={`flex cursor-pointer select-none gap-2 items-center p-[7px] px-2 rounded-md w-[80%] border border-sm border-none ${
               item.isSelected
@@ -95,8 +103,7 @@ export default function QuickLinks() {
   return (
     <div className="mt-20 text-sm">
       <div className="font-bold text-slate-400">{QUICK_LINKS_TITLE}</div>
-        <SidebarLinks />
+      <SidebarLinks />
     </div>
   );
-};
-
+}
