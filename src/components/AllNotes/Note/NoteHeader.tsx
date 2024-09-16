@@ -3,6 +3,7 @@ import { useGlobalContext } from "@/context";
 import { SingleNoteType } from "@/interfaces/context";
 import { getSelectedSidebarItem, truncateString } from "@/lib/utils";
 import { Favorite } from "@mui/icons-material";
+import toast from "react-hot-toast";
 
 interface NoteHeaderProps {
   id: string;
@@ -16,6 +17,7 @@ function NoteHeader({ id, title, isFavorite }: NoteHeaderProps) {
     allNotesObject: { allNotes, setAllNotes },
     selectedNoteObject: { setSelectedNote },
     sidebarMenuObject: { sidebarMenu },
+    clerkUserIdObject: { clerkUserId },
   } = useGlobalContext();
 
   const isTrashItem = getSelectedSidebarItem(sidebarMenu).trim().toLowerCase() === "trash";
@@ -38,8 +40,32 @@ function NoteHeader({ id, title, isFavorite }: NoteHeaderProps) {
       }
       return note;
     });
+    updateNoteInDB();
     setAllNotes((_) => newAllNotes);
   };
+
+    const updateNoteInDB = async () => {
+      try {
+        const currentNote = allNotes.find((note) => note.id === id);
+        const response = await fetch(`/api/snippets?id=${currentNote?.id}`, {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            ...currentNote,
+            clerkUserId,
+            isFavorite: !currentNote?.isFavorite,
+          }),
+        });
+
+        if (!response.ok) {
+          toast.error("Error: Something went wrong");
+        }
+      } catch (error: any) {
+        toast.error("Error: ", error?.message || error);
+      }
+    };
 
   return (
     <div className="flex justify-between mx-4">
