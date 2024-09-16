@@ -18,6 +18,7 @@ function NoteFooter({ id, language }: NoteFooterProps) {
   const {
     allNotesObject: { allNotes, setAllNotes },
     sidebarMenuObject: { sidebarMenu },
+    clerkUserIdObject: { clerkUserId },
   } = useGlobalContext();
   
   const [showDeletionConfirmationPopup, setShowDeletionConfirmationPopup] = useState<boolean>(false);
@@ -40,6 +41,7 @@ function NoteFooter({ id, language }: NoteFooterProps) {
       }
       return note;
     });
+    deleteNoteInDB(shouldDelete);
     setAllNotes((_) => newAllNotes);
 
     if (shouldDelete) {
@@ -61,6 +63,29 @@ function NoteFooter({ id, language }: NoteFooterProps) {
     }
   };
 
+      const deleteNoteInDB = async (shouldDelete: boolean) => {
+        try {
+          const currentNote = allNotes.find((note) => note.id === id);
+          const response = await fetch(`/api/snippets?id=${currentNote?.id}`, {
+            method: "PATCH",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              ...currentNote,
+              clerkUserId,
+              isDeleted: shouldDelete,
+            }),
+          });
+
+          if (!response.ok) {
+            toast.error("Error: Something went wrong");
+          }
+        } catch (error: any) {
+          toast.error("Error: ", error?.message || error);
+        }
+      };
+
   return (
     <div className="flex justify-between text-[13px] text-slate-400 mx-4 mt-3">
       <div className="flex gap-1 items-center">
@@ -68,26 +93,32 @@ function NoteFooter({ id, language }: NoteFooterProps) {
         <span className="capitalize">{currentLanguage.name}</span>
       </div>
       <div className="flex gap-2 items-center">
-        {isTrashItem && (
+        {isTrashItem ? (
           <RestoreFromTrashOutlined
             onClick={() => {
               handleNoteDelete(false);
             }}
+            sx={{ fontSize: 18 }}
+            className="cursor-pointer text-theme"
+          />
+        ) : (
+          <DeleteRounded
+            onClick={() => {
+              if (isTrashItem) return;
+
+              setShowDeletionConfirmationPopup(true);
+            }}
             sx={{ fontSize: 17 }}
-            className="cursor-pointer"
+            className={`${isTrashItem ? "text-theme" : ""} cursor-pointer`}
           />
         )}
-        <DeleteRounded
-          onClick={() => {
-            if (isTrashItem) return;
-            
-            setShowDeletionConfirmationPopup(true);
-          }}
-          sx={{ fontSize: 17 }}
-          className={`${isTrashItem ? "text-theme" : ""} cursor-pointer`}
-        />
       </div>
-      {showDeletionConfirmationPopup && <DeletionConfirmationPopup handleAction={() => handleNoteDelete(true)} handleClose={() => setShowDeletionConfirmationPopup(false)}  /> }
+      {showDeletionConfirmationPopup && (
+        <DeletionConfirmationPopup
+          handleAction={() => handleNoteDelete(true)}
+          handleClose={() => setShowDeletionConfirmationPopup(false)}
+        />
+      )}
     </div>
   );
 }
