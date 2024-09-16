@@ -37,29 +37,49 @@ function NoteContent() {
 
       setAllNotes((_) => [singleNote, ...allNotes]);
       setIsNewNote((_) => false);
+    } else if (!isNewNote && singleNote && !!singleNote.title) {
+      updateNoteInDB();
     }
   }, [singleNote]);
 
   const saveNoteInDB = async () => {
     try {
       const response = await fetch(`/api/snippets`, {
-        method: 'POST',
+        method: "POST",
         headers: {
-          'Content-Type': "application/json"
-        }, 
-        body: JSON.stringify({ ...singleNote, clerkUserId })
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ ...singleNote, clerkUserId }),
       });
 
-      if(!response.ok) {
+      if (!response.ok) {
         toast.error("Error: Something went wrong");
       } else {
         const data = await response.json();
         toast.success(data.message);
       }
-    } catch(error: any) {
-      toast.error('Error: ', error?.message || error);
+    } catch (error: any) {
+      toast.error("Error: ", error?.message || error);
     }
-  }
+  };
+
+  const updateNoteInDB = async () => {
+    try {
+      const response = await fetch(`/api/snippets?id=${singleNote?.id}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ ...singleNote, clerkUserId }),
+      });
+
+      if (!response.ok) {
+        toast.error("Error: Something went wrong");
+      }
+    } catch (error: any) {
+      toast.error("Error: ", error?.message || error);
+    }
+  };
 
   return (
     <div
