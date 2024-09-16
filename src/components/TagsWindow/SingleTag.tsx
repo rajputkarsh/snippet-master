@@ -30,13 +30,35 @@ function SingleTag({ tag }: SingleTagProps) {
 
   const handleTagDelete = () => {
     setAllTags((prev) => prev.filter((prevTag) => prevTag.id !== tag.id));
-    toast.success(TAG_DELETED_SUCCESS_MESSAGE);
+    deleteTagInDB();
   };
 
   const handleTagEdit = () => {
     setTagEditMode(() => tag.id);
     setOpenNewTagsWindow(() => true);
   };
+
+  const deleteTagInDB = async () => {
+
+    try {
+      const response = await fetch(`/api/tags?id=${tag.id}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({}),
+      });
+
+      if (!response.ok) {
+        toast.error("Error: Something went wrong");
+      } else {
+        const data = await response.json();
+        toast.success(data.message);
+      }
+    } catch (error: any) {
+      toast.error("Error: ", error?.message || error);
+    }
+  }
 
   return (
     <div
