@@ -1,5 +1,5 @@
-import { INTERNAL_SERVER_ERROR, INVALID_SNIPPET_ID, INVALID_USER_ID } from "@/constants/error";
-import { SNIPPET_DELETED_SUCCESSFULLY, SNIPPET_SAVED_SUCCESSFULLY, SNIPPET_UPDATED_SUCCESSFULLY, SNIPPETS_FETCHED_SUCCESSFULLY } from "@/constants/messages";
+import { INTERNAL_SERVER_ERROR, INVALID_TAG_ID, INVALID_USER_ID } from "@/constants/error";
+import { TAG_DELETED_SUCCESSFULLY, TAG_SAVED_SUCCESSFULLY, TAG_UPDATED_SUCCESSFULLY, TAGS_FETCHED_SUCCESSFULLY } from "@/constants/messages";
 import ITag from "@/interfaces/models/tag";
 import { connect } from "@/lib/database";
 import { createTag, findAllUserTag, updateTag } from "@/service/tag.service";
@@ -13,7 +13,7 @@ export async function POST(req: Request) {
     const tag = await createTag(tagInfo);
 
     return NextResponse.json({
-      message: SNIPPET_SAVED_SUCCESSFULLY,
+      message: TAG_SAVED_SUCCESSFULLY,
       data: tag,
     });
 
@@ -37,7 +37,7 @@ export async function GET(req: NextRequest) {
     const tags = await findAllUserTag(clerkUserId);
 
     return NextResponse.json({
-      message: SNIPPETS_FETCHED_SUCCESSFULLY,
+      message: TAGS_FETCHED_SUCCESSFULLY,
       data: tags,
     });
   } catch (err: any) {
@@ -54,14 +54,14 @@ export async function PATCH(req: NextRequest) {
     const tagInfo = (await req.json()) as ITag;
 
     if (!tagId) {
-      return NextResponse.json({ error: INVALID_SNIPPET_ID }, { status: 400 });
+      return NextResponse.json({ error: INVALID_TAG_ID }, { status: 400 });
     }
 
     await connect();
     const tag = await updateTag(tagId, tagInfo);
 
     return NextResponse.json({
-      message: SNIPPET_UPDATED_SUCCESSFULLY,
+      message: TAG_UPDATED_SUCCESSFULLY,
       data: tag,
     });
   } catch (err: any) {
@@ -77,7 +77,7 @@ export async function DELETE(req: NextRequest) {
     const tagId = req.nextUrl.searchParams.get("id");
 
     if (!tagId) {
-      return NextResponse.json({ error: INVALID_SNIPPET_ID }, { status: 400 });
+      return NextResponse.json({ error: INVALID_TAG_ID }, { status: 400 });
     }
 
     await connect();
@@ -86,7 +86,7 @@ export async function DELETE(req: NextRequest) {
     const tags = await findAllUserTag(tagId);
 
     return NextResponse.json({
-      message: SNIPPET_DELETED_SUCCESSFULLY,
+      message: TAG_DELETED_SUCCESSFULLY,
       data: {},
     });
   } catch (err: any) {
