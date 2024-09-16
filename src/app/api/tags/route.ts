@@ -2,7 +2,7 @@ import { INTERNAL_SERVER_ERROR, INVALID_TAG_ID, INVALID_USER_ID } from "@/consta
 import { TAG_DELETED_SUCCESSFULLY, TAG_SAVED_SUCCESSFULLY, TAG_UPDATED_SUCCESSFULLY, TAGS_FETCHED_SUCCESSFULLY } from "@/constants/messages";
 import ITag from "@/interfaces/models/tag";
 import { connect } from "@/lib/database";
-import { createTag, findAllUserTag, updateTag } from "@/service/tag.service";
+import { createTag, deleteTag, findAllUserTag, updateTag } from "@/service/tag.service";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: Request) {
@@ -83,11 +83,11 @@ export async function DELETE(req: NextRequest) {
     await connect();
 
     
-    const tags = await findAllUserTag(tagId);
+    const tags = await deleteTag(tagId);
 
     return NextResponse.json({
       message: TAG_DELETED_SUCCESSFULLY,
-      data: {},
+      data: tags,
     });
   } catch (err: any) {
     return NextResponse.json(
