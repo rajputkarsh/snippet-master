@@ -41,10 +41,14 @@ function NoteFooter({ id, language }: NoteFooterProps) {
       }
       return note;
     });
-    deleteNoteInDB(shouldDelete);
+    if(isTrashItem) {
+      permanentlyDeleteNoteInDB();
+    } else {
+      deleteNoteInDB(shouldDelete);
+    }
     setAllNotes((_) => newAllNotes);
 
-    if (shouldDelete) {
+    if (shouldDelete && !isTrashItem) {
       toast((t) => (
         <div className="flex gap-2 items-center">
           <span>{NOTE_DELETED_TEXT}</span>
@@ -63,28 +67,51 @@ function NoteFooter({ id, language }: NoteFooterProps) {
     }
   };
 
-      const deleteNoteInDB = async (shouldDelete: boolean) => {
-        try {
-          const currentNote = allNotes.find((note) => note.id === id);
-          const response = await fetch(`/api/snippets?id=${currentNote?.id}`, {
-            method: "PATCH",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              ...currentNote,
-              clerkUserId,
-              isDeleted: shouldDelete,
-            }),
-          });
+  const permanentlyDeleteNoteInDB = async () => {
+    try {
+      const currentNote = allNotes.find((note) => note.id === id);
+      const response = await fetch(`/api/snippets?id=${currentNote?.id}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({}),
+      });
 
-          if (!response.ok) {
-            toast.error("Error: Something went wrong");
-          }
-        } catch (error: any) {
-          toast.error("Error: ", error?.message || error);
-        }
-      };
+      if (!response.ok) {
+        toast.error("Error: Something went wrong");
+      } else {
+        const data = await response.json();
+        toast.success(data.message);
+        setShowDeletionConfirmationPopup(false);
+      }
+    } catch (error: any) {
+      toast.error("Error: ", error?.message || error);
+    }
+  };
+
+  const deleteNoteInDB = async (shouldDelete: boolean) => {
+    try {
+      const currentNote = allNotes.find((note) => note.id === id);
+      const response = await fetch(`/api/snippets?id=${currentNote?.id}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          ...currentNote,
+          clerkUserId,
+          isDeleted: shouldDelete,
+        }),
+      });
+
+      if (!response.ok) {
+        toast.error("Error: Something went wrong");
+      }
+    } catch (error: any) {
+      toast.error("Error: ", error?.message || error);
+    }
+  };
 
   return (
     <div className="flex justify-between text-[13px] text-slate-400 mx-4 mt-3">
@@ -93,7 +120,7 @@ function NoteFooter({ id, language }: NoteFooterProps) {
         <span className="capitalize">{currentLanguage.name}</span>
       </div>
       <div className="flex gap-2 items-center">
-        {isTrashItem ? (
+        {isTrashItem && (
           <RestoreFromTrashOutlined
             onClick={() => {
               handleNoteDelete(false);
@@ -101,17 +128,14 @@ function NoteFooter({ id, language }: NoteFooterProps) {
             sx={{ fontSize: 18 }}
             className="cursor-pointer text-theme"
           />
-        ) : (
-          <DeleteRounded
-            onClick={() => {
-              if (isTrashItem) return;
-
-              setShowDeletionConfirmationPopup(true);
-            }}
-            sx={{ fontSize: 17 }}
-            className={`${isTrashItem ? "text-theme" : ""} cursor-pointer`}
-          />
         )}
+        <DeleteRounded
+          onClick={() => {
+            setShowDeletionConfirmationPopup(true);
+          }}
+          sx={{ fontSize: 17 }}
+          className={`${isTrashItem ? "text-theme" : ""} cursor-pointer`}
+        />
       </div>
       {showDeletionConfirmationPopup && (
         <DeletionConfirmationPopup
