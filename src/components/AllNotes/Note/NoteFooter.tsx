@@ -43,6 +43,7 @@ function NoteFooter({ id, language }: NoteFooterProps) {
     });
     if(isTrashItem) {
       permanentlyDeleteNoteInDB();
+    setAllNotes((_) => newAllNotes.filter((note) => note.id !== id));
     } else {
       deleteNoteInDB(shouldDelete);
     }
