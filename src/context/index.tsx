@@ -222,11 +222,11 @@ export default function GlobalContextProvider({
   }, [user.user?.id]);
 
   useEffect(() => {
-    if (!isLoading && clerkUserId) {
+    if (clerkUserId) {
       updateAllTags();
       updateAllNotes();
     }
-  }, [isLoading, clerkUserId]);
+  }, [clerkUserId]);
 
   useEffect(() => {
     setSelectedTags(() => selectedNote?.tags || []);
