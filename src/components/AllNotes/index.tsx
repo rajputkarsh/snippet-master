@@ -61,8 +61,10 @@ export default function AllNotes() {
 
     if (snippetSearch) {
       filteredNotes = filteredNotes.filter((filteredNote) =>
-        JSON.stringify(filteredNote).toLowerCase().includes(snippetSearch.trim().toLowerCase())
-      );      
+        JSON.stringify(filteredNote)
+          .toLowerCase()
+          .includes(snippetSearch.trim().toLowerCase())
+      );
     }
 
     filteredNotes = filteredNotes.sort(
@@ -72,7 +74,7 @@ export default function AllNotes() {
     );
 
     setNotes(() => filteredNotes);
-  }, [allNotes, selectedSidebarItem, selectedTags]);
+  }, [allNotes, selectedSidebarItem, selectedTags, snippetSearch]);
 
   const openNewNoteContent = () => {
     const newSingleNote: SingleNoteType = {
