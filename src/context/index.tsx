@@ -97,7 +97,6 @@ export default function GlobalContextProvider({
 }: {
   children: ReactNode;
 }) {
-
   const user = useUser();
 
   const [sidebarMenu, setSidebarMenu] = useState<Array<SidebarMenu>>([
@@ -173,8 +172,8 @@ export default function GlobalContextProvider({
   };
 
   const updateAllTags = () => {
-    
     const fetchTags = async () => {
+      setIsLoading(true);
       const tagsResponse = await fetch(`/api/tags?userId=${clerkUserId}`);
 
       if (!tagsResponse.ok) {
@@ -184,39 +183,38 @@ export default function GlobalContextProvider({
       const tagsData = await tagsResponse.json();
 
       if (tagsData?.data) {
+        setIsLoading(false);
         setAllTags((_) => tagsData.data as Array<SingleTagType>);
       }
-    }
-
+    };
 
     if (clerkUserId) {
       fetchTags();
-    }    
+    }
   };
 
   const updateAllNotes = () => {
-
     const fetchNotes = async () => {
-
+      setIsLoading(true);
       const notesResponse = await fetch(`/api/snippets?userId=${clerkUserId}`);
 
-      if(!notesResponse.ok) {
+      if (!notesResponse.ok) {
         throw new Error("Failed to fetch user's snippets");
       }
 
       const notesData = await notesResponse.json();
 
-      if(notesData?.data) {
+      if (notesData?.data) {
+        setIsLoading(false);
         setAllNotes((_) => notesData.data as Array<SingleNoteType>);
       }
-    } 
+    };
 
     if (clerkUserId) {
       fetchNotes();
     }
   };
 
-  
   useEffect(() => {
     if (user.user?.id && user.user?.id !== clerkUserId) {
       setClerkUserId(() => user.user?.id);
