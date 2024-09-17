@@ -86,6 +86,10 @@ const ContextProvider = createContext<GlobalContextType>({
     clerkUserId: null,
     setClerkUserId: () => {},
   },
+  snippetSearchObject: {
+    snippetSearch: null,
+    setSnippetSearch: () => {},
+  },
 });
 
 export default function GlobalContextProvider({
@@ -162,6 +166,7 @@ export default function GlobalContextProvider({
   const [selectedTags, setSelectedTags] = useState<Array<SingleTagType>>([]);
   const [tagEditMode, setTagEditMode] = useState<string | null>(null);
   const [clerkUserId, setClerkUserId] = useState<string | null>(null);
+  const [snippetSearch, setSnippetSearch] = useState<string | null>(null);
 
   const handleResize = () => {
     setIsMobile((_) => window.innerWidth <= 640);
@@ -262,6 +267,7 @@ export default function GlobalContextProvider({
         isNewNoteObject: { isNewNote, setIsNewNote },
         tagEditModeObject: { tagEditMode, setTagEditMode },
         clerkUserIdObject: { clerkUserId, setClerkUserId },
+        snippetSearchObject: { snippetSearch, setSnippetSearch },
       }}
     >
       {children}

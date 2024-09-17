@@ -98,4 +98,8 @@ export interface GlobalContextType {
     clerkUserId: string | null;
     setClerkUserId: Dispatch<SetStateAction<string | null>>;
   };
+  snippetSearchObject: {
+    snippetSearch: string | null;
+    setSnippetSearch: Dispatch<SetStateAction<string | null>>;
+  };
 }
