@@ -13,7 +13,7 @@ export default function Buttons() {
     <div className="max-sm:w-full">
       {userId ? (
         <Link href="/my-notes">
-          <button className="max-sm:w-full bg-theme p-[8px] px-6 text-sm text-white rounded-md">
+          <button className="max-sm:mt-6 max-sm:w-full bg-theme p-[8px] px-6 text-sm text-white rounded-md">
             {ACCESS_THE_APP}
           </button>
         </Link>
