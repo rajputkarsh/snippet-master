@@ -18,9 +18,11 @@ export default function Logo() {
         <DataObjectIcon sx={{ fontSize: 27, color: "white" }}></DataObjectIcon>
       </div>
       <div className="flex gap-1 text-[19px]">
-        <span className={`font-bold text-theme`}>{APP_NAME.split(" ")[0]}</span>
+        <span className={`font-bold text-theme`}>
+          {APP_NAME.split(" ")[0]}
+        </span>
         <span
-          className={`${
+          className={`font-bold ${
             isDarkModeEnabled ? "text-slate-400" : "text-slate-600"
           }`}
         >
