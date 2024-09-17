@@ -38,7 +38,7 @@ function DeletionConfirmationPopup({
 
   return (
     <>
-      <div className="absolute top-0 left-0 w-screen h-screen bg-black opacity-20 z-10"></div>
+      <div className="fixed top-0 left-0 w-screen h-screen bg-black opacity-20 z-10"></div>
       <div
         ref={deletionConfirmationPopipRef}
         className={`transition duration-200 z-50 shadow-md rounded-md w-[310px] md:w-[450px] fixed py-8 pt-10 p-3 ${
