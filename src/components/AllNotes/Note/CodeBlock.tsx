@@ -20,7 +20,11 @@ function CodeBlock({ language, code }: CodeBlockProps) {
   const isDarkModeEnabled = isDarkMode(darkMode);
 
   return (
-    <div className="text-xs rounded-md overflow-hidden tet-sm">
+    <div
+      className={`grow text-xs rounded-md overflow-hidden tet-sm ${
+        isDarkModeEnabled ? "bg-[#282C34]" : "bg-zinc-50"
+      }`}
+    >
       <SyntaxHighlighter
         language={"javascript"}
         style={isDarkModeEnabled ? oneDark : materialLight}

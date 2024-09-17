@@ -19,6 +19,8 @@ function NoteFooter({ id, language }: NoteFooterProps) {
     allNotesObject: { allNotes, setAllNotes },
     sidebarMenuObject: { sidebarMenu },
     clerkUserIdObject: { clerkUserId },
+    openNoteContentObject: { openNoteContent },
+    isMobileObject: { isMobile },
   } = useGlobalContext();
   
   const [showDeletionConfirmationPopup, setShowDeletionConfirmationPopup] = useState<boolean>(false);
@@ -115,7 +117,11 @@ function NoteFooter({ id, language }: NoteFooterProps) {
   };
 
   return (
-    <div className="flex justify-between text-[13px] text-slate-400 mx-4 mt-3">
+    <div
+      className={`absolute bottom-2 flex justify-between text-[13px] text-slate-400 mx-4 mt-3 ${
+        openNoteContent ? "w-[95%]" : isMobile ? `w-[92%]` : `w-[360px]`
+      }`}
+    >
       <div className="flex gap-1 items-center">
         {currentLanguage.icon}
         <span className="capitalize">{currentLanguage.name}</span>

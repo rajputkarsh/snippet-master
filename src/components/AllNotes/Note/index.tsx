@@ -22,11 +22,11 @@ function Note({ note }: NoteProps) {
 
   return (
     <div
-      className={`${
+      className={`flex flex-col ${
         isDarkModeEnabled ? "bg-slate-800 text-white" : "bg-white"
       } max-sm:w-full ${
         openNoteContent ? "w-full" : "w-[380px]"
-      } rounded-md py-4`}
+      } rounded-md py-8 relative`}
     >
       <NoteHeader
         id={note.id}

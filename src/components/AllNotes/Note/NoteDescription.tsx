@@ -17,7 +17,7 @@ function NoteDescription({ description }: NoteDescriptionProps) {
     <div
       className={`${
         isDarkModeEnabled ? "text-slate-300" : "text-slate-600"
-      } text-[13px] mt-4 mx-4 font-medium`}
+      } text-[13px] mt-4 mx-4 font-medium mb-2`}
     >
       {truncateString(description, MAX_DESCRIPTION_LENGTH)}
     </div>
