@@ -13,6 +13,7 @@ function SidebarLinks() {
     },
     openSidebarObject: { setOpenSidebar },
     darkModeObject: { darkMode },
+    snippetSearchObject: { setSnippetSearch },
   } = useGlobalContext();
 
   const isDarkModeEnabled = isDarkMode(darkMode);
@@ -43,6 +44,7 @@ function SidebarLinks() {
       setSecondarySidebarMenu(updatedMenu);
     }
     setOpenSidebar(() => false);
+    setSnippetSearch(() => null);
   };
 
   const handleLogout = () => {

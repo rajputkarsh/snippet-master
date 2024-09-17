@@ -15,6 +15,7 @@ export default function AllNotes() {
     selectedTagsObject: { selectedTags },
     openNoteContentObject: { setOpenNoteContent },
     isNewNoteObject: { setIsNewNote },
+    snippetSearchObject: { snippetSearch },
   } = useGlobalContext();
 
   const [notes, setNotes] = useState<Array<SingleNoteType>>(allNotes);
@@ -58,11 +59,18 @@ export default function AllNotes() {
       );
     }
 
+    if (snippetSearch) {
+      filteredNotes = filteredNotes.filter((filteredNote) =>
+        JSON.stringify(filteredNote).toLowerCase().includes(snippetSearch.trim().toLowerCase())
+      );      
+    }
+
     filteredNotes = filteredNotes.sort(
       (note1, note2) =>
         new Date(note2.createdOn).getTime() -
         new Date(note1.createdOn).getTime()
     );
+
     setNotes(() => filteredNotes);
   }, [allNotes, selectedSidebarItem, selectedTags]);
 
