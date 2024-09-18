@@ -91,7 +91,7 @@ function NoteContent() {
 
   return (
     <div
-      className={`border ${isMobile ? "w-4/5" : "w-1/2"} shadow-2xl p-3 rounded-lg ${
+      className={`mt-4 border ${isMobile ? "w-4/5" : "w-1/2"} shadow-2xl p-3 rounded-lg ${
         openNoteContent ? "block" : "hidden"
       } h-[700px]
       ${

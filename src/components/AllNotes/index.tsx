@@ -96,7 +96,7 @@ export default function AllNotes() {
 
   return (
     <div
-      className={`mt-5 flex flex-wrap gap-4 ${
+      className={`mt-4 flex flex-wrap gap-4 ${
         openNoteContent ? `${isMobile ? "w-full" : "w-[50%]"}` : "w-full"
       } ${!notes.length ? "items-center justify-center" : ""}`}
     >
