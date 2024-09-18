@@ -26,3 +26,11 @@ export const truncateString = (str: string, num: number): string => {
   if(str.length < num) return str;
   return str.slice(0, num) + "...";
 }
+
+export const debounce = (func: (...args: any[]) => void, delay: number): (...args: any[]) => void => {
+  let timeoutId: NodeJS.Timeout;
+  return (...args: any[]) => {
+    if (timeoutId) clearTimeout(timeoutId);
+    timeoutId = setTimeout(() => func(...args), delay);
+  };
+};
