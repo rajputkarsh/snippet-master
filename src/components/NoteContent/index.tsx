@@ -1,9 +1,9 @@
 import { useGlobalContext } from "@/context";
 import { SingleNoteType } from "@/interfaces/context";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import NoteContentHeader from "./NoteContentHeader";
 import NoteContentTags from "./NoteContentTags";
-import { isDarkMode } from "@/lib/utils";
+import { debounce, isDarkMode } from "@/lib/utils";
 import NoteContentDescription from "./NoteContentDescription";
 import NoteContentCodeBlock from "./NoteContentCodeBlock";
 import toast from "react-hot-toast";
@@ -38,7 +38,7 @@ function NoteContent() {
       setAllNotes((_) => [singleNote, ...allNotes]);
       setIsNewNote((_) => false);
     } else if (!isNewNote && singleNote && !!singleNote.title) {
-      updateNoteInDB();
+      debouncedUpdateNoteInDB(singleNote, clerkUserId);
     }
   }, [singleNote]);
 
@@ -63,14 +63,14 @@ function NoteContent() {
     }
   };
 
-  const updateNoteInDB = async () => {
+  const updateNoteInDB = async (note: SingleNoteType, userId: string) => {
     try {
-      const response = await fetch(`/api/snippets?id=${singleNote?.id}`, {
+      const response = await fetch(`/api/snippets?id=${note?.id}`, {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ ...singleNote, clerkUserId }),
+        body: JSON.stringify({ ...note, userId }),
       });
 
       if (!response.ok) {
@@ -80,6 +80,14 @@ function NoteContent() {
       toast.error("Error: ", error?.message || error);
     }
   };
+
+  
+  const debouncedUpdateNoteInDB = useCallback(
+    debounce((note: SingleNoteType, userId: string) => {
+      updateNoteInDB(note, userId);
+    }, 500),
+    []
+  );
 
   return (
     <div
