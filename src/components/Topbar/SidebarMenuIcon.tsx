@@ -4,7 +4,11 @@ import { MenuOutlined, CloseOutlined } from "@mui/icons-material";
 export default function SidebarMenuIcon() {
   const {
     openSidebarObject: { openSidebar, setOpenSidebar },
+    isMobileObject: { isMobile }
   } = useGlobalContext();
+
+  if(!isMobile) return null;
+
   return (
     <>
       {!openSidebar ? (
