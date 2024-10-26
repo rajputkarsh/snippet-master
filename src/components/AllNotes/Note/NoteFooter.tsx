@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { UNDO } from "@/constants/config";
 import { AVAILABLE_LANGUAGES } from "@/constants/languages";
 import { NOTE_DELETED_TEXT } from "@/constants/note";
@@ -5,7 +6,6 @@ import { useGlobalContext } from "@/context";
 import { SingleLanguageType } from "@/interfaces/context";
 import { getSelectedSidebarItem } from "@/lib/utils";
 import { DeleteRounded, Replay, RestoreFromTrashOutlined } from "@mui/icons-material";
-import { useState } from "react";
 import toast from "react-hot-toast";
 import DeletionConfirmationPopup from "./DeletionConfirmationPopup";
 
