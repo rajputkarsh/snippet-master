@@ -15,10 +15,16 @@ export const shareSchema: Schema = new Schema<IShare>(
       type: String,
       required: true,
     },
-    viewedBy: [{
-     type: String,
-     required: false, 
-    }]
+    validTill: {
+      type: Date,
+      required: true,
+    },
+    viewedBy: [
+      {
+        type: String,
+        required: false,
+      },
+    ],
   },
   {
     versionKey: false,
