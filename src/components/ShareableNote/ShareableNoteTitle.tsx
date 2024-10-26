@@ -19,7 +19,7 @@ function ShareableNoteTitle({ title, code }: IShareableNoteTitleProps) {
 
   return (
     <div className="flex justify-between w-full">
-      <span className="font-bold text-center text-lg w-[87%] cursor-pointer hover:text-theme transition duration-150">
+      <span className="font-bold px-4 text-lg w-[87%] cursor-pointer hover:text-theme transition duration-150">
         {truncateString(title, MAX_TITLE_LENGTH)}
       </span>
       <ContentCopyOutlined
