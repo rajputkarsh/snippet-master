@@ -5,7 +5,10 @@ import { redirect } from "next/navigation";
 import { Toaster } from "react-hot-toast";
 
 async function ShareableLink({ params }: { params: { shareId: string } }) {
+  console.log(`inside page route`);
   const shareInfo = await findShare(params.shareId);
+
+    console.log(`shareInfoFetched`);
 
   if (!shareInfo) {
     redirect("/");
@@ -16,6 +19,7 @@ async function ShareableLink({ params }: { params: { shareId: string } }) {
   if (!snippetInfo) {
     redirect("/");
   }
+    console.log(`snippetInfoFetched`);
 
   return (
     <>
