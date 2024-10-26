@@ -33,20 +33,18 @@ export const findAllUserShare = (
   return Share.find({ ownerId: clerkUserId });
 };
 
-export const findPreviousShares = async (shareId: string) => {
-
-
-    const validTillDate = new Date();
-    validTillDate.setMinutes(
-      validTillDate.getMinutes() + SHAREABLE_LINK_VALIDITY
-    );
+export const findPreviousShares = async (snippetId: string) => {
+  const validTillDate = new Date();
+  validTillDate.setMinutes(
+    validTillDate.getMinutes() + SHAREABLE_LINK_VALIDITY
+  );
 
   return Share.aggregate([
     {
       $match: {
         $and: [
           {
-            id: shareId,
+            snippetId,
           },
           {
             validTill: {
@@ -62,4 +60,4 @@ export const findPreviousShares = async (shareId: string) => {
       },
     },
   ]);
-}
+};
