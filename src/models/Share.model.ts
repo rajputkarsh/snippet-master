@@ -7,7 +7,7 @@ export const shareSchema: Schema = new Schema<IShare>(
       required: true,
       type: String,
     },
-    shareId: {
+    snippetId: {
       required: true,
       type: String,
     },
