@@ -1,8 +1,8 @@
 import { MAX_TITLE_LENGTH } from "@/constants/note";
 import { useGlobalContext } from "@/context";
-import { SingleNoteType } from "@/interfaces/context";
 import { getSelectedSidebarItem, truncateString } from "@/lib/utils";
 import { Favorite } from "@mui/icons-material";
+import { Share } from "@mui/icons-material";
 import toast from "react-hot-toast";
 
 interface NoteHeaderProps {
@@ -18,6 +18,8 @@ function NoteHeader({ id, title, isFavorite }: NoteHeaderProps) {
     selectedNoteObject: { setSelectedNote },
     sidebarMenuObject: { sidebarMenu },
     clerkUserIdObject: { clerkUserId },
+    isLoadingObject: { setIsLoading },
+
   } = useGlobalContext();
 
   const isTrashItem = getSelectedSidebarItem(sidebarMenu).trim().toLowerCase() === "trash";
@@ -28,6 +30,32 @@ function NoteHeader({ id, title, isFavorite }: NoteHeaderProps) {
     setOpenNoteContent((_) => true);
     const currentNote = allNotes.find((note) => note.id === id);
     setSelectedNote((_) => currentNote || null);
+  };
+
+  const handleShare = async () => {
+      try {
+        setIsLoading(() => true);
+
+        const response = await fetch(`/api/share`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            share: id,
+          }),
+        });
+
+        setIsLoading(() => false);
+        if (!response.ok) {
+          toast.error("Error: Something went wrong");
+        } else {
+          toast.success("Shareable URL copied to clipboard");
+        }
+      } catch (error: any) {
+        setIsLoading(() => false);
+        toast.error("Error: ", error?.message || error);
+      } 
   };
 
   const handleFavoriteUpdate = () => {
@@ -77,12 +105,18 @@ function NoteHeader({ id, title, isFavorite }: NoteHeaderProps) {
       </span>
 
       {!isTrashItem && (
-        <Favorite
-          onClick={handleFavoriteUpdate}
-          className={`cursor-pointer ${
-            isFavorite ? "text-red-700 fill-red-700" : "text-slate-400"
-          }`}
-        />
+        <div className="flex gap-2">
+          <Favorite
+            onClick={handleFavoriteUpdate}
+            className={`cursor-pointer hover:text-red-700 hover:fill-red-700 ${
+              isFavorite ? "text-red-700 fill-red-700" : "text-slate-400"
+            }`}
+          />
+          <Share
+            onClick={handleShare}
+            className={`cursor-pointer text-slate-400 hover:text-blue-700`}
+          />
+        </div>
       )}
     </div>
   );
