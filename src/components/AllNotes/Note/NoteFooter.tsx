@@ -141,7 +141,9 @@ function NoteFooter({ id, language }: NoteFooterProps) {
             setShowDeletionConfirmationPopup(true);
           }}
           sx={{ fontSize: 17 }}
-          className={`${isTrashItem ? "text-theme" : ""} cursor-pointer`}
+          className={`${
+            isTrashItem ? "text-theme" : ""
+          } cursor-pointer hover:text-theme`}
         />
       </div>
       {showDeletionConfirmationPopup && (
