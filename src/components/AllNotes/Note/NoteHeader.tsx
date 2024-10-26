@@ -19,43 +19,52 @@ function NoteHeader({ id, title, isFavorite }: NoteHeaderProps) {
     sidebarMenuObject: { sidebarMenu },
     clerkUserIdObject: { clerkUserId },
     isLoadingObject: { setIsLoading },
-
   } = useGlobalContext();
 
-  const isTrashItem = getSelectedSidebarItem(sidebarMenu).trim().toLowerCase() === "trash";
+  const isTrashItem =
+    getSelectedSidebarItem(sidebarMenu).trim().toLowerCase() === "trash";
 
   const handleSetOpenNoteContent = () => {
-    if(isTrashItem) return;
-    
+    if (isTrashItem) return;
+
     setOpenNoteContent((_) => true);
     const currentNote = allNotes.find((note) => note.id === id);
     setSelectedNote((_) => currentNote || null);
   };
 
   const handleShare = async () => {
-      try {
-        setIsLoading(() => true);
+    try {
+      setIsLoading(() => true);
 
-        const response = await fetch(`/api/share`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            share: id,
-          }),
-        });
+      const response = await fetch(`/api/share`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          share: id,
+        }),
+      });
 
-        setIsLoading(() => false);
-        if (!response.ok) {
-          toast.error("Error: Something went wrong");
+      setIsLoading(() => false);
+      if (!response.ok) {
+        toast.error("Error: Something went wrong");
+      } else {
+        const data = await response.json();
+        if (data?.data?.url) {
+          const shareableURL = `${window.location.origin}${data?.data?.url}`;
+          navigator.clipboard.writeText(shareableURL);
+          toast.success(
+            `Shareable URL copied to clipboard. Valid for ${data?.data?.validFor}.`
+          );
         } else {
-          toast.success("Shareable URL copied to clipboard");
+          toast.error("Error: Something went wrong");
         }
-      } catch (error: any) {
-        setIsLoading(() => false);
-        toast.error("Error: ", error?.message || error);
-      } 
+      }
+    } catch (error: any) {
+      setIsLoading(() => false);
+      toast.error("Error: ", error?.message || error);
+    }
   };
 
   const handleFavoriteUpdate = () => {
@@ -72,28 +81,28 @@ function NoteHeader({ id, title, isFavorite }: NoteHeaderProps) {
     setAllNotes((_) => newAllNotes);
   };
 
-    const updateNoteInDB = async () => {
-      try {
-        const currentNote = allNotes.find((note) => note.id === id);
-        const response = await fetch(`/api/snippets?id=${currentNote?.id}`, {
-          method: "PATCH",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            ...currentNote,
-            clerkUserId,
-            isFavorite: !currentNote?.isFavorite,
-          }),
-        });
+  const updateNoteInDB = async () => {
+    try {
+      const currentNote = allNotes.find((note) => note.id === id);
+      const response = await fetch(`/api/snippets?id=${currentNote?.id}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          ...currentNote,
+          clerkUserId,
+          isFavorite: !currentNote?.isFavorite,
+        }),
+      });
 
-        if (!response.ok) {
-          toast.error("Error: Something went wrong");
-        }
-      } catch (error: any) {
-        toast.error("Error: ", error?.message || error);
+      if (!response.ok) {
+        toast.error("Error: Something went wrong");
       }
-    };
+    } catch (error: any) {
+      toast.error("Error: ", error?.message || error);
+    }
+  };
 
   return (
     <div className="flex justify-between mx-4">
