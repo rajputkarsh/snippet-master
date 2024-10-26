@@ -7,7 +7,7 @@ interface IShareableNoteCodeBlockProps {
 
 function ShareableNoteCodeBlock({ code }: IShareableNoteCodeBlockProps) {
   return (
-    <div className="grow text-xs rounded-md overflow-hidden tet-sm bg-zinc-50">
+    <div className="grow text-xs rounded-md max-h-[70vh] overflow-auto tet-sm bg-zinc-50">
       <SyntaxHighlighter language={"javascript"} style={materialLight}>
         {code}
       </SyntaxHighlighter>
