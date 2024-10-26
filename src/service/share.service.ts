@@ -1,3 +1,4 @@
+import { SHAREABLE_LINK_VALIDITY } from "@/constants/share";
 import IShare from "@/interfaces/models/share";
 import Share from "@/models/Share.model";
 import { DeleteResult } from "mongodb";
@@ -31,3 +32,34 @@ export const findAllUserShare = (
 ): Promise<Array<HydratedDocument<IShare>>> => {
   return Share.find({ ownerId: clerkUserId });
 };
+
+export const findPreviousShares = async (shareId: string) => {
+
+
+    const validTillDate = new Date();
+    validTillDate.setMinutes(
+      validTillDate.getMinutes() + SHAREABLE_LINK_VALIDITY
+    );
+
+  return Share.aggregate([
+    {
+      $match: {
+        $and: [
+          {
+            id: shareId,
+          },
+          {
+            validTill: {
+              $gte: new Date().toISOString(),
+            },
+          },
+          {
+            validTill: {
+              $lte: validTillDate.toISOString(),
+            },
+          },
+        ],
+      },
+    },
+  ]);
+}

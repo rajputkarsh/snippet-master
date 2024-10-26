@@ -1,0 +1,1 @@
+export const SHAREABLE_LINK_VALIDITY = 180; // in minutes
