@@ -10,6 +10,7 @@ function ShareableNoteTags({ tags }: IShareableNoteTagsProps) {
       {tags.map((tag) => (
         <span
           id={tag.id}
+          key={tag.id}
           className="p-1 rounded-md px-2 font-semibold bg-slate-200 text-slate-900"
         >
           {tag.name}
