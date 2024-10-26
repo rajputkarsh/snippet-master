@@ -6,14 +6,9 @@ import { redirect } from "next/navigation";
 import { Toaster } from "react-hot-toast";
 
 async function ShareableLink({ params }: { params: { shareId: string } }) {
-  console.log(`inside page route`);
-
-    await connect();
-    console.log(`connected to DB`);
+  await connect();
 
   const shareInfo = await findShare(params.shareId);
-
-    console.log(`shareInfoFetched`);
 
   if (!shareInfo) {
     redirect("/");
@@ -24,11 +19,10 @@ async function ShareableLink({ params }: { params: { shareId: string } }) {
   if (!snippetInfo) {
     redirect("/");
   }
-    console.log(`snippetInfoFetched`);
 
   return (
     <>
-    <ShareableNote note={snippetInfo} />
+      <ShareableNote note={snippetInfo} />
       <Toaster
         toastOptions={{
           style: {
@@ -36,7 +30,7 @@ async function ShareableLink({ params }: { params: { shareId: string } }) {
             color: "black",
           },
         }}
-      />    
+      />
     </>
   );
 }

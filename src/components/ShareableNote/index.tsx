@@ -11,7 +11,7 @@ interface IShareableNoteProps {
 
 function ShareableNote({ note }: IShareableNoteProps) {
   return (
-    <div className="h-screen w-screen flex justify-center items-center bg-slate-200">
+    <div className="min-h-screen h-full w-screen flex justify-center items-center bg-slate-200">
       <div className="w-max bg-white px-8 py-6 rounded-lg shadow-2xl overflow-auto">
         <ShareableNoteTitle title={note.title} code={note.code} />
         <ShareableNoteTags tags={note.tags} />
