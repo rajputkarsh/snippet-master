@@ -7,3 +7,6 @@ export const TAG_SAVED_SUCCESSFULLY = "Tag Saved Successfully";
 export const TAGS_FETCHED_SUCCESSFULLY = "Tags Fetched Successfully";
 export const TAG_UPDATED_SUCCESSFULLY = "Tag Updated Successfully";
 export const TAG_DELETED_SUCCESSFULLY = "Tag Deleted Successfully"; 
+
+export const SHARE_URL_CREATED = "Shareable URL Created Successfully";
+export const INVALID_SNIPPET = "Invalid Snippet ID"; 

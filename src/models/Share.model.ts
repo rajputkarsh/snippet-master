@@ -16,7 +16,7 @@ export const shareSchema: Schema = new Schema<IShare>(
       required: true,
     },
     validTill: {
-      type: Date,
+      type: String,
       required: true,
     },
     viewedBy: [

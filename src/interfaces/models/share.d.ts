@@ -2,6 +2,6 @@ export default interface IShare {
   id: string;
   shareId: string;
   ownerId: string;
-  validTill: Date;
+  validTill: string;
   viewedBy: Array<string>;
 }
